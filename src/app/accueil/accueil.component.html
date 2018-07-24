@@ -1,3 +1,31 @@
-<p>
-  accueil works!
-</p>
+<div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+  </ol>
+  <div class="carousel-inner" role="listbox">
+    <div class="carousel-item active">
+      <img class="d-block img-fluid" src="../../assets/img/change_offre.png" alt="First slide">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-lg-4 col-md-6 mb-4" *ngFor="let offre of offres">
+    <div class="card h-100">
+      <a><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a>{{offre.libelle}}</a>
+        </h4>
+        <h5>{{offre.code}}</h5>
+        <p class="card-text">{{offre.description}}</p>
+      </div>
+      <div class="card-footer">
+        <div class='text-center'><button class='btn btn-primary btn-sm'> CHOISIR </button></div>
+        <div class='text-center'><small class="text-muted">{{offre.description2}}</small></div>
+      </div>
+    </div>
+  </div>
+
+</div>
