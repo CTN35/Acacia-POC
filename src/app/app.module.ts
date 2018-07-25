@@ -1,6 +1,9 @@
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +13,8 @@ import { ConsultLogementComponent } from './consult-logement/consult-logement.co
 import { ModifLogementComponent } from './modif-logement/modif-logement.component';
 import { PanierComponent } from './panier/panier.component';
 import { DemandesComponent } from './demandes/demandes.component';
+import { MyHttpInterceptor } from './my-http-interceptor';
+
 
 @NgModule({
   declarations: [
@@ -24,8 +29,16 @@ import { DemandesComponent } from './demandes/demandes.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyHttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

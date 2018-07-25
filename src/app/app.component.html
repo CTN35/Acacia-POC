@@ -2,20 +2,20 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
-    <span class="navbar-brand">POC Acacia</span>
+    <a routerLink="/" class="navbar-brand">POC Acacia</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="!user.isAuthenticated">
-          <a class="nav-link" href="#">Se connecter</a>
+          <a class="nav-link" routerLink="/login">Se connecter</a>
         </li>
         <li class="nav-item" *ngIf="user.isAuthenticated">
-          <a class="nav-link" href="#">{{user.login}}</a>
+          <a class="nav-link" routerLink="/login">{{user.login}}</a>
         </li>
         <li class="nav-item" *ngIf="user.isAuthenticated">
-          <a class="nav-link" href="#">Se déconnecter</a>
+          <a class="nav-link" routerLink="/login">Se déconnecter</a>
         </li>
       </ul>
     </div>
@@ -24,21 +24,16 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-3">
-      <h1 class="my-4">EDF - Nos offres</h1>
-      <div class="list-group">
-        <a href="#" class="list-group-item">Category 1</a>
-        <a href="#" class="list-group-item">Category 2</a>
-        <a href="#" class="list-group-item">Category 3</a>
-      </div>
+    <div class="col-lg-12">
+      <h1 class="my-4">EDF - Changer d'offre</h1>
     </div>
     <!-- /.col-lg-3 -->
-    <div class="col-lg-9">
+    <div class="col-lg-12">
 
       <router-outlet></router-outlet>
 
     </div>
-    <!-- /.col-lg-9 -->
+    <!-- /.col-lg-12 -->
   </div>
   <!-- /.row -->
 </div>
