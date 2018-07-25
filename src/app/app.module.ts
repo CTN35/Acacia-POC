@@ -15,7 +15,6 @@ import { PanierComponent } from './panier/panier.component';
 import { DemandesComponent } from './demandes/demandes.component';
 import { MyHttpInterceptor } from './my-http-interceptor';
 
-
 @NgModule({
   declarations: [
     AppComponent,
