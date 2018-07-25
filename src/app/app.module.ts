@@ -10,6 +10,7 @@ import { ConsultLogementComponent } from './consult-logement/consult-logement.co
 import { ModifLogementComponent } from './modif-logement/modif-logement.component';
 import { PanierComponent } from './panier/panier.component';
 import { DemandesComponent } from './demandes/demandes.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DemandesComponent } from './demandes/demandes.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
