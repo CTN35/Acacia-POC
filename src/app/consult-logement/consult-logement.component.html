@@ -1,143 +1,117 @@
 <div class="row">
-  <h1 class="col-12">Mon espace client</h1>
-
-  <h2 class="col-12 pt-4 pb-3">Mon Identifiant : 0633184a (Numéro BP)</h2> 
-  
-  <div class="col-12">
-    <h3>Mon Offre : </h3>
-    <p class="font-weight-bold">{{ offre.libelle }}</p>
-    <p>{{ offre.description }}</p>
+  <!-- TODO: afficher le vrai identifiant -->
+  <h2 class="col-12 my-3">Mon Identifiant : 0633184a</h2> 
+  <div class="card w-100">
+    <div class="card-header"><h3>Mon Offre</h3></div>
+    <div class="card-body">
+      <div class="row col-12">
+        <h4 class="col-12">{{ offre.libelle }}</h4>
+        <p class="col-12">{{ offre.description }}</p>
+      </div>
+    </div>
   </div>
-  
-  <fieldset class="col-12 mb-3">
-    <legend>Mon Logement <a routerLink="/modification" class='btn btn-primary btn-sm'>Modifier</a></legend>
-    <div class="row">
-      <ul class="list-group list-group-flush col-6">
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Ville :</span>
-          <span>{{ logement.ville || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Code Postal :</span>
+
+  <div class="card w-100 my-3">
+    <div class="card-header d-flex justify-content-between"><h3>Mon Logement </h3><a routerLink="/modification" class='btn btn-primary'>Modifier</a></div>
+    <div class="card-body">
+      <div class="row col-12">
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Code Postal :</label>
           <span>{{ logement.codePostal || '-' }}</span>
-        </li>
-      </ul>
-      <ul class="list-group list-group-flush col-6">
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Code INSEE :</span>
-          <span>{{ logement.codeINSEE || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Lieudit :</span>
-          <span>{{ logement.lieudit || '-' }}</span>
-        </li>
-      </ul>
-    </div>
-  </fieldset>
-
-  <fieldset class="col-12 mb-3">
-    <legend>Données de logement </legend>
-    <div class="row">
-      <ul class="list-group list-group-flush col-6">
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Type de logement :</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Ville :</label>
+          <span>{{ logement.ville || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Type de logement :</label>
           <span>{{ logement.type || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Surface Habitable :</span>
-          <span>{{ logement.surface || '-' }} m²</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Type de chauffage :</span>
-          <span>{{ logement.chauffage || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Année de construction :</span>
-          <span>{{ logement.annee || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Classe Energétique :</span>
-          <span>{{ logement.classeEnergetique || '-' }}</span>
-        </li>
-      </ul>
-      <ul class="list-group list-group-flush col-6">
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Numéro PDL :</span>
-          <span>{{ logement.numPDL || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Numéro PCE :</span>
-          <span>{{ logement.numPCE || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Présence Gaz :</span>
-          <span>{{ logement.gaz? 'Oui': 'Non' || 'Non communiqué' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Energie Eau Chaude Sanitaire :</span>
-          <span>{{ logement.energieEauChaude || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Piscine Chauffée Electriquement  :</span>
-          <span>{{ logement.piscineElectrique || '-' }}</span>
-        </li>
-      </ul>
-    </div>
-  </fieldset>
-
-  <fieldset class="col-12 mb-3">
-    <legend>Données d'usage</legend>
-    <div class="row">
-      <ul class="list-group list-group-flush col-6">
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Nombre d’occupants :</span>
-          <span>{{ logement.nbOccupant || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Statut Occupant :</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Statut Occupant :</label>
           <span>{{ logement.statutOccupant || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Véhicule Electrique :</span>
-          <span>{{ logement.vehiculeElectrique? 'Oui': 'Non' || 'Non communiqué' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Lave-Vaisselle  :</span>
-          <span>{{ logement.laveVaisselle? 'Oui': 'Non' || 'Non communiqué' }}</span>
-        </li>
-      </ul>
-      <ul class="list-group list-group-flush col-6">
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Sèche-Linge :</span>
-          <span>{{ logement.secheLinge? 'Oui': 'Non' || 'Non communiqué' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Présence Climatisation  :</span>
-          <span>{{ logement.climatisation? 'Oui': 'Non' || 'Non communiqué' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Type Résidence :</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Surface Habitable :</label>
+          <span>{{ logement.surface || '-' }} m²</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Nombre d’occupants :</label>
+          <span>{{ logement.nbOccupant || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Type de chauffage :</label>
+          <span>{{ logement.chauffage || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Année de construction :</label>
+          <span>{{ logement.annee || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Classe Energétique :</label>
+          <span>{{ logement.classeEnergetique || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Type Résidence :</label>
           <span>{{ logement.typeResidence || '-' }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span class="font-weight-bold">Type Chauffage Alternatif :</span>
-          <span>{{ logement.chauffageAlternatif || '-' }}</span>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
-  </fieldset>
-
-  <div class="col-12">
-    <h3>Votre Nouvelle Offre :</h3>
-    <p class="font-weight-bold">{{ newOffre.libelle }}</p>
-    <p>{{ newOffre.description }}</p>
+  </div>
+  <div class="card w-100">
+    <div class="card-header d-flex justify-content-between"><h3>Mes équipements </h3></div>
+    <div class="card-body">
+      <div class="row col-12">
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Présence Gaz :</label>
+          <span>{{ logement.gaz? 'Oui': 'Non' || 'Non communiqué' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Type Chauffage Alternatif :</label>
+          <span>{{ logement.chauffageAlternatif || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Energie Eau Chaude Sanitaire :</label>
+          <span>{{ logement.energieEauChaude || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Véhicule Electrique :</label>
+          <span>{{ logement.vehiculeElectrique? 'Oui': 'Non' || 'Non communiqué' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Piscine Chauffée Electriquement  :</label>
+          <span>{{ logement.piscineElectrique || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Lave-Vaisselle  :</label>
+          <span>{{ logement.laveVaisselle? 'Oui': 'Non' || 'Non communiqué' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Sèche-Linge :</label>
+          <span>{{ logement.secheLinge? 'Oui': 'Non' || 'Non communiqué' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Présence Climatisation  :</label>
+          <span>{{ logement.climatisation? 'Oui': 'Non' || 'Non communiqué' }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="col-12 mb-3">
-    <h3>Options</h3>
-    <div class="custom-control custom-radio" *ngFor="let option of options">
-      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-      <label class="custom-control-label" for="customRadio1">{{ option.libelle }} : {{ option.montant }}€ / an ({{ option.typePrix=='Fixe'? option.typePrix + ' pendant ' + option.dureePrixFixe + ' mois' : option.typePrix}}), délais de prévenance de {{ option.delaisPrevenance }} jours</label>
+  <div class="card w-100 my-3">
+    <div class="card-header d-flex justify-content-between"><h3>Votre Nouvelle Offre</h3></div>
+    <div class="card-body">
+      <div class="row col-12">
+        <h4 class="col-12">{{ newOffre.libelle }}</h4>
+        <p class="col-12">{{ newOffre.description }}</p>
+      </div>
+      <div class="row col-12">
+        <h4 class="col-12">Options :</h4>
+        <div class="custom-control custom-radio col-12" *ngFor="let option of options">
+          <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+          <label class="custom-control-label" for="customRadio1">{{ option.libelle }} : {{ option.montant }}€ / an ({{ option.typePrix=='Fixe'? option.typePrix + ' pendant ' + option.dureePrixFixe + ' mois' : option.typePrix}}), délais de prévenance de {{ option.delaisPrevenance }} jours</label>
+        </div>
+      </div>
     </div>
   </div>
 </div>
