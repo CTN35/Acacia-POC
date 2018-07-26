@@ -12,7 +12,7 @@
   </div>
 
   <div class="card w-100 my-3">
-    <div class="card-header d-flex justify-content-between"><h3>Mon Logement </h3><a routerLink="/modification" class='btn btn-primary'>Modifier</a></div>
+    <div class="card-header d-flex justify-content-between"><h3>Mon Logement </h3><a (click)="modifLogement()" class='btn btn-primary text-light'>Modifier</a></div>
     <div class="card-body">
       <div class="row col-12">
         <div class="col-6 d-flex justify-content-between">
@@ -80,7 +80,7 @@
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Piscine Chauffée Electriquement  :</label>
-          <span>{{ logement.piscineElectrique || '-' }}</span>
+          <span>{{ logement.piscineElectrique? 'Oui': 'Non' || 'Non communiqué' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Lave-Vaisselle  :</label>

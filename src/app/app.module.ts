@@ -14,6 +14,7 @@ import { ModifLogementComponent } from './modif-logement/modif-logement.componen
 import { PanierComponent } from './panier/panier.component';
 import { DemandesComponent } from './demandes/demandes.component';
 import { MyHttpInterceptor } from './my-http-interceptor';
+import { GlobalMessageService } from 'src/app/global-message.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MyHttpInterceptor } from './my-http-interceptor';
     FormsModule
   ],
   providers: [
+    GlobalMessageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptor,

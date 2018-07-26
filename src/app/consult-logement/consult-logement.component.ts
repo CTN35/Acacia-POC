@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Logement, Offre, Option } from 'src/app/Model';
+import { GlobalMessageService } from 'src/app/global-message.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consult-logement',
@@ -12,36 +14,47 @@ export class ConsultLogementComponent implements OnInit {
   newOffre: Offre;
   options: Option[];
 
-  constructor() {
+  constructor(private msgService: GlobalMessageService, private router: Router) {
+    this.msgService.getMessage().subscribe(message => {
+      switch (message.type) {
+        case 'newLogement':
+          this.logement = message.data.logement;
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   ngOnInit() {
-    this.logement = {
-      ville: 'CHANTEPIE',
-      codePostal: '35135',
-      codeINSEE: '',
-      lieudit: '',
-      type: 'appartement',
-      surface: 47,
-      chauffage: 'Electricité Classique',
-      annee: '1997-2001',
-      classeEnergetique: 'C',
-      numPDL: '1215421A',
-      numPCE: '1125445A',
-      gaz: false,
-      energieEauChaude: 'Electricité',
-      piscineElectrique: false,
-      nbOccupant: 1,
-      statutOccupant: 'Locataire',
-      vehiculeElectrique: false,
-      laveVaisselle: false,
-      congelateur: false,
-      plaqueInduction: true,
-      secheLinge: false,
-      climatisation: false,
-      typeResidence: 'Principale',
-      chauffageAlternatif: 'AUCUN'
-    };
+    if (!this.logement) {
+      this.logement = {
+        ville: 'CHANTEPIE',
+        codePostal: '35135',
+        codeINSEE: '',
+        lieudit: '',
+        type: 'Appartement',
+        surface: 47,
+        chauffage: 'Electricité Classique',
+        annee: '1997_2001',
+        classeEnergetique: 'C',
+        numPDL: '1215421A',
+        numPCE: '1125445A',
+        gaz: false,
+        energieEauChaude: 'Electricité',
+        piscineElectrique: false,
+        nbOccupant: 1,
+        statutOccupant: 'Locataire',
+        vehiculeElectrique: false,
+        laveVaisselle: false,
+        congelateur: false,
+        plaqueInduction: true,
+        secheLinge: false,
+        climatisation: false,
+        typeResidence: 'Principale',
+        chauffageAlternatif: 'AUCUN'
+      };
+    }
     this.offre = {
       code: 'elec_bleu',
       libelle: 'Tarif Bleu',
@@ -59,6 +72,11 @@ export class ConsultLogementComponent implements OnInit {
       { libelle: 'Option2', montant: 699, typePrix: 'Evolutif', dureePrixFixe: 0, delaisPrevenance: 30 },
       { libelle: 'Option3', montant: 750, typePrix: 'Fixe', dureePrixFixe: 24, delaisPrevenance: 15 }
     ];
+  }
+
+  modifLogement() {
+    this.msgService.sendMessage('modifLogement', {logement: this.logement});
+    this.router.navigate(['/modification']);
   }
 
 }

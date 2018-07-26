@@ -1,7 +1,8 @@
 <div class="row">
   <!-- TODO: afficher le vrai identifiant -->
   <h2 class="col-12 my-3">Mon Identifiant : 0633184a</h2>
-  <form #logementForm="ngForm" (ngSubmit)="setLogement(logementForm)" novalidate>
+  
+  <form *ngIf="displayForm" #logementForm="ngForm" (ngSubmit)="setLogement(logementForm)" novalidate>
     <div class="card">
       <div class="card-header"><h4>Mon Logement</h4></div>
       <div class="card-body">
@@ -187,6 +188,6 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-primary m-4">Valider</button>
+    <button class="btn btn-primary m-4 text-light">Valider</button>
   </form>
 </div>
