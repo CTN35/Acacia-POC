@@ -106,11 +106,17 @@
         <p class="col-12">{{ newOffre.description }}</p>
       </div>
       <div class="row col-12">
-        <h4 class="col-12">Options :</h4>
-        <div class="custom-control custom-radio col-12" *ngFor="let option of options">
-          <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-          <label class="custom-control-label" for="customRadio1">{{ option.libelle }} : {{ option.montant }}€ / an ({{ option.typePrix=='Fixe'? option.typePrix + ' pendant ' + option.dureePrixFixe + ' mois' : option.typePrix}}), délais de prévenance de {{ option.delaisPrevenance }} jours</label>
-        </div>
+        <form class="w-100" #offreForm="ngForm" (ngSubmit)="setOffre()">
+          <h4 class="col-12">Options :</h4>
+          <div class="custom-control custom-radio col-12" *ngFor="let option of options;let i = index">
+            <input type="radio" id="opt{{i}}" name="opts" [(ngModel)]="selectedOptionIndex" value="{{i}}" class="custom-control-input">
+            <label class="custom-control-label" for="opt{{i}}">{{ option.libelle }} : {{ option.montant }}€ / an ({{ option.typePrix=='Fixe'? option.typePrix + ' pendant ' + option.dureePrixFixe + ' mois' : option.typePrix}}), délais de prévenance de {{ option.delaisPrevenance }} jours</label>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-danger m-4 text-light" routerLink="/">Annuler</button>
+            <button class="btn btn-primary m-4 text-light" [disabled]="!selectedOptionIndex">Valider</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
