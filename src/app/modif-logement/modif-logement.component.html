@@ -55,7 +55,7 @@
         <div class="row col-12">
           <!-- Surface -->
           <div class="form-group row col-6">
-            <label for="surface" class="col-6 col-form-label">Surface : {{logement.surface}} m²</label>
+            <label for="surface" class="col-6 col-form-label">Surface : <input type="number" width="50" min="10" max="1000" name="surface" [(ngModel)]="logement.surface" value="{{logement.surface}}"> m²</label>
             <div class="col-6">
               <div class="slidecontainer">
                 <input type="range" min="10" max="1000" [(ngModel)]="logement.surface" name="surface" class="form-control-range" id="surface">
