@@ -1,3 +1,5 @@
+import { AdminComponent } from './admin/admin.component';
+import { PanierComponent } from './panier/panier.component';
 import { ModifLogementComponent } from './modif-logement/modif-logement.component';
 import { ConsultLogementComponent } from './consult-logement/consult-logement.component';
 import { LoginComponent } from './login/login.component';
@@ -9,7 +11,9 @@ const routes: Routes = [
   { path: '', component: AccueilComponent},
   { path: 'login', component: LoginComponent },
   { path: 'details', component: ConsultLogementComponent },
-  { path: 'modification', component: ModifLogementComponent }
+  { path: 'modification', component: ModifLogementComponent },
+  { path: 'panier', component: PanierComponent },
+  { path: 'admin', component: AdminComponent }
 ];
 
 @NgModule({

@@ -15,6 +15,7 @@ import { PanierComponent } from './panier/panier.component';
 import { DemandesComponent } from './demandes/demandes.component';
 import { MyHttpInterceptor } from './my-http-interceptor';
 import { GlobalMessageService } from 'src/app/global-message.service';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { GlobalMessageService } from 'src/app/global-message.service';
     ConsultLogementComponent,
     ModifLogementComponent,
     PanierComponent,
-    DemandesComponent
+    DemandesComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

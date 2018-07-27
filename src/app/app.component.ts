@@ -4,6 +4,8 @@ import { GlobalMessageService } from './global-message.service';
 import { AuthUser } from './Model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,12 @@ export class AppComponent implements OnInit, OnDestroy {
   user: AuthUser = new AuthUser();
   subscription: Subscription;
 
-  constructor(private msgService: GlobalMessageService, private router: Router, private model: ModelService) { }
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(APP_ID) private appId: string,
+    private msgService: GlobalMessageService,
+    private router: Router,
+    private model: ModelService) { }
 
   ngOnInit() {
     this.subscription = this.msgService.getMessage().subscribe(message => { this.handleMessage(message); });
@@ -40,6 +47,19 @@ export class AppComponent implements OnInit, OnDestroy {
         break;
       default:
         break;
+    }
+  }
+
+  onActivate(event: any) {
+    if (isPlatformBrowser(this.platformId)) {
+      const scrollToTop = window.setInterval(() => {
+        const pos = window.pageYOffset;
+        if (pos > 0) {
+          window.scrollTo(0, pos - 50); // how far to scroll on each step
+        } else {
+          window.clearInterval(scrollToTop);
+        }
+      }, 16);
     }
   }
 

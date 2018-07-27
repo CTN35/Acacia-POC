@@ -13,6 +13,8 @@ export class ConsultLogementComponent implements OnInit {
   offre: Offre;
   newOffre: Offre;
   options: Option[];
+  selectedOptionIndex: number;
+  selectedOption: Option;
 
   constructor(private msgService: GlobalMessageService, private router: Router) {
     this.msgService.getMessage().subscribe(message => {
@@ -77,6 +79,12 @@ export class ConsultLogementComponent implements OnInit {
   modifLogement() {
     this.msgService.sendMessage('modifLogement', {logement: this.logement});
     this.router.navigate(['/modification']);
+  }
+
+  setOffre() {
+    this.selectedOption = this.options[this.selectedOptionIndex];
+    this.msgService.sendMessage('modifOffre', {offre: this.offre, new_offre: this.newOffre, option: this.selectedOption});
+    this.router.navigate(['/panier']);
   }
 
 }
