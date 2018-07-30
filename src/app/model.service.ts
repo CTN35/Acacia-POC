@@ -24,12 +24,14 @@ export class ModelService {
     console.log(input);
   }
 
-  resetModel(): void {
-    this.user = new AuthUser();
+  resetModel(resetAuth: boolean): void {
+    if (resetAuth) {
+      this.user = new AuthUser();
+      this.loginError = false;
+    }
     this.selectedOffer = '';
     this.currentProcessInstanceId = -1;
     this.currentLogement = new Logement();
     this.logementModified = false;
-    this.loginError = false;
   }
 }
