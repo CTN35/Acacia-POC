@@ -42,12 +42,12 @@ export class BridgeComponent implements OnInit {
     this.dataService.getProcessVariables(this.model.currentProcessInstanceId).subscribe(
       vars => {
         this.model.loadModel(vars);
-        this.getTaskAndRedirect();
+        this.getTaskInfos();
       }
     );
   }
 
-  getTaskAndRedirect() {
+  getTaskInfos() {
 
     this.dataService.getTasks(this.model.currentProcessInstanceId).subscribe(
       tasks => {
@@ -56,7 +56,7 @@ export class BridgeComponent implements OnInit {
           const taskId = Number(arr[0]['task-id']);
           this.dataService.getTaskInfos(taskId).subscribe(
             task => {
-              console.log(task);
+              console.log(JSON.stringify(task));
               let route = '';
 
               if ((<string>task['task-name']).startsWith('Modifier')) {

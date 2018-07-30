@@ -27,12 +27,16 @@ export class AccueilComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  selectOffre(offer: string): void {
+  selectOffre(offer: string) {
     this.model.selectedOffer = offer;
     this.router.navigate(['/bridge']);
   }
 
-  handleMessage(message: any): void {
+  logout() {
+    this.model.resetModel();
+  }
+
+  handleMessage(message: any) {
     switch (message['type']) {
       case 'login':
 
