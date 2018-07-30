@@ -12,7 +12,7 @@
           <a class="nav-link" routerLink="/login">Se connecter</a>
         </li>
         <li class="nav-item" *ngIf="user.isAuthenticated">
-          <span class="nav-link">{{user.login}}</a>
+          <span class="nav-link">{{user.login}}</span>
         </li>
         <li class="nav-item" *ngIf="user.isAuthenticated">
           <a class="nav-link" (click)="logout()">Se déconnecter</a>
