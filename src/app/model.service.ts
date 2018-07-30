@@ -5,9 +5,20 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ModelService {
-  user: AuthUser = new AuthUser();
+  user: AuthUser = {
+    login: 'pamAdmin',
+    password: 'pamAdmin1!',
+    isAuthenticated: true
+  };
   selectedOffer = '';
+  currentProcessInstanceId = 24;
   currentLogement: Logement = new Logement();
 
+  loginError = false;
+
   constructor() { }
+
+  loadModel(input: any): void {
+
+  }
 }

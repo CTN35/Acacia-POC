@@ -13,39 +13,31 @@ export class MyHttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    console.log('intercepted request ... ');
-
     // Clone the request to add the new header.
     const authReq = req.clone(this.getHttpOptions(req.headers));
-
-    console.log('Sending request with new header now ...');
 
     // send the newly created request
     return next.handle(authReq).pipe(
       catchError((error, caught) => {
-        // intercept the response error and display it to the console
-        console.log('Error Occurred');
-        console.log(error);
         // return the error to the method that called it
         this.model.user.isAuthenticated = false;
         this.model.user.password = '';
+        this.model.loginError = true;
         this.msgService.sendMessage('loginFail', {});
         return throwError(error);
       }) as any);
-
   }
 
   private getHttpOptions(reqHeaders: HttpHeaders): Object {
-
-    reqHeaders.set('accept', 'application/json');
-    if (reqHeaders.get('Authorization') === undefined || reqHeaders.get('Authorization') === null
-      || reqHeaders.get('Authorization') === '') {
+    let header = reqHeaders;
+    if (header.get('Authorization') === null) {
+        header = header.set('Accept', 'application/json');
         const user: AuthUser = this.model.user;
-      reqHeaders.set('Authorization', 'Basic ' + btoa(user.login + ':' + user.password));
+        header = header.set('Authorization', 'Basic ' + btoa(user.login + ':' + user.password));
     }
 
     const options = {
-      headers: reqHeaders,
+      headers: header,
       responseType: 'json',
       withCredentials: false
     };

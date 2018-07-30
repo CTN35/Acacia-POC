@@ -16,7 +16,7 @@ export class BpmDataService {
   constructor(private httpClient: HttpClient, private msgService: GlobalMessageService) { }
 
   doLogin(user: AuthUser): void {
-    const reqObservable = this.httpClient.get(environment.bpm_base_url + 'readycheck', this.GetLoginHttpOptions(user));
+    const reqObservable = this.httpClient.get(environment.bpmBaseUrl + 'readycheck', this.GetLoginHttpOptions(user));
     reqObservable.subscribe(x => {
       console.log('Login Success');
       user.isAuthenticated = true;
@@ -27,37 +27,43 @@ export class BpmDataService {
 
   getProcesses(active: boolean = true): Observable<any> {
     const reqObservable = this.httpClient.get(
-      environment.bpm_base_url + 'containers/' + environment.bpm_container + '/processes/instances');
+      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer + '/processes/instances');
     return reqObservable;
   }
 
-  startNewProcess(params: any): Observable<any> {
+  getProcessVariables(procInstanceId: number): Observable<any> {
+    const reqObservable = this.httpClient.get(
+      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer + '/processes/instances/' + procInstanceId + '/variables');
+      return reqObservable;
+  }
+
+  startNewProcess(processId: string, params: any): Observable<any> {
     const reqObservable = this.httpClient.post(
-      environment.bpm_base_url + 'containers/' + environment.bpm_container + '/processes/' + environment.bpm_process_id + '/instances'
+      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer + '/processes/' + processId + '/instances'
       , params);
     return reqObservable;
   }
 
   getTasks(procInstanceId: number): Observable<any> {
-    const reqObservable = this.httpClient.get(environment.bpm_base_url + 'queries/tasks/instances/process/' + procInstanceId);
+    const reqObservable = this.httpClient.get(environment.bpmBaseUrl + 'queries/tasks/instances/process/' + procInstanceId);
     return reqObservable;
   }
 
   getTaskInfos(taskInstanceId: number): Observable<any> {
-    const reqObservable = this.httpClient.get(environment.bpm_base_url + 'queries/tasks/instances/' + taskInstanceId);
+    const reqObservable = this.httpClient.get(environment.bpmBaseUrl + 'queries/tasks/instances/' + taskInstanceId);
     return reqObservable;
   }
 
   startTask(taskInstanceId: number, params: any): Observable<any> {
     const reqObservable = this.httpClient.put(
-      environment.bpm_base_url + 'containers/' + environment.bpm_container + '/tasks/' + taskInstanceId + '/states/started'
+      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer + '/tasks/' + taskInstanceId + '/states/started'
       , params);
     return reqObservable;
   }
 
   completeTask(taskInstanceId: number, params: any): Observable<any> {
     const reqObservable = this.httpClient.put(
-      environment.bpm_base_url + 'containers/' + environment.bpm_container + '/tasks/' + taskInstanceId + '/states/completed'
+      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer + '/tasks/' + taskInstanceId + '/states/completed'
       , params);
       return reqObservable;
   }

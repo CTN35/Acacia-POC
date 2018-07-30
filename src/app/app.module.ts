@@ -16,6 +16,7 @@ import { DemandesComponent } from './demandes/demandes.component';
 import { MyHttpInterceptor } from './my-http-interceptor';
 import { GlobalMessageService } from 'src/app/global-message.service';
 import { AdminComponent } from './admin/admin.component';
+import { BridgeComponent } from './bridge/bridge.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AdminComponent } from './admin/admin.component';
     ModifLogementComponent,
     PanierComponent,
     DemandesComponent,
-    AdminComponent
+    AdminComponent,
+    BridgeComponent
   ],
   imports: [
     BrowserModule,

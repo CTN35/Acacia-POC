@@ -1,3 +1,6 @@
+import { ModelService } from './../model.service';
+import { environment } from './../../environments/environment';
+import { BpmDataService } from './../bpm-data.service';
 import { Component, OnInit } from '@angular/core';
 import { Logement, Offre, Option } from 'src/app/Model';
 import { GlobalMessageService } from 'src/app/global-message.service';
@@ -15,8 +18,10 @@ export class ConsultLogementComponent implements OnInit {
   options: Option[];
   selectedOptionIndex: number;
   selectedOption: Option;
+  dataLoadFinished = false;
 
-  constructor(private msgService: GlobalMessageService, private router: Router) {
+  constructor(private msgService: GlobalMessageService, private router: Router,
+    private dataService: BpmDataService, private model: ModelService) {
     this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'newLogement':
@@ -74,16 +79,17 @@ export class ConsultLogementComponent implements OnInit {
       { libelle: 'Option2', montant: 699, typePrix: 'Evolutif', dureePrixFixe: 0, delaisPrevenance: 30 },
       { libelle: 'Option3', montant: 750, typePrix: 'Fixe', dureePrixFixe: 24, delaisPrevenance: 15 }
     ];
+
   }
 
   modifLogement() {
-    this.msgService.sendMessage('modifLogement', {logement: this.logement});
+    this.msgService.sendMessage('modifLogement', { logement: this.logement });
     this.router.navigate(['/modification']);
   }
 
   setOffre() {
     this.selectedOption = this.options[this.selectedOptionIndex];
-    this.msgService.sendMessage('modifOffre', {offre: this.offre, new_offre: this.newOffre, option: this.selectedOption});
+    this.msgService.sendMessage('modifOffre', { offre: this.offre, new_offre: this.newOffre, option: this.selectedOption });
     this.router.navigate(['/panier']);
   }
 

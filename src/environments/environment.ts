@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  bpm_base_url: 'http://localhost:8080/kie-server/services/rest/server/',
-  bpm_container: 'container',
-  bpm_process_id: 'process_id',
+  bpmBaseUrl: 'http://136.243.42.135:8080/kie-server/services/rest/server/',
+  bpmContainer: 'bpmc_1.0.0',
+  bpmProcessId: 'fr.edf.bpmc.AdaptationContratProcess',
+  tmpBpContrat: '123456789'
 };
 
 /*

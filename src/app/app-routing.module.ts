@@ -1,3 +1,4 @@
+import { BridgeComponent } from './bridge/bridge.component';
 import { AdminComponent } from './admin/admin.component';
 import { PanierComponent } from './panier/panier.component';
 import { ModifLogementComponent } from './modif-logement/modif-logement.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'details', component: ConsultLogementComponent },
   { path: 'modification', component: ModifLogementComponent },
   { path: 'panier', component: PanierComponent },
+  { path: 'bridge', component: BridgeComponent },
   { path: 'admin', component: AdminComponent }
 ];
 

@@ -44,6 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.model.user = message['data'];
         this.model.user.password = '';
         this.model.user.isAuthenticated = false;
+        this.router.navigate(['/login']);
         break;
       default:
         break;
