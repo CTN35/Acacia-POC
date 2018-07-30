@@ -17,6 +17,7 @@ import { MyHttpInterceptor } from './my-http-interceptor';
 import { GlobalMessageService } from 'src/app/global-message.service';
 import { AdminComponent } from './admin/admin.component';
 import { BridgeComponent } from './bridge/bridge.component';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BridgeComponent } from './bridge/bridge.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    TableModule
   ],
   providers: [
     GlobalMessageService,

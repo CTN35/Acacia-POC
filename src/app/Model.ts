@@ -45,3 +45,10 @@ export class Option {
   dureePrixFixe: number;
   delaisPrevenance: number;
 }
+
+export class Process {
+  idLogement: number;
+  idAncienneOffre: number;
+  idNouvelleOffre: number;
+  idOption: number;
+}
