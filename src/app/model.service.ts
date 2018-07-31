@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class ModelService {
   user: AuthUser = {
-    login: 'pamAdmin',
-    password: 'pamAdmin1!',
+    login: '5184923745',
+    password: 'password',
     isAuthenticated: true
   };
   selectedOffer = '';
-  currentProcessInstanceId = 24;
+  currentProcessInstanceId = 20;
   originalLogement: Logement = new Logement();
   currentLogement: Logement = new Logement();
   logementModified = false;
