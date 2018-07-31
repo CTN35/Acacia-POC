@@ -28,7 +28,7 @@ export class AccueilComponent implements OnInit, OnDestroy {
   }
 
   selectOffre(offer: string) {
-    this.model.resetModel(false);
+    // this.model.resetModel(false);
     this.model.selectedOffer = offer;
     this.router.navigate(['/bridge']);
   }
