@@ -18,7 +18,7 @@ export class Logement {
   numPCE: string;
   gaz: boolean;
   energieEauChaude: string;
-  piscineElectrique: boolean;
+  chauffagePiscine: string;
   nbOccupant: number;
   statutOccupant: string;
   vehiculeElectrique: boolean;
