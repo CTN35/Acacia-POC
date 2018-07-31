@@ -62,7 +62,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    console.log('wololo');
     this.model.resetModel(true);
     this.model.selectedOffer = null;
     this.router.navigate(['/']);

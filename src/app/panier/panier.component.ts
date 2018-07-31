@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GlobalMessageService } from 'src/app/global-message.service';
 import { Router } from '@angular/router';
 import { Offre, Option } from 'src/app/Model';
@@ -8,14 +9,15 @@ import { Offre, Option } from 'src/app/Model';
   templateUrl: './panier.component.html',
   styleUrls: ['./panier.component.css']
 })
-export class PanierComponent implements OnInit {
+export class PanierComponent implements OnInit, OnDestroy {
   offre: Offre;
   new_offre: Offre;
   option: Option;
   displayData = false;
+  subscription: Subscription;
 
   constructor(private msgService: GlobalMessageService,  private router: Router) {
-    this.msgService.getMessage().subscribe(message => {
+    this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'modifOffre':
           this.offre = message.data.offre;
@@ -32,8 +34,12 @@ export class PanierComponent implements OnInit {
   ngOnInit() {
   }
 
+ngOnDestroy(): void {
+  this.subscription.unsubscribe();
+
+}
+
   save() {
-    console.log('OK');
     this.router.navigate(['/']);
   }
 

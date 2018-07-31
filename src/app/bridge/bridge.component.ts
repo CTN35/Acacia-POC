@@ -28,7 +28,7 @@ export class BridgeComponent implements OnInit {
     if (this.model.currentProcessInstanceId <= 0) {
       this.dataService.startNewProcess(environment.bpmProcessId,
         {
-          numeroBpContrat: environment.tmpBpContrat,
+          numeroBpContrat: '1234567898789',
           idOffreSelectionnee: this.model.selectedOffer
         }).subscribe(id => {
           this.model.currentProcessInstanceId = Number(id);

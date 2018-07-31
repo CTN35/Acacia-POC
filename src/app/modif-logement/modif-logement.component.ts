@@ -1,5 +1,6 @@
+import { Subscription } from 'rxjs';
 import { Logement } from 'src/app/Model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { Input } from '@angular/core';
 import { GlobalMessageService } from 'src/app/global-message.service';
@@ -9,12 +10,13 @@ import { Router } from '@angular/router';
   templateUrl: './modif-logement.component.html',
   styleUrls: ['./modif-logement.component.css']
 })
-export class ModifLogementComponent implements OnInit {
+export class ModifLogementComponent implements OnInit, OnDestroy {
   logement: Logement;
   displayForm = false;
+  subscription: Subscription;
 
   constructor(private msgService: GlobalMessageService,  private router: Router) {
-    this.msgService.getMessage().subscribe(message => {
+    this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'modifLogement':
           this.logement = message.data.logement;
@@ -29,7 +31,12 @@ export class ModifLogementComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   setLogement(logementForm) {
+    this.msgService.clearMessage();
     this.msgService.sendMessage('newLogement', {logement: this.logement});
     this.router.navigate(['/details']);
   }

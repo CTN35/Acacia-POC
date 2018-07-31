@@ -45,6 +45,7 @@ export class AccueilComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+
   }
 
   selectOffre(offer: string) {

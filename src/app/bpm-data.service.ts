@@ -18,7 +18,6 @@ export class BpmDataService {
   doLogin(user: AuthUser): void {
     const reqObservable = this.httpClient.get(environment.bpmBaseUrl + 'readycheck', this.GetLoginHttpOptions(user));
     reqObservable.subscribe(x => {
-      console.log('Login Success');
       user.isAuthenticated = true;
       // transfer user to main
       this.msgService.sendMessage('login', user);

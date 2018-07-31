@@ -14,7 +14,7 @@ export class GlobalMessageService {
     }
 
     clearMessage() {
-        this.subject.next();
+        this.subject.next({ type: '', data: {} });
     }
 
     getMessage(): Observable<any> {
