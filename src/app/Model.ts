@@ -21,6 +21,7 @@ export class Logement {
   chauffagePiscine: string;
   nbOccupant: number;
   statutOccupant: string;
+  presencePiscine: boolean;
   vehiculeElectrique: boolean;
   laveVaisselle: boolean;
   congelateur: boolean;
@@ -48,7 +49,9 @@ export class Option {
 
 export class Process {
   idLogement: number;
-  idAncienneOffre: number;
-  idNouvelleOffre: number;
+  idOffreSouscrite: number;
+  idOffreSelectionnee: number;
   idOption: number;
+  numeroBpContrat: string;
+  numeroPdlContrat: string;
 }

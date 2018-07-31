@@ -19,8 +19,8 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.cols = ['Logement', 'Offre actuelle', 'Nouvelle Offre', 'Option', 'Actions'];
     this.tabProcess = [
-      {idLogement: 0, idAncienneOffre: 0, idNouvelleOffre: 1, idOption: 1},
-      {idLogement: 1, idAncienneOffre: 1, idNouvelleOffre: 0, idOption: 0}
+      {idLogement: 0, idOffreSouscrite: 0, idOffreSelectionnee: 1, idOption: 1, numeroBpContrat: '', numeroPdlContrat: ''},
+      {idLogement: 1, idOffreSouscrite: 1, idOffreSelectionnee: 0, idOption: 0, numeroBpContrat: '', numeroPdlContrat: ''}
     ];
 
     this.tabLogement = [
@@ -41,6 +41,7 @@ export class AdminComponent implements OnInit {
         chauffagePiscine: '',
         nbOccupant: 1,
         statutOccupant: 'Locataire',
+        presencePiscine: false,
         vehiculeElectrique: false,
         laveVaisselle: false,
         congelateur: false,
@@ -67,6 +68,7 @@ export class AdminComponent implements OnInit {
         chauffagePiscine: '',
         nbOccupant: 4,
         statutOccupant: 'Propriétaire',
+        presencePiscine: false,
         vehiculeElectrique: false,
         laveVaisselle: true,
         congelateur: true,
