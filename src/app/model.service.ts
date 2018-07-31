@@ -11,7 +11,7 @@ export class ModelService {
     isAuthenticated: true
   };
   selectedOffer = '';
-  currentProcessInstanceId = 20;
+  currentProcessInstanceId = 22;
   originalLogement: Logement = new Logement();
   currentLogement: Logement = new Logement();
   logementModified = false;
