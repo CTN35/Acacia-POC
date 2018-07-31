@@ -1,4 +1,4 @@
-import { AuthUser, Logement } from './Model';
+import { AuthUser, Logement, Option } from './Model';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,11 +6,14 @@ import { Injectable } from '@angular/core';
 })
 export class ModelService {
   user: AuthUser = new AuthUser();
-  selectedOffer = null;
+  selectedOffer: string = null;
+  selectedOption: Option = null;
   currentProcessInstanceId = 58;
+  currentTaskId = -1;
   originalLogement: Logement = new Logement();
   currentLogement: Logement = new Logement();
   logementModified = false;
+  ongoingSimulation = false;
 
   loginError = false;
 
@@ -32,6 +35,39 @@ export class ModelService {
     this.originalLogement.statutOccupant = input.local['fr.edf.bpmc.model.Local'].typeOccupation;
     this.originalLogement.typeResidence = input.local['fr.edf.bpmc.model.Local'].typeResidence;
     this.currentLogement = this.originalLogement;
+
+    this.ongoingSimulation = false;
+  }
+
+  refreshOptions(intpu: any): void {
+
+  }
+
+  modelToInputModifLocal(modif: boolean): any {
+    const local = {
+      anneeConstruction: this.currentLogement.annee,
+      classeEnergetique: this.currentLogement.classeEnergetique,
+      chauffagePiscine: this.currentLogement.chauffagePiscine,
+      energieChauffagePrincipal: this.currentLogement.chauffage,
+      energieChauffageSecondaire: this.currentLogement.chauffageAlternatif,
+      energieEauChaudeSanitaire: this.currentLogement.energieEauChaude,
+      nombreOccupant: this.currentLogement.nbOccupant,
+      presenceGaz: this.currentLogement.gaz,
+      surfaceHabitable: this.currentLogement.surface,
+      typeLogement: this.currentLogement.type,
+      typeOccupation: this.currentLogement.statutOccupant,
+      typeResidence: this.currentLogement.typeResidence,
+    };
+
+    const result = {
+      local: {
+        'fr.edf.bpmc.model.Local': local
+      },
+      modifieDonneesLocal: modif,
+      optionSelectionnee: this.selectedOption
+    };
+
+    return result;
   }
 
   resetModel(resetAuth: boolean): void {
@@ -39,10 +75,12 @@ export class ModelService {
       this.user = new AuthUser();
       this.loginError = false;
     }
-    // this.selectedOffer = '';
     this.currentProcessInstanceId = -1;
     this.currentLogement = new Logement();
     this.originalLogement = new Logement();
     this.logementModified = false;
+    this.currentTaskId = -1;
   }
+
+
 }

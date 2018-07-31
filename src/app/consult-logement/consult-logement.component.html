@@ -1,8 +1,10 @@
 <div class="row">
   <!-- TODO: afficher le vrai identifiant -->
-  <h2 class="col-12 my-3">Mon Identifiant : 0633184a</h2> 
+  <h2 class="col-12 my-3">Mon Identifiant : 0633184a</h2>
   <div class="card w-100">
-    <div class="card-header"><h3>Mon Offre</h3></div>
+    <div class="card-header">
+      <h3>Mon Offre</h3>
+    </div>
     <div class="card-body">
       <div class="row col-12">
         <h4 class="col-12">{{ offre.libelle }}</h4>
@@ -12,7 +14,8 @@
   </div>
 
   <div class="card w-100 my-3">
-    <div class="card-header d-flex justify-content-between"><h3>Mon Logement </h3><a (click)="modifLogement()" class='btn btn-primary text-light'>Modifier</a></div>
+    <div class="card-header d-flex justify-content-between">
+      <h3>Mon Logement </h3><a (click)="modifLogement()" class='btn btn-primary text-light'>Modifier</a></div>
     <div class="card-body">
       <div class="row col-12">
         <div class="col-6 d-flex justify-content-between">
@@ -59,7 +62,9 @@
     </div>
   </div>
   <div class="card w-100">
-    <div class="card-header d-flex justify-content-between"><h3>Mes équipements </h3></div>
+    <div class="card-header d-flex justify-content-between">
+      <h3>Mes équipements </h3>
+    </div>
     <div class="card-body">
       <div class="row col-12">
         <div class="col-6 d-flex justify-content-between">
@@ -99,13 +104,18 @@
   </div>
 
   <div class="card w-100 my-3">
-    <div class="card-header d-flex justify-content-between"><h3>Votre Nouvelle Offre</h3></div>
+    <div class="card-header d-flex justify-content-between">
+      <h3>Votre Nouvelle Offre</h3>
+    </div>
     <div class="card-body">
       <div class="row col-12">
         <h4 class="col-12">{{ newOffre.libelle }}</h4>
         <p class="col-12">{{ newOffre.description }}</p>
       </div>
-      <div class="row col-12">
+      <div class="row col-4 offset-4" *ngIf="model.ongoingSimulation">
+        <div class="loader"></div>
+      </div>
+      <div class="row col-12" *ngIf="!model.ongoingSimulation">
         <form class="w-100" #offreForm="ngForm" (ngSubmit)="setOffre()">
           <h4 class="col-12">Options :</h4>
           <div class="custom-control custom-radio col-12" *ngFor="let option of options;let i = index">

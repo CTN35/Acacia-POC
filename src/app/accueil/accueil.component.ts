@@ -18,10 +18,11 @@ export class AccueilComponent implements OnInit, OnDestroy {
     { code: 'ELEC_PE_AUTO', libelle: 'Vert Électrique Auto', description: 'Rechargez votre voiture électrique avec une électricité 40% moins chère la nuit et à prix fixe sur 3 ans', description2: 'Blabla' },
   ];
 
-  constructor(private msgService: GlobalMessageService, private router: Router, private model: ModelService ) { }
+  constructor(private msgService: GlobalMessageService, private router: Router, private model: ModelService ) {
+    this.msgService.getMessage().subscribe(message => { this.handleMessage(message); });
+  }
 
   ngOnInit() {
-    this.msgService.getMessage().subscribe(message => { this.handleMessage(message); });
   }
 
   ngOnDestroy() {

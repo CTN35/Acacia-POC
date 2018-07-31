@@ -26,6 +26,7 @@ export class ConsultLogementComponent implements OnInit {
       switch (message.type) {
         case 'newLogement':
           this.logement = message.data.logement;
+
           break;
         default:
           break;
@@ -88,10 +89,59 @@ export class ConsultLogementComponent implements OnInit {
     this.router.navigate(['/modification']);
   }
 
+  rerunSimulation() {
+    this.model.ongoingSimulation = true;
+    // empty options
+    const taskInput = this.model.modelToInputModifLocal(true);
+    this.dataService.completeTask(this.model.currentTaskId, taskInput).subscribe(
+      result => {
+        setTimeout(() => {
+          this.refreshOptions();
+        }, 200);
+      });
+  }
+
+  refreshOptions() {
+          this.dataService.getTasks(this.model.currentProcessInstanceId).subscribe(
+            tasks => {
+              const arr: Array<any> = <Array<any>>tasks['task-summary'];
+              if (arr.length > 0) {
+                const taskId = Number(arr[0]['task-id']);
+                this.model.currentTaskId = taskId;
+                this.dataService.getTaskInfos(taskId).subscribe(
+                  task => {
+                      if ((<string>task['task-name']).startsWith('Modifier')) {
+                        // populate options
+                        // set ongoing to false
+                        this.dataService.getProcessVariables(this.model.currentProcessInstanceId).subscribe(
+                          vars => {
+                            this.model.refreshOptions(vars);
+                            this.model.ongoingSimulation = false;
+                          }
+                        );
+                    } else {
+                      this.router.navigate(['/bridge']);
+                    }
+                  }
+                );
+              } else {
+                // retry after 500ms
+                setTimeout(() => this.refreshOptions(), 500);
+              }
+            }
+          );
+  }
+
   setOffre() {
     this.selectedOption = this.options[this.selectedOptionIndex];
-    this.msgService.sendMessage('modifOffre', { offre: this.offre, new_offre: this.newOffre, option: this.selectedOption });
-    this.router.navigate(['/panier']);
+    const taskInput = this.model.modelToInputModifLocal(false);
+
+    console.log(taskInput);
+    this.dataService.completeTask(this.model.currentTaskId, taskInput).subscribe(
+      result => {
+        this.router.navigate(['/panier']);
+      });
+    // this.msgService.sendMessage('modifOffre', { offre: this.offre, new_offre: this.newOffre, option: this.selectedOption });
   }
 
 }

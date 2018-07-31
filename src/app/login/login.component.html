@@ -1,8 +1,10 @@
-<div class="col-sm-6 offset-sm-3">
+<div class="col-4 offset-4">
+  <form class="w-100 pb-sm-3" #offreForm="ngForm" (ngSubmit)="doLogin()">
   <h2 class="form-signin-heading my-4">Connexion</h2>
   <label for="login" class="sr-only">Login</label>
   <input type="text" id="login" class="form-control" placeholder="Login" required="" autofocus="" [(ngModel)]="user.login">
   <label for="password" class="sr-only">Password</label>
   <input type="password" id="password" class="form-control" placeholder="Password" required="" [(ngModel)]="user.password">
-  <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="doLogin()">Connexion</button>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
+</form>
 </div>

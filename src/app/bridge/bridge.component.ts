@@ -1,3 +1,4 @@
+import { GlobalMessageService } from './../global-message.service';
 import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 import { BpmDataService } from './../bpm-data.service';
@@ -11,16 +12,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BridgeComponent implements OnInit {
 
-  constructor(private model: ModelService, private dataService: BpmDataService, private router: Router) { }
+  constructor(private model: ModelService, private dataService: BpmDataService,
+    private router: Router, private messageService: GlobalMessageService) { }
 
   ngOnInit() {
     this.startOrGetProcess();
   }
 
   startOrGetProcess() {
-  if (this.model.selectedOffer == null) {
-    this.router.navigate(['/']);
-  }
+    if (this.model.selectedOffer == null) {
+      this.router.navigate(['/']);
+    }
 
     // Get ongoing process or start new process ==> A faire au niveau du model ?
     if (this.model.currentProcessInstanceId <= 0) {
@@ -47,23 +49,25 @@ export class BridgeComponent implements OnInit {
     );
   }
 
-  getTaskInfos() {
+  getTaskInfos(autoRouting = true) {
 
     this.dataService.getTasks(this.model.currentProcessInstanceId).subscribe(
       tasks => {
         const arr: Array<any> = <Array<any>>tasks['task-summary'];
         if (arr.length > 0) {
           const taskId = Number(arr[0]['task-id']);
+          this.model.currentTaskId = taskId;
           this.dataService.getTaskInfos(taskId).subscribe(
             task => {
-              console.log(JSON.stringify(task));
               let route = '';
-
-              if ((<string>task['task-name']).startsWith('Modifier')) {
-                route = 'details';
+              if (autoRouting) {
+                if ((<string>task['task-name']).startsWith('Modifier')) {
+                  route = 'details';
+                }
+                this.router.navigate(['/' + route]);
+              } else {
+                this.messageService.sendMessage('taskLoaded', task);
               }
-
-              this.router.navigate(['/' + route]);
             }
           );
 

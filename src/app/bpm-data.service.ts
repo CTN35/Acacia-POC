@@ -34,7 +34,7 @@ export class BpmDataService {
   getProcessVariables(procInstanceId: number): Observable<any> {
     const reqObservable = this.httpClient.get(
       environment.bpmBaseUrl + 'containers/' + environment.bpmContainer + '/processes/instances/' + procInstanceId + '/variables');
-      return reqObservable;
+    return reqObservable;
   }
 
   startNewProcess(processId: string, params: any): Observable<any> {
@@ -54,18 +54,11 @@ export class BpmDataService {
     return reqObservable;
   }
 
-  startTask(taskInstanceId: number, params: any): Observable<any> {
-    const reqObservable = this.httpClient.put(
-      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer + '/tasks/' + taskInstanceId + '/states/started'
-      , params);
-    return reqObservable;
-  }
-
   completeTask(taskInstanceId: number, params: any): Observable<any> {
     const reqObservable = this.httpClient.put(
-      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer + '/tasks/' + taskInstanceId + '/states/completed'
-      , params);
-      return reqObservable;
+      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer +
+      '/tasks/' + taskInstanceId + '/states/completed?auto-progress=true', params);
+    return reqObservable;
   }
 
   private GetLoginHttpOptions(user: AuthUser): Object {
