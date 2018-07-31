@@ -9,27 +9,26 @@ export class Logement {
   codePostal: string;
   codeINSEE: string;
   lieudit: string;
-  type: string;
+  typeLogement: string;
   surface: number;
-  chauffage: string;
-  annee: string;
-  classeEnergetique: string;
-  numPDL: string;
-  numPCE: string;
-  gaz: boolean;
-  energieEauChaude: string;
-  chauffagePiscine: string;
   nbOccupant: number;
-  statutOccupant: string;
-  presencePiscine: boolean;
-  vehiculeElectrique: boolean;
-  laveVaisselle: boolean;
-  congelateur: boolean;
-  plaqueInduction: boolean;
-  secheLinge: boolean;
-  climatisation: boolean;
+  typeOccupation: string;
   typeResidence: string;
-  chauffageAlternatif: string;
+  energieChauffagePrincipal: string;
+  equipementChauffagePrincipal: string;
+  annee: number;
+  classeEnergetique: string;
+  presenceAlimentationGaz: boolean;
+  energieEauChaudeSanitaire: string;
+  energieChauffageSecondaire: string;
+  presencePiscine: boolean;
+  chauffagePiscine: string;
+  vehiculeElectrique = false;
+  laveVaisselle = false;
+  congelateur = false;
+  plaqueInduction = false;
+  secheLinge = false;
+  climatisation = false;
 }
 
 export class Offre {
@@ -40,18 +39,29 @@ export class Offre {
 }
 
 export class Option {
-  libelle: string;
-  montant: number;
-  typePrix: string;
-  dureePrixFixe: number;
-  delaisPrevenance: number;
+  nomOption: string;
+  cadrans: Cadran[];
+  montantAnnuelEstime: number;
+  montantAnnuelOptimise: number;
+  ordrePreconisation: number;
+  optionSelectionnee: boolean;
+}
+
+export class Cadran {
+  consommationCadran: number;
+  nomCadran: string;
+  prixAbonnement: number;
+  prixKwh: number;
 }
 
 export class Process {
-  idLogement: number;
-  idOffreSouscrite: number;
-  idOffreSelectionnee: number;
   idOption: number;
+  selectedOffer: string;
+  originalOffer: string;
+  currentProcessInstanceId: number;
+  originalLogement: Logement;
+  currentLogement: Logement;
+  logementModified: false;
   numeroBpContrat: string;
   numeroPdlContrat: string;
 }
