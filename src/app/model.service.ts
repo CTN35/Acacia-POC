@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ModelService {
   user: AuthUser = new AuthUser();
   selectedOffer = null;
-  currentProcessInstanceId = 61;
+  currentProcessInstanceId = 58;
   originalLogement: Logement = new Logement();
   currentLogement: Logement = new Logement();
   logementModified = false;
