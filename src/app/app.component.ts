@@ -14,7 +14,6 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
-  user: AuthUser = new AuthUser();
   subscription: Subscription;
 
   constructor(
@@ -26,7 +25,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.msgService.getMessage().subscribe(message => { this.handleMessage(message); });
-    this.user = this.model.user;
   }
 
   ngOnDestroy() {
@@ -37,8 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
     switch (message['type']) {
       case 'login':
         this.model.user = message['data'];
-        this.user = message['data'];
-        this.router.navigate(['/']);
+        this.router.navigate(['/bridge']);
         break;
       case 'loginFail':
         this.model.user = message['data'];
@@ -62,6 +59,13 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }, 16);
     }
+  }
+
+  logout() {
+    console.log('wololo');
+    this.model.resetModel(true);
+    this.model.selectedOffer = null;
+    this.router.navigate(['/']);
   }
 
 }
