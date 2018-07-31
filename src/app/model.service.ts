@@ -5,19 +5,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ModelService {
-  user: AuthUser = {
-    login: '5184923745',
-    password: 'password',
-    isAuthenticated: true
-  };
-  selectedOffer = '';
-  originalOffer = '';
+
+  user: AuthUser = new AuthUser();
+  selectedOffer = null;
+  originalOffer = null;
   currentProcessInstanceId = 73;
   originalLogement: Logement = new Logement();
   currentLogement: Logement = new Logement();
   logementModified = false;
-  numeroBpContrat = '';
-  numeroPdlContrat = '';
+  numeroBpContrat = null;
+  numeroPdlContrat = null;
   options: Option[] = [];
   selectedOption: Option = new Option();
 
@@ -78,14 +75,14 @@ export class ModelService {
       this.user = new AuthUser();
       this.loginError = false;
     }
-    this.selectedOffer = '';
-    this.originalOffer = '';
+    this.selectedOffer = null;
+    this.originalOffer = null;
     this.currentProcessInstanceId = -1;
     this.currentLogement = new Logement();
     this.originalLogement = new Logement();
     this.logementModified = false;
-    this.numeroBpContrat = '';
-    this.numeroPdlContrat = '';
+    this.numeroBpContrat = null;
+    this.numeroPdlContrat = null;
     this.options = [];
     this.selectedOption = new Option();
   }
@@ -117,7 +114,7 @@ export class ModelService {
           description2: 'Blabla'
         };
         break;
-      case 'ELEC_PE_VERT':
+      case 'ELEC_PE_AUTO':
         offreReturn = {
           code: 'ELEC_PE_AUTO',
           libelle: 'Vert Électrique Auto',

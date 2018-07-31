@@ -18,7 +18,7 @@ export class BridgeComponent implements OnInit {
   }
 
   startOrGetProcess() {
-  if(this.model.selectedOffer == null) {
+  if (this.model.selectedOffer == null) {
     this.router.navigate(['/']);
   }
 
