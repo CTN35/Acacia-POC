@@ -17,7 +17,7 @@ export class PanierComponent implements OnInit, OnDestroy {
   displayData = false;
   subscription: Subscription;
 
-  constructor(private msgService: GlobalMessageService,  private router: Router, private model: ModelService) {
+  constructor(private msgService: GlobalMessageService, private router: Router, private model: ModelService) {
     this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'modifOffre':
@@ -33,16 +33,21 @@ export class PanierComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.offre = this.model.tabOffres[this.model.originalOffer];
-    this.new_offre = this.model.tabOffres[this.model.selectedOffer];
-    this.option = this.model.selectedOption;
-    this.displayData = true;
+    if (!this.model.user.isAuthenticated) {
+      this.router.navigate(['/']);
+      return;
+    } else {
+      this.offre = this.model.tabOffres[this.model.originalOffer];
+      this.new_offre = this.model.tabOffres[this.model.selectedOffer];
+      this.option = this.model.selectedOption;
+      this.displayData = true;
+    }
   }
 
-ngOnDestroy(): void {
-  this.subscription.unsubscribe();
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
 
-}
+  }
 
   save() {
     this.router.navigate(['/']);

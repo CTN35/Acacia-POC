@@ -1,11 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
-
+html,
 body {
-  padding-top: 54px;
+  margin: 0;
+  padding: 0;
+  padding-top: 0px;
+  height: 100%; /* needed for container min-height */
 }
 
-@media (min-width: 992px) {
-  body {
-    padding-top: 56px;
-  }
+body {
+  padding-top: 56px;
 }
