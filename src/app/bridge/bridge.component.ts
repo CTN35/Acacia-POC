@@ -22,13 +22,35 @@ export class BridgeComponent implements OnInit {
   startOrGetProcess() {
     if (this.model.selectedOffer == null) {
       this.router.navigate(['/']);
+      return;
+    }
+    if (!environment.allowMultipleProcess) {
+      this.dataService.getProcesses().subscribe(
+        result => {
+          let processId = -1;
+          (<Array<any>>result['process-instance']).forEach(element => {
+            if (processId <= 0 && element['process-id'] === environment.bpmProcessId) {
+              processId = Number(element['process-instance-id']);
+            }
+          });
+
+          if (processId > 0) {
+            this.model.currentProcessInstanceId = processId;
+            this.model.existingProcess = true;
+          }
+        }
+      );
     }
 
     // Get ongoing process or start new process ==> A faire au niveau du model ?
     if (this.model.currentProcessInstanceId <= 0) {
+      let bpId = Number(this.model.user.login);
+      if (Number.isNaN(bpId)) {
+        bpId = 244466666;
+      }
       this.dataService.startNewProcess(environment.bpmProcessId,
         {
-          numeroBpContrat: '1234567898789',
+          numeroBpContrat: '' + bpId,
           idOffreSelectionnee: this.model.selectedOffer
         }).subscribe(id => {
           this.model.currentProcessInstanceId = Number(id);

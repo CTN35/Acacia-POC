@@ -21,13 +21,22 @@ export class ModelService {
   selectedOption: Option = null;
 
   loginError = false;
+  existingProcess = false;
 
   constructor() { }
 
-  loadModel(input: any): void {
-    console.log(input);
+  loadModel(input: any, refreshCurrentLogement = true): void {
     this.selectedOffer = input.idOffreSelectionnee;
     this.originalOffer = input.idOffreSouscrite;
+    this.numeroBpContrat = input.numeroBpContrat;
+    this.numeroPdlContrat = input.numeroPdlContrat;
+
+    this.refreshLogement(input, true);
+
+    this.refreshOptions(input);
+  }
+
+  refreshLogement(input: any, refreshCurrent = true)  {
     this.originalLogement.annee = input.local['fr.edf.bpmc.model.Local'].anneeConstruction;
     this.originalLogement.classeEnergetique = input.local['fr.edf.bpmc.model.Local'].classeEnergetique;
     this.originalLogement.chauffagePiscine = input.local['fr.edf.bpmc.model.Local'].chauffagePiscine;
@@ -45,37 +54,35 @@ export class ModelService {
     this.originalLogement.codeINSEE = input.adresse['fr.edf.bpmc.model.Adresse'].codeInsee;
     this.originalLogement.lieudit = input.adresse['fr.edf.bpmc.model.Adresse'].lieudit;
     this.originalLogement.ville = input.adresse['fr.edf.bpmc.model.Adresse'].ville;
-    this.numeroBpContrat = input.numeroBpContrat;
-    this.numeroPdlContrat = input.numeroPdlContrat;
-    this.currentLogement = this.originalLogement;
 
-    this.ongoingSimulation = false;
-
-    this.options = [];
-        input.options.forEach(opt => {
-          const addOption: Option =  {
-            nomOption: opt['fr.edf.bpmc.model.Option'].nomOption,
-            cadrans: [],
-            montantAnnuelEstime: opt['fr.edf.bpmc.model.Option'].facture['fr.edf.bpmc.model.Facture'].montantAnnuelEstime,
-            montantAnnuelOptimise: opt['fr.edf.bpmc.model.Option'].facture['fr.edf.bpmc.model.Facture'].montantAnnuelOptimise,
-            ordrePreconisation: opt['fr.edf.bpmc.model.Option'].ordrePreconisation,
-            optionSelectionnee: false
-          };
-          opt['fr.edf.bpmc.model.Option'].cadrans.forEach(cadran => {
-            addOption.cadrans.push({
-              consommationCadran: cadran.consommationCadran,
-              nomCadran: cadran.nomCadran,
-              prixAbonnement: cadran.prixAbonnement,
-              prixKwh: cadran.prixKwh
-              }
-            );
-          });
-          this.options.push(addOption);
-        });
+    if (refreshCurrent) {
+      this.currentLogement = this.originalLogement;
+    }
   }
 
-  refreshOptions(intpu: any): void {
-
+  refreshOptions(input: any): void {
+    this.options = [];
+    input.options.forEach(opt => {
+      const addOption: Option =  {
+        nomOption: opt['fr.edf.bpmc.model.Option'].nomOption,
+        cadrans: [],
+        montantAnnuelEstime: opt['fr.edf.bpmc.model.Option'].facture['fr.edf.bpmc.model.Facture'].montantAnnuelEstime,
+        montantAnnuelOptimise: opt['fr.edf.bpmc.model.Option'].facture['fr.edf.bpmc.model.Facture'].montantAnnuelOptimise,
+        ordrePreconisation: opt['fr.edf.bpmc.model.Option'].ordrePreconisation,
+        optionSelectionnee: false
+      };
+      opt['fr.edf.bpmc.model.Option'].cadrans.forEach(cadran => {
+        addOption.cadrans.push({
+          consommationCadran: cadran.consommationCadran,
+          nomCadran: cadran.nomCadran,
+          prixAbonnement: cadran.prixAbonnement,
+          prixKwh: cadran.prixKwh
+          }
+        );
+      });
+      this.options.push(addOption);
+    });
+    this.ongoingSimulation = false;
   }
 
   modelToInputModifLocal(modif: boolean): any {

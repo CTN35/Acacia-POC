@@ -1,3 +1,4 @@
+import { ModelService } from './../model.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GlobalMessageService } from 'src/app/global-message.service';
@@ -16,7 +17,7 @@ export class PanierComponent implements OnInit, OnDestroy {
   displayData = false;
   subscription: Subscription;
 
-  constructor(private msgService: GlobalMessageService,  private router: Router) {
+  constructor(private msgService: GlobalMessageService, private router: Router, private model: ModelService) {
     this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'modifOffre':
@@ -32,12 +33,17 @@ export class PanierComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    if (!this.model.user.isAuthenticated) {
+      this.router.navigate(['/']);
+      return;
+    }
   }
 
-ngOnDestroy(): void {
-  this.subscription.unsubscribe();
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
 
-}
+  }
 
   save() {
     this.router.navigate(['/']);

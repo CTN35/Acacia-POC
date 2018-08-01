@@ -35,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
     switch (message['type']) {
       case 'login':
         this.model.user = message['data'];
+        this.model.loginError = false;
         this.router.navigate(['/bridge']);
         break;
       case 'loginFail':

@@ -1,6 +1,10 @@
 <div class="row">
-  <!-- TODO: afficher le vrai identifiant -->
-  <h2 class="col-12 my-3">Mon Identifiant : 0633184a</h2>
+  <h2 class="col-12 my-3">Mon numéro PDL : {{model.numeroPdlContrat}}</h2>
+
+  <div class="alert alert-warning fade in alert-dismissible w-100" *ngIf="existingProcess">
+    <strong>Attention!</strong> Vous avez déja une demande en cours, veuillez la terminer.
+  </div>
+
   <div class="card w-100">
     <div class="card-header">
       <h3>Mon Offre</h3>

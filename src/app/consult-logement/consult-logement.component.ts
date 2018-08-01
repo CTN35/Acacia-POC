@@ -22,6 +22,8 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
   dataLoadFinished = false;
   subscription: Subscription = null;
 
+  existingProcess = false;
+
   constructor(private msgService: GlobalMessageService, private router: Router,
     private dataService: BpmDataService, private model: ModelService) {
     this.subscription = this.msgService.getMessage().subscribe(message => {
@@ -39,6 +41,16 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+  if(!this.model.user.isAuthenticated) {
+    this.router.navigate(['/']);
+    return;
+  }
+
+    if (this.model.existingProcess) {
+      this.model.existingProcess = false;
+      this.existingProcess = true;
+    }
+
     if (!this.logement) {
       this.logement = this.model.currentLogement;
     }
@@ -109,7 +121,6 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
     this.selectedOption = this.options[this.selectedOptionIndex];
     const taskInput = this.model.modelToInputModifLocal(false);
 
-    console.log(taskInput);
     this.dataService.completeTask(this.model.currentTaskId, taskInput).subscribe(
       result => {
         this.router.navigate(['/panier']);
