@@ -11,7 +11,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class AccueilComponent implements OnInit, OnDestroy {
 
-  constructor(private msgService: GlobalMessageService, private router: Router, private model: ModelService ) {
+  constructor(private msgService: GlobalMessageService, private router: Router, public model: ModelService ) {
     this.msgService.getMessage().subscribe(message => { this.handleMessage(message); });
   }
 

@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DemandesComponent implements OnInit {
 
-  constructor(private msgService: GlobalMessageService, private router: Router, private model: ModelService) { }
+  constructor(private msgService: GlobalMessageService, private router: Router, public model: ModelService) { }
 
   ngOnInit() {
     if (!this.model.user.isAuthenticated) {

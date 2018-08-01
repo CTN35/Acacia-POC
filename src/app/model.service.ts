@@ -8,7 +8,7 @@ export class ModelService {
 
   user: AuthUser = new AuthUser();
   selectedOffer: string = null;
-  currentProcessInstanceId = 0;
+  currentProcessInstanceId = 73;
   currentTaskId = -1;
   originalLogement: Logement = new Logement();
   currentLogement: Logement = new Logement();
@@ -23,38 +23,50 @@ export class ModelService {
   loginError = false;
   existingProcess = false;
 
-  offres: Offre[] = [
-    {
+  tabOffres = {
+    ELEC_DEREGULE: {
       code: 'ELEC_DEREGULE',
       libelle: 'Mon Contrat Electricté',
       description: 'Mon Contrat Electricté',
       description2: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     },
-    {
+    TARIF_BLEU_V2: {
       code: 'TARIF_BLEU_V2',
       libelle: 'Tarif Bleu',
       description: 'Faites le choix de la simplicité',
       description2: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     },
-    {
+    ELEC_PE_VERT: {
       code: 'ELEC_PE_VERT',
       libelle: 'Vert Électrique',
       description: 'Contribuez à la transition énergétique sans changer vos habitudes !',
       description2: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
     },
-    {
+    ELEC_PE_WE: {
       code: 'ELEC_PE_WE',
       libelle: 'Vert Électrique Week-end',
       description: 'Payez moins cher votre électricité verte le week-end',
       description2: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
-    {
+    ELEC_PF3_VE: {
       code: 'ELEC_PF3_VE',
       libelle: 'Vert Électrique Auto',
       description: 'Rechargez votre voiture électrique avec une électricité 40% moins chère la nuit et à prix fixe sur 3 ans',
       description2: 'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit'
-    },
-  ];
+    }
+  };
+
+  getAllOffres(): Array<Offre> {
+    // Step 1. Get all the object keys.
+    const offresKeys = Object.keys(this.tabOffres);
+    // Step 2. Create an empty array.
+    const offres: Array<Offre> = [];
+    // Step 3. Iterate throw all keys.
+    offresKeys.forEach(id => {
+      offres.push(this.tabOffres[id]);
+    });
+    return offres;
+  }
 
   constructor() { }
 
@@ -69,7 +81,7 @@ export class ModelService {
     this.refreshOptions(input);
   }
 
-  refreshLogement(input: any, refreshCurrent = true)  {
+  refreshLogement(input: any, refreshCurrent = true) {
     this.originalLogement.annee = input.local['fr.edf.bpmc.model.Local'].anneeConstruction;
     this.originalLogement.classeEnergetique = input.local['fr.edf.bpmc.model.Local'].classeEnergetique;
     this.originalLogement.chauffagePiscine = input.local['fr.edf.bpmc.model.Local'].chauffagePiscine;
@@ -96,7 +108,7 @@ export class ModelService {
   refreshOptions(input: any): void {
     this.options = [];
     input.options.forEach(opt => {
-      const addOption: Option =  {
+      const addOption: Option = {
         nomOption: opt['fr.edf.bpmc.model.Option'].nomOption,
         cadrans: [],
         montantAnnuelEstime: opt['fr.edf.bpmc.model.Option'].facture['fr.edf.bpmc.model.Facture'].montantAnnuelEstime,
@@ -110,7 +122,7 @@ export class ModelService {
           nomCadran: cadran.nomCadran,
           prixAbonnement: cadran.prixAbonnement,
           prixKwh: cadran.prixKwh
-          }
+        }
         );
       });
       this.options.push(addOption);
@@ -164,16 +176,5 @@ export class ModelService {
     this.options = [];
     this.selectedOption = new Option();
   }
-
-  getOffre (idOffre): Offre {
-    let offreReturn = new Offre;
-    this.offres.forEach(offre => {
-      if(offre.code === idOffre) {
-        offreReturn = offre;
-      }
-    });
-    return offreReturn;
-  }
-
 
 }

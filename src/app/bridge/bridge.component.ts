@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BridgeComponent implements OnInit {
 
-  constructor(private model: ModelService, private dataService: BpmDataService,
+  constructor(public model: ModelService, private dataService: BpmDataService,
     private router: Router, private messageService: GlobalMessageService) { }
 
   ngOnInit() {
@@ -37,6 +37,7 @@ export class BridgeComponent implements OnInit {
           if (processId > 0) {
             this.model.currentProcessInstanceId = processId;
             this.model.existingProcess = true;
+          } else {
           }
         }
       );

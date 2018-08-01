@@ -1,38 +1,44 @@
 <div class="row">
   <!-- TODO: afficher le vrai identifiant -->
   <h2 class="col-12 my-3">Mon Identifiant : 0633184a</h2>
-  
+
   <form *ngIf="displayForm" #logementForm="ngForm" (ngSubmit)="setLogement(logementForm)" novalidate>
     <div class="card">
-      <div class="card-header"><h4>Mon Logement</h4></div>
+      <div class="card-header">
+        <h4>Mon Logement</h4>
+      </div>
       <div class="card-body">
         <div class="row col-12">
           <!-- Code postal -->
           <div class="form-group row col-6">
             <label for="codePostal" class="col-6 col-form-label">Code postal :</label>
             <div class="col-6">
-              <input disabled type="text" class="form-control-plaintext" id="codePostal" #codePostal="ngModel" [(ngModel)]="logement.codePostal" name="codePostal" class="form-control" required>
+              <input disabled type="text" class="form-control-plaintext" id="codePostal" #codePostal="ngModel" [(ngModel)]="logement.codePostal"
+                name="codePostal" class="form-control" required>
             </div>
           </div>
           <!-- Ville -->
           <div class="form-group row col-6">
             <label for="ville" class="col-6 col-form-label">Ville :</label>
             <div class="col-6">
-              <input disabled type="text" class="form-control-plaintext" id="ville" #ville="ngModel" [(ngModel)]="logement.ville" name="ville" class="form-control" required>
+              <input disabled type="text" class="form-control-plaintext" id="ville" #ville="ngModel" [(ngModel)]="logement.ville" name="ville"
+                class="form-control" required>
             </div>
           </div>
           <!-- Code INSEE -->
           <div class="form-group row col-6">
             <label for="codeInsee" class="col-6 col-form-label">Code INSEE :</label>
             <div class="col-6">
-              <input disabled type="text" class="form-control-plaintext" id="codeInsee" #codePostal="ngModel" [(ngModel)]="logement.codeINSEE" name="codePostal" class="form-control" required>
+              <input disabled type="text" class="form-control-plaintext" id="codeInsee" #codeInsee="ngModel" [(ngModel)]="logement.codeINSEE"
+                name="codeInsee" class="form-control" required>
             </div>
           </div>
           <!-- Lieudit -->
           <div class="form-group row col-6">
             <label for="lieudit" class="col-6 col-form-label">Lieudit :</label>
             <div class="col-6">
-              <input disabled disabled type="text" class="form-control-plaintext" id="lieudit" #ville="ngModel" [(ngModel)]="logement.lieudit" name="lieudit" class="form-control" required>
+              <input disabled disabled type="text" class="form-control-plaintext" id="lieudit" #lieudit="ngModel" [(ngModel)]="logement.lieudit"
+                name="lieudit" class="form-control" required>
             </div>
           </div>
           <!-- Type logement -->
@@ -53,14 +59,14 @@
           <div class="form-group row col-6">
             <label for="statutOccupant" class="col-6 col-form-label">Type d'occupation :</label>
             <div class="col-6">
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="statutOccupant1" name="statutOccupant" value="Locataire" class="custom-control-input" [(ngModel)]="logement.typeOccupation">
-                  <label class="custom-control-label" for="statutOccupant1">Locataire</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="statutOccupant2" name="statutOccupant" value="Propriétaire" class="custom-control-input" [(ngModel)]="logement.typeOccupation">
-                  <label class="custom-control-label" for="statutOccupant2">Propriétaire</label>
-                </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="statutOccupant1" name="statutOccupant" value="Locataire" class="custom-control-input" [(ngModel)]="logement.typeOccupation">
+                <label class="custom-control-label" for="statutOccupant1">Locataire</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="statutOccupant2" name="statutOccupant" value="Propriétaire" class="custom-control-input" [(ngModel)]="logement.typeOccupation">
+                <label class="custom-control-label" for="statutOccupant2">Propriétaire</label>
+              </div>
             </div>
           </div>
           <!-- Surface -->
@@ -76,9 +82,9 @@
           <div class="form-group row col-6">
             <label for="nbOccupant" class="col-6 col-form-label">{{ logement.nbOccupant }} occupant(s) :</label>
             <div class="col-6">
-                <div class="slidecontainer">
-                  <input type="range" min="1" max="20" [(ngModel)]="logement.nbOccupant" name="nbOccupant" class="form-control-range" id="nbOccupant">
-                </div>
+              <div class="slidecontainer">
+                <input type="range" min="1" max="20" [(ngModel)]="logement.nbOccupant" name="nbOccupant" class="form-control-range" id="nbOccupant">
+              </div>
             </div>
           </div>
           <!-- Type résidence -->
@@ -99,86 +105,105 @@
           <div class="form-group row col-6">
             <label for="annee" class="col-6 col-form-label">Année de construction :</label>
             <div class="col-6">
-                <input disabled type="number" class="form-control-plaintext" id="annee" #annee="ngModel" [(ngModel)]="logement.annee" name="annee" class="form-control" required>
+              <input disabled type="number" class="form-control-plaintext" id="annee" #annee="ngModel" [(ngModel)]="logement.annee" name="annee"
+                class="form-control" required>
             </div>
           </div>
           <!-- Classe énergétique -->
           <div class="form-group row col-6">
             <label for="classeEnergetique" class="col-6 col-form-label">Classe énergétique :</label>
             <div class="col-6">
-              <input type="text" class="form-control-plaintext" id="classeEnergetique" #classeEnergetique="ngModel" [(ngModel)]="logement.classeEnergetique" name="classeEnergetique" class="form-control" required>
+              <input type="text" class="form-control-plaintext" id="classeEnergetique" #classeEnergetique="ngModel" [(ngModel)]="logement.classeEnergetique"
+                name="classeEnergetique" class="form-control" required>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="card my-3">
-      <div class="card-header"><h4>Mes équipements</h4></div>
+      <div class="card-header">
+        <h4>Mes équipements</h4>
+      </div>
       <div class="card-body">
         <div class="row col-12">
-            <!-- Chauffage -->
-            <div class="form-group row col-6">
-              <label for="chauffage" class="col-6 col-form-label">Chauffage principal :</label>
-              <div class="col-6">
-                <select class="custom-select" [(ngModel)]="logement.energieChauffagePrincipal" name="chauffage">
-                  <option value="Electricité Classique">Electricité Classique</option>
-                  <option value="Electricité & PAC Générique">Electricité & PAC Générique</option>
-                  <option value="Gaz">Gaz</option>
-                  <option value="Collectif">Collectif</option>
-                  <option value="Autre">Autre</option>
-                </select>
+          <!-- Chauffage -->
+          <div class="form-group row col-6">
+            <label for="chauffage" class="col-6 col-form-label">Chauffage principal :</label>
+            <div class="col-6">
+              <select class="custom-select" [(ngModel)]="logement.energieChauffagePrincipal" name="chauffage">
+                <option *ngFor="let ref of referentiel.getReferentielAsArray('energieChauffage')" value="{{ref.code}}">{{ref.label}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- Equipement chauffage -->
+          <div class="form-group row col-6">
+            <label for="equipmentChauffage" class="col-6 col-form-label">Équipement de chauffage principal :</label>
+            <div class="col-6">
+              <select class="custom-select" [(ngModel)]="logement.equipementChauffagePrincipal" name="equipmentChauffage">
+                <option *ngFor="let ref of referentiel.getReferentielAsArray('equipementChauffage')" value="{{ref.code}}">{{ref.label}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- Présence gaz -->
+          <div class="form-group row col-6">
+            <label class="col-6 col-form-label">Présence gaz : </label>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="presenceAlimentationGaz1" name="presenceAlimentationGaz" value='true' class="custom-control-input"
+                  [(ngModel)]="logement.presenceAlimentationGaz">
+                <label class="custom-control-label" for="presenceAlimentationGaz1">Oui</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="presenceAlimentationGaz2" name="presenceAlimentationGaz" value='false' class="custom-control-input"
+                  [(ngModel)]="logement.presenceAlimentationGaz">
+                <label class="custom-control-label" for="presenceAlimentationGaz2">Non</label>
               </div>
             </div>
-            <!-- Equipement chauffage -->
-            <div class="form-group row col-6">
-              <label for="equipmentChauffage" class="col-6 col-form-label">Équipement de chauffage principal :</label>
-              <div class="col-6">
-                <select class="custom-select" [(ngModel)]="logement.equipementChauffagePrincipal" name="equipmentChauffage">
-                  <option value="GazChaudiereStandard">Chaudière à gaz standard</option>
-                  <option value="CondensationChaudiere">Chaudière à condensation</option>
-                  <option value="Collectif">Collectif</option>
-                  <option value="Autre">Autre</option>
-                </select>
+          </div>
+          <!-- Chauffage secondaire-->
+          <div class="form-group row col-6">
+            <label for="chauffageSecondaire" class="col-6 col-form-label">Chauffage secondaire :</label>
+            <div class="col-6">
+              <select class="custom-select" [(ngModel)]="logement.energieChauffageSecondaire" name="chauffageSecondaire">
+                <option *ngFor="let ref of referentiel.getReferentielAsArray('energieChauffage')" value="{{ref.code}}">{{ref.label}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- Eau chaude -->
+          <div class="form-group row col-6">
+            <label for="energieEauChaude" class="col-6 col-form-label">Eau chaude sanitaire :</label>
+            <div class="col-6">
+              <select class="custom-select" [(ngModel)]="logement.energieEauChaudeSanitaire" name="energieEauChaude">
+                <option ngValue="Electricité">Electricité</option>
+                <option ngValue="Gaz">Gaz</option>
+                <option ngValue="Collectif">Collectif</option>
+                <option ngValue="Autre">Autre</option>
+              </select>
+            </div>
+          </div>
+          <!-- Présence piscine -->
+          <div class="form-group row col-6">
+            <label class="col-6 col-form-label">Présence d'une piscine : </label>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="presencePiscine1" name="presencePiscine" value='true' class="custom-control-input" [(ngModel)]="logement.presencePiscine">
+                <label class="custom-control-label" for="presencePiscine1">Oui</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="presencePiscine2" name="presencePiscine" value='false' class="custom-control-input" [(ngModel)]="logement.presencePiscine">
+                <label class="custom-control-label" for="presencePiscine2">Non</label>
               </div>
             </div>
-            <!-- Eau chaude -->
-            <div class="form-group row col-6">
-              <label for="energieEauChaude" class="col-6 col-form-label">Eau chaude sanitaire :</label>
-              <div class="col-6">
-                <select class="custom-select" [(ngModel)]="logement.energieEauChaudeSanitaire" name="energieEauChaude">
-                  <option ngValue="Electricité">Electricité</option>
-                  <option ngValue="Gaz">Gaz</option>
-                  <option ngValue="Collectif">Collectif</option>
-                  <option ngValue="Autre">Autre</option>
-                </select>
-              </div>
+          </div>
+          <!-- Type chauffage piscine -->
+          <div class="form-group row col-6">
+            <label for="chauffagePiscine" class="col-6 col-form-label">Chauffage de la piscine :</label>
+            <div class="col-6">
+              <select class="custom-select" [(ngModel)]="logement.chauffagePiscine" name="chauffagePiscine">
+                <option *ngFor="let ref of referentiel.getReferentielAsArray('energieChauffagePiscine')" value="{{ref.code}}">{{ref.label}}</option>
+              </select>
             </div>
-            <!-- Présence piscine -->
-            <div class="form-group row col-6">
-              <label class="col-6 col-form-label">Présence d'une piscine :</label>
-              <div class="col-6">
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="presencePiscine1" name="presencePiscine" value="true" class="custom-control-input" [(ngModel)]="logement.presencePiscine">
-                  <label class="custom-control-label" for="presencePiscine1">Oui</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" id="presencePiscine2" name="presencePiscine" value="false" class="custom-control-input" [(ngModel)]="logement.presencePiscine">
-                  <label class="custom-control-label" for="presencePiscine2">Non</label>
-                </div>
-              </div>
-            </div>
-            <!-- Type chauffage piscine -->
-            <div class="form-group row col-6">
-              <label for="chauffagePiscine" class="col-6 col-form-label">Chauffage de la piscine :</label>
-              <div class="col-6">
-                <select class="custom-select" [(ngModel)]="logement.chauffagePiscine" name="chauffagePiscine">
-                  <option ngValue="Electricité">Electricité</option>
-                  <option ngValue="Gaz">Gaz</option>
-                  <option ngValue="Collectif">Collectif</option>
-                  <option ngValue="Autre">Autre</option>
-                </select>
-              </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>

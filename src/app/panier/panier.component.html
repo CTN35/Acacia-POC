@@ -21,8 +21,8 @@
       <div class="card-header d-flex justify-content-between"><h3>Votre Option</h3></div>
       <div class="card-body">
         <div class="row col-12">
-          <h4 class="col-12">{{ option.libelle }}</h4>
-          <p class="col-12">{{ option.montant }}€ / an ({{ option.typePrix=='Fixe'? option.typePrix + ' pendant ' + option.dureePrixFixe + ' mois' : option.typePrix}}), délais de prévenance de {{ option.delaisPrevenance }} jours</p>
+          <h4 class="col-12">{{ option.nomOption }}</h4>
+          <p class="col-12">{{ option.nomOption }} : {{ option.montantAnnuelEstime }}€/an (optimisé à {{ option.montantAnnuelOptimise }}€/an)</p>
         </div>
       </div>
     </div>

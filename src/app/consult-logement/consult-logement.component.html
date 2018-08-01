@@ -1,7 +1,7 @@
 <div class="row">
   <h2 class="col-12 my-3">Mon numéro PDL : {{model.numeroPdlContrat}}</h2>
 
-  <div class="alert alert-warning fade in alert-dismissible w-100" *ngIf="existingProcess">
+  <div class="alert alert-warning fade in alert-dismissible w-100 show" *ngIf="existingProcess">
     <strong>Attention!</strong> Vous avez déja une demande en cours, veuillez la terminer.
   </div>
 
@@ -60,7 +60,7 @@
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Classe Energétique :</label>
-          <span>{{ logement.classeEnergetique || '-' }}</span>
+          <span>{{ referentiel.classeEnergetique[logement.classeEnergetique] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type Résidence :</label>
@@ -77,11 +77,11 @@
       <div class="row col-12">
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type de chauffage :</label>
-          <span>{{ logement.energieChauffagePrincipal || '-' }}</span>
+          <span>{{ referentiel.energieChauffage[logement.energieChauffagePrincipal] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Équipement de chauffage principal:</label>
-          <span>{{ logement.equipementChauffagePrincipal || '-' }}</span>
+          <span>{{ referentiel.equipementChauffage[logement.equipementChauffagePrincipal] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Présence Gaz :</label>
@@ -89,11 +89,11 @@
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type Chauffage Alternatif :</label>
-          <span>{{ logement.energieChauffageSecondaire || '-' }}</span>
+          <span>{{ referentiel.energieChauffage[logement.energieChauffageSecondaire] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Energie Eau Chaude Sanitaire :</label>
-          <span>{{ logement.energieEauChaudeSanitaire || '-' }}</span>
+          <span>{{ referentiel.energieChauffeEau[logement.energieEauChaudeSanitaire] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Présence d'une piscine :</label>
@@ -101,7 +101,7 @@
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type de chauffage de la piscine :</label>
-          <span>{{ logement.chauffagePiscine || '-' }}</span>
+          <span>{{ referentiel.energieChauffagePiscine[logement.chauffagePiscine] || '-' }}</span>
         </div>
         <!-- <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Véhicule Electrique :</label>
