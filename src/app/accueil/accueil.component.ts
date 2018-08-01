@@ -11,33 +11,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class AccueilComponent implements OnInit, OnDestroy {
 
-  offres: Offre[] = [
-    {
-      code: 'ELEC_BLEU',
-      libelle: 'Tarif Bleu',
-      description: 'Faites le choix de la simplicité',
-      description2: 'Le kWh est toujours au même tarif, quels que soient l’heure et le jour de la semaine'
-    },
-    {
-      code: 'ELEC_PE_VERT',
-      libelle: 'Vert Électrique',
-      description: 'Contribuez à la transition énergétique sans changer vos habitudes !',
-      description2: 'Blabla'
-    },
-    {
-      code: 'ELEC_PE_WE',
-      libelle: 'Vert Électrique Week-end',
-      description: 'Payez moins cher votre électricité verte le week-end',
-      description2: 'Blabla' },
-    {
-      code: 'ELEC_PE_AUTO',
-      libelle: 'Vert Électrique Auto',
-      description: 'Rechargez votre voiture électrique avec une électricité 40% moins chère la nuit et à prix fixe sur 3 ans',
-      description2: 'Blabla'
-    },
-  ];
-
-  constructor(private msgService: GlobalMessageService, private router: Router, private model: ModelService ) {
+  constructor(private msgService: GlobalMessageService, private router: Router, public model: ModelService ) {
     this.msgService.getMessage().subscribe(message => { this.handleMessage(message); });
   }
 

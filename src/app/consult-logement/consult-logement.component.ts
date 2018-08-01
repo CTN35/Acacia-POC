@@ -1,3 +1,4 @@
+import { ReferentielService } from './../referentiel.service';
 import { Subscription } from 'rxjs';
 import { ModelService } from './../model.service';
 import { environment } from './../../environments/environment';
@@ -25,7 +26,7 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
   existingProcess = false;
 
   constructor(private msgService: GlobalMessageService, private router: Router,
-    private dataService: BpmDataService, public model: ModelService) {
+    private dataService: BpmDataService, public model: ModelService, public referentiel: ReferentielService) {
     this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'newLogement':

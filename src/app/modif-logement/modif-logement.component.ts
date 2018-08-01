@@ -1,3 +1,4 @@
+import { ReferentielService } from './../referentiel.service';
 import { Subscription } from 'rxjs';
 import { Logement } from 'src/app/Model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -17,7 +18,8 @@ export class ModifLogementComponent implements OnInit, OnDestroy {
   displayForm = false;
   subscription: Subscription;
 
-  constructor(private msgService: GlobalMessageService, private router: Router, private model: ModelService) {
+  constructor(private msgService: GlobalMessageService, private router: Router,
+    public model: ModelService, public referentiel: ReferentielService) {
     this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'modifLogement':

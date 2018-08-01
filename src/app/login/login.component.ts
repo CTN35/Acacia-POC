@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   subscription: Subscription = null;
 
 
-  constructor(private bpmService: BpmDataService, private model: ModelService, private msgService: GlobalMessageService) {
+  constructor(private bpmService: BpmDataService, public model: ModelService, private msgService: GlobalMessageService) {
     // this.subscription = this.msgService.getMessage().subscribe(message => { this.handleMessage(message); });
   }
 

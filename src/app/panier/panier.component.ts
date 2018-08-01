@@ -17,7 +17,7 @@ export class PanierComponent implements OnInit, OnDestroy {
   displayData = false;
   subscription: Subscription;
 
-  constructor(private msgService: GlobalMessageService, private router: Router, private model: ModelService) {
+  constructor(private msgService: GlobalMessageService, private router: Router, public model: ModelService) {
     this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'modifOffre':

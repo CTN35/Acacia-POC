@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(APP_ID) private appId: string,
     private msgService: GlobalMessageService,
     private router: Router,
-    private model: ModelService) { }
+    public model: ModelService) { }
 
   ngOnInit() {
     this.subscription = this.msgService.getMessage().subscribe(message => { this.handleMessage(message); });

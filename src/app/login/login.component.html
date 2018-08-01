@@ -2,11 +2,11 @@
 
   <form class="mt-2 mb-5 pt-1 pb-1 w-100" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
     <h2 class="form-signin-heading mt-2">Connexion</h2>
-    <label for="login" class="sr-only">Login</label>
-    <input type="text" id="login" name="login" class="form-control mb-1 mt-1" placeholder="Login" required autofocus ngModel
-      #login="ngModel">
-    <label for="password" class="sr-only">Password</label>
-    <input type="password" id="password" name="password" class="form-control mb-1 mt-1" placeholder="Password" required ngModel
+    <label for="login" class="sr-only">Numéro BP</label>
+    <input type="text" id="login" name="login" class="form-control mb-1 mt-1" placeholder="Numéro BP" required autofocus ngModel
+      #login="ngModel" autocomplete="off">
+    <label for="password" class="sr-only">Mot de passe</label>
+    <input type="password" id="password" name="password" class="form-control mb-1 mt-1" placeholder="Mot de passe" required ngModel
       #password="ngModel">
     <button class="btn btn-lg btn-primary btn-block mb-1 mt-1" type="submit">Connexion</button>
   </form>
