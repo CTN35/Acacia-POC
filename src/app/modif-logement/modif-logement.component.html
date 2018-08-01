@@ -25,14 +25,14 @@
           <div class="form-group row col-6">
             <label for="codeInsee" class="col-6 col-form-label">Code INSEE :</label>
             <div class="col-6">
-              <input disabled type="text" class="form-control-plaintext" id="codeInsee" #codePostal="ngModel" [(ngModel)]="logement.codeINSEE" name="codePostal" class="form-control" required>
+              <input disabled type="text" class="form-control-plaintext" id="codeInsee" #codeInsee="ngModel" [(ngModel)]="logement.codeINSEE" name="codeInsee" class="form-control" required>
             </div>
           </div>
           <!-- Lieudit -->
           <div class="form-group row col-6">
             <label for="lieudit" class="col-6 col-form-label">Lieudit :</label>
             <div class="col-6">
-              <input disabled disabled type="text" class="form-control-plaintext" id="lieudit" #ville="ngModel" [(ngModel)]="logement.lieudit" name="lieudit" class="form-control" required>
+              <input disabled disabled type="text" class="form-control-plaintext" id="lieudit" #lieudit="ngModel" [(ngModel)]="logement.lieudit" name="lieudit" class="form-control" required>
             </div>
           </div>
           <!-- Type logement -->
@@ -141,6 +141,34 @@
                 </select>
               </div>
             </div>
+            <!-- Présence gaz -->
+            <div class="form-group row col-6">
+                <label class="col-6 col-form-label">Présence gaz : </label>
+                <div class="col-6">
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="presenceAlimentationGaz1" name="presenceAlimentationGaz" value='true' class="custom-control-input" [(ngModel)]="logement.presenceAlimentationGaz">
+                    <label class="custom-control-label" for="presenceAlimentationGaz1">Oui</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="presenceAlimentationGaz2" name="presenceAlimentationGaz" value='false' class="custom-control-input" [(ngModel)]="logement.presenceAlimentationGaz">
+                    <label class="custom-control-label" for="presenceAlimentationGaz2">Non</label>
+                  </div>
+                </div>
+              </div>
+              <!-- Chauffage secondaire-->
+              <div class="form-group row col-6">
+                <label for="chauffageSecondaire" class="col-6 col-form-label">Chauffage secondaire :</label>
+                <div class="col-6">
+                  <select class="custom-select" [(ngModel)]="logement.energieChauffageSecondaire" name="chauffageSecondaire">
+                    <option value="Electricité Classique">Electricité Classique</option>
+                    <option value="Electricité & PAC Générique">Electricité & PAC Générique</option>
+                    <option value="Gaz">Gaz</option>
+                    <option value="Bois">Bois</option>
+                    <option value="null">Aucun</option>
+                    <option value="Autre">Autre</option>
+                  </select>
+                </div>
+              </div>
             <!-- Eau chaude -->
             <div class="form-group row col-6">
               <label for="energieEauChaude" class="col-6 col-form-label">Eau chaude sanitaire :</label>
@@ -155,14 +183,14 @@
             </div>
             <!-- Présence piscine -->
             <div class="form-group row col-6">
-              <label class="col-6 col-form-label">Présence d'une piscine :</label>
+              <label class="col-6 col-form-label">Présence d'une piscine : </label>
               <div class="col-6">
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="presencePiscine1" name="presencePiscine" value="true" class="custom-control-input" [(ngModel)]="logement.presencePiscine">
+                  <input type="radio" id="presencePiscine1" name="presencePiscine" value='true' class="custom-control-input" [(ngModel)]="logement.presencePiscine">
                   <label class="custom-control-label" for="presencePiscine1">Oui</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input type="radio" id="presencePiscine2" name="presencePiscine" value="false" class="custom-control-input" [(ngModel)]="logement.presencePiscine">
+                  <input type="radio" id="presencePiscine2" name="presencePiscine" value='false' class="custom-control-input" [(ngModel)]="logement.presencePiscine">
                   <label class="custom-control-label" for="presencePiscine2">Non</label>
                 </div>
               </div>
@@ -175,6 +203,7 @@
                   <option ngValue="Electricité">Electricité</option>
                   <option ngValue="Gaz">Gaz</option>
                   <option ngValue="Collectif">Collectif</option>
+                  <option value="null">Aucun</option>
                   <option ngValue="Autre">Autre</option>
                 </select>
               </div>

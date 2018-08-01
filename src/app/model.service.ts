@@ -8,7 +8,7 @@ export class ModelService {
 
   user: AuthUser = new AuthUser();
   selectedOffer: string = null;
-  currentProcessInstanceId = 0;
+  currentProcessInstanceId = 73;
   currentTaskId = -1;
   originalLogement: Logement = new Logement();
   currentLogement: Logement = new Logement();
@@ -19,6 +19,33 @@ export class ModelService {
   numeroPdlContrat = null;
   options: Option[] = [];
   selectedOption: Option = null;
+
+  tabOffres = {
+    ELEC_BLEU: {
+      code: 'ELEC_BLEU',
+      libelle: 'Tarif Bleu',
+      description: 'Faites le choix de la simplicité',
+      description2: 'Le kWh est toujours au même tarif, quels que soient l’heure et le jour de la semaine'
+    },
+    ELEC_PE_WE: {
+      code: 'ELEC_PE_WE',
+      libelle: 'Vert Électrique Week-end',
+      description: 'Payez moins cher votre électricité verte le week-end',
+      description2: 'Blabla'
+    },
+    ELEC_PE_VERT: {
+      code: 'ELEC_PE_VERT',
+      libelle: 'Vert Électrique',
+      description: 'Contribuez à la transition énergétique sans changer vos habitudes !',
+      description2: 'Blabla'
+    },
+    ELEC_PE_AUTO: {
+      code: 'ELEC_PE_AUTO',
+      libelle: 'Vert Électrique Auto',
+      description: 'Rechargez votre voiture électrique avec une électricité 40% moins chère la nuit et à prix fixe sur 3 ans',
+      description2: 'Blabla'
+    }
+  };
 
   loginError = false;
 
@@ -124,47 +151,5 @@ export class ModelService {
     this.options = [];
     this.selectedOption = new Option();
   }
-
-  getOffre (idOffre): Offre {
-    let offreReturn = new Offre;
-    switch (idOffre) {
-      case 'ELEC_BLEU':
-        offreReturn = {
-          code: 'ELEC_BLEU',
-          libelle: 'Tarif Bleu',
-          description: 'Faites le choix de la simplicité',
-          description2: 'Le kWh est toujours au même tarif, quels que soient l’heure et le jour de la semaine'
-        };
-        break;
-      case 'ELEC_PE_WE':
-        offreReturn = {
-          code: 'ELEC_PE_WE',
-          libelle: 'Vert Électrique Week-end',
-          description: 'Payez moins cher votre électricité verte le week-end',
-          description2: 'Blabla'
-        };
-        break;
-      case 'ELEC_PE_VERT':
-        offreReturn = {
-          code: 'ELEC_PE_VERT',
-          libelle: 'Vert Électrique',
-          description: 'Contribuez à la transition énergétique sans changer vos habitudes !',
-          description2: 'Blabla'
-        };
-        break;
-      case 'ELEC_PE_AUTO':
-        offreReturn = {
-          code: 'ELEC_PE_AUTO',
-          libelle: 'Vert Électrique Auto',
-          description: 'Rechargez votre voiture électrique avec une électricité 40% moins chère la nuit et à prix fixe sur 3 ans',
-          description2: 'Blabla'
-        };
-        break;
-      default:
-        break;
-    }
-    return offreReturn;
-  }
-
 
 }

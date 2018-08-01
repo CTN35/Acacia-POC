@@ -23,11 +23,10 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
   subscription: Subscription = null;
 
   constructor(private msgService: GlobalMessageService, private router: Router,
-    private dataService: BpmDataService, private model: ModelService) {
+    private dataService: BpmDataService, public model: ModelService) {
     this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'newLogement':
-        this.model.currentLogement = message.data.logement;
           this.logement = this.model.currentLogement;
           this.rerunSimulation();
           break;
@@ -43,8 +42,8 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
       this.logement = this.model.currentLogement;
     }
 
-    this.offre = this.model.getOffre(this.model.originalOffer);
-    this.newOffre = this.model.getOffre(this.model.selectedOffer);
+    this.offre = this.model.tabOffres[this.model.originalOffer];
+    this.newOffre = this.model.tabOffres[this.model.selectedOffer];
     this.options = this.model.options.sort(function (a, b) {
       return a.ordrePreconisation - b.ordrePreconisation;
     });
