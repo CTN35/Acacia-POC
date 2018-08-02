@@ -19,6 +19,7 @@ export class ModelService {
   numeroPdlContrat = null;
   options: Option[] = [];
   selectedOption: Option = null;
+  state = '';
 
   loginError = false;
   existingProcess = false;

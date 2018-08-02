@@ -1,6 +1,6 @@
 <h1>Suivi des demandes clients</h1>
 
-<p-table [columns]="cols" [value]="tabProcess" dataKey="idLogement" [(selection)]="selectedProcess">
+<p-table [columns]="cols" [value]="tabProcess" dataKey="id" [(selection)]="selectedProcess">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th style="width: 2.25em"></th>
@@ -20,10 +20,10 @@
                     <i [ngClass]="expanded ? 'pi pi-chevron-circle-down' : 'pi pi-chevron-circle-right'" style="font-size: 1.25em"></i>
                 </a>
             </td>
-            <td>{{ tabLogement[rowData.idLogement].type }}, {{ tabLogement[rowData.idLogement].surface }} m²</td>
-            <td>{{ tabOffre[rowData.idAncienneOffre].libelle }}</td>
-            <td>{{ tabOffre[rowData.idNouvelleOffre].libelle }}</td>
-            <td>{{ tabOption[rowData.idOption].libelle }}</td>
+            <td>{{ rowData.currentLogement.typeLogement }}, {{ rowData.currentLogement.surface }} m²</td>
+            <td>{{ model.tabOffres[rowData.originalOffer].libelle }}</td>
+            <td>{{ model.tabOffres[rowData.selectedOffer].libelle }}</td>
+            <td>{{ rowData.selectedOption.nomOption }}</td>
             <td class="text-center"><button class="btn btn-success">Valider</button> &nbsp; <button class="btn btn-danger">Refuser</button></td>
         </tr>
     </ng-template>
@@ -33,21 +33,21 @@
                 <div class="ui-g ui-fluid">
                     <div class="ui-g-12">
                         <b>Logement :</b> <br>
-                        {{ tabLogement[rowData.idLogement].type }}, {{ tabLogement[rowData.idLogement].surface }} m², {{ tabLogement[rowData.idLogement].nbOccupant }} pers. ({{ tabLogement[rowData.idLogement].statutOccupant }})<br/> 
-                        - Chauffage : {{ tabLogement[rowData.idLogement].chauffage }}<br/> 
-                        - Eau chaude : {{ tabLogement[rowData.idLogement].energieEauChaude }}
+                        {{ rowData.currentLogement.typeLogement }}, {{ rowData.currentLogement.surface }} m², {{ rowData.currentLogement.nbOccupant }} pers. ({{ rowData.currentLogement.typeOccupation }})<br/> 
+                        - Chauffage : {{ rowData.currentLogement.energieChauffagePrincipal }}<br/> 
+                        - Eau chaude : {{ rowData.currentLogement.energieEauChaudeSanitaire }}
                     </div>
                     <div class="ui-g-12">
                         <b>Ancienne offre :</b> <br>
-                        {{ tabOffre[rowData.idAncienneOffre].libelle }} : {{ tabOffre[rowData.idAncienneOffre].description }}
+                        {{ model.tabOffres[rowData.originalOffer].libelle }} : {{ model.tabOffres[rowData.originalOffer].description }}
                     </div>
                     <div class="ui-g-12">
                         <b>Nouvelle offre :</b> <br>
-                        {{ tabOffre[rowData.idNouvelleOffre].libelle }} : {{ tabOffre[rowData.idNouvelleOffre].description }}
+                        {{ model.tabOffres[rowData.selectedOffer].libelle }} : {{ model.tabOffres[rowData.selectedOffer].description }}
                     </div>
                     <div class="ui-g-12">
                         <b>Option :</b> <br>
-                        {{ tabOption[rowData.idOption].libelle }} : {{ tabOption[rowData.idOption].montant }}€ / an ({{ tabOption[rowData.idOption].typePrix=='Fixe'? tabOption[rowData.idOption].typePrix + ' pendant ' + tabOption[rowData.idOption].dureePrixFixe + ' mois' : tabOption[rowData.idOption].typePrix}})
+                        {{ rowData.selectedOption.nomOption }} : {{ rowData.selectedOption.montantAnnuelEstime }}€/an (optimisé à {{ rowData.selectedOption.montantAnnuelOptimise }}€/an)
                     </div>
                 </div>
             </td>

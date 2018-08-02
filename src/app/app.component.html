@@ -13,7 +13,10 @@
           <a class="nav-link" routerLink="/login">Se connecter</a>
         </li>
         <li class="nav-item" *ngIf="model.user.isAuthenticated">
-          <span class="nav-link">{{model.user.login}}</span>
+          <span class="nav-link" routerLink="/demandes">Mes demandes</span>
+        </li>
+        <li class="nav-item" *ngIf="model.user.isAuthenticated">
+          <span class="nav-link text-light">{{model.user.login}}</span>
         </li>
         <li class="nav-item" *ngIf="model.user.isAuthenticated">
           <button class="nav-link btn btn-link btn-sm" (click)="logout()">Se déconnecter</button>

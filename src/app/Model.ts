@@ -55,13 +55,15 @@ export class Cadran {
 }
 
 export class Process {
-  idOption: number;
+  id: number;
   selectedOffer: string;
   originalOffer: string;
+  selectedOption: Option;
   currentProcessInstanceId: number;
   originalLogement: Logement;
   currentLogement: Logement;
   logementModified: false;
   numeroBpContrat: string;
   numeroPdlContrat: string;
+  state: string;
 }
