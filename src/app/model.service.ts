@@ -160,6 +160,14 @@ export class ModelService {
 
   }
 
+  convertInputToUsableObject(input: any): any {
+    const result = {};
+    (<Array<any>>input['variable-instances']).forEach(obj => {
+      result[obj['name']] = obj['value'];
+    });
+    return result;
+  }
+
   resetModel(resetAuth: boolean): void {
     if (resetAuth) {
       this.user = new AuthUser();
