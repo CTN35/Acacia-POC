@@ -54,10 +54,10 @@ export class MyHttpInterceptor {
         }
         if (doThrowError) {
           this.msgService.sendMessage('GeneralError', errorMsg);
-          return throwError(error);
-        } else {
-          return new Observable();
         }
+
+        return throwError(error);
+
       }) as any);
   }
 

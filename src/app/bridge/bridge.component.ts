@@ -16,7 +16,13 @@ export class BridgeComponent implements OnInit {
     private router: Router, private messageService: GlobalMessageService) { }
 
   ngOnInit() {
-    this.startOrGetProcess();
+
+    if (this.model.user.isAuthenticated) {
+      this.startOrGetProcess();
+    } else {
+      this.router.navigate(['/login']);
+    }
+
   }
 
   startOrGetProcess() {
@@ -24,43 +30,44 @@ export class BridgeComponent implements OnInit {
       this.router.navigate(['/']);
       return;
     }
-    if (!environment.allowMultipleProcess) {
-      this.dataService.getProcesses().subscribe(
-        result => {
-          let processId = -1;
-          (<Array<any>>result['process-instance']).forEach(element => {
-            if (processId <= 0 && element['process-id'] === environment.bpmProcessId) {
-              processId = Number(element['process-instance-id']);
-            }
-          });
-
-          if (processId > 0) {
-            this.model.currentProcessInstanceId = processId;
-            this.model.existingProcess = true;
-          } else {
+    this.dataService.getProcesses().subscribe(
+      result => {
+        let processId = -1;
+        (<Array<any>>result['process-instance']).forEach(element => {
+          if (processId <= 0 && element['process-id'] === environment.bpmProcessId) {
+            processId = Number(element['process-instance-id']);
           }
-        }
-      );
-    }
-
-    // Get ongoing process or start new process ==> A faire au niveau du model ?
-    if (this.model.currentProcessInstanceId <= 0) {
-      let bpId = Number(this.model.user.login);
-      if (Number.isNaN(bpId)) {
-        bpId = 244466666;
-      }
-      this.dataService.startNewProcess(environment.bpmProcessId,
-        {
-          numeroBpContrat: '' + bpId,
-          idOffreSelectionnee: this.model.selectedOffer
-        }).subscribe(id => {
-          this.model.currentProcessInstanceId = Number(id);
-          this.getBpmData();
         });
-    } else {
-      this.getBpmData();
-    }
+
+        if (processId > 0) {
+          this.model.currentProcessInstanceId = processId;
+          this.model.existingProcess = true;
+        } else {
+        }
+
+        // Get ongoing process or start new process ==> A faire au niveau du model ?
+        if (this.model.currentProcessInstanceId <= 0 || environment.allowMultipleProcess) {
+          let bpId = Number(this.model.user.login);
+          if (Number.isNaN(bpId)) {
+            bpId = 244466666;
+          }
+          this.dataService.startNewProcess(environment.bpmProcessId,
+            {
+              numeroBpContrat: '' + bpId,
+              idOffreSelectionnee: this.model.selectedOffer
+            }).subscribe(id => {
+              this.model.currentProcessInstanceId = Number(id);
+              this.getBpmData();
+            });
+        } else {
+          this.getBpmData();
+        }
+
+      }
+    );
   }
+
+
 
   getBpmData(): void {
     // get process to load model
