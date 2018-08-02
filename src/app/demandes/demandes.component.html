@@ -1,55 +1,61 @@
 <div class="row col-12">
   <h1 class="col-12">Suivi de ma demande</h1>
-  <h2 class="col-12 text-right">État : {{ model.state }}</h2>
-  <div class="card w-100 my-3">
-      <div class="card-header d-flex justify-content-between"><h3>Votre Offre Actuelle</h3></div>
+  <div class="col-12" *ngIf="model.selectedOption">
+    <h2 class="col-12 text-right">État : {{ model.state }}</h2>
+    <div class="card w-100 my-3">
+        <div class="card-header d-flex justify-content-between"><h3>Votre Offre Actuelle</h3></div>
+        <div class="card-body">
+          <div class="row col-12">
+            <h4 class="col-12">{{ model.tabOffres[model.originalOffer].libelle }}</h4>
+            <p class="col-12">{{ model.tabOffres[model.originalOffer].description }}</p>
+          </div>
+        </div>
+      </div>
+    <div class="card w-100 my-3">
+      <div class="card-header d-flex justify-content-between"><h3>Votre Nouvelle Offre</h3></div>
       <div class="card-body">
         <div class="row col-12">
-          <h4 class="col-12">{{ model.tabOffres[model.originalOffer].libelle }}</h4>
-          <p class="col-12">{{ model.tabOffres[model.originalOffer].description }}</p>
+          <h4 class="col-12">{{ model.tabOffres[model.selectedOffer].libelle }}</h4>
+          <p class="col-12">{{ model.tabOffres[model.selectedOffer].description }}</p>
         </div>
       </div>
     </div>
-  <div class="card w-100 my-3">
-    <div class="card-header d-flex justify-content-between"><h3>Votre Nouvelle Offre</h3></div>
-    <div class="card-body">
-      <div class="row col-12">
-        <h4 class="col-12">{{ model.tabOffres[model.selectedOffer].libelle }}</h4>
-        <p class="col-12">{{ model.tabOffres[model.selectedOffer].description }}</p>
+    <div class="card w-100 my-3">
+      <div class="card-header d-flex justify-content-between"><h3>Votre Option</h3></div>
+      <div class="card-body">
+        <div class="row col-12">
+          <h4 class="col-12">{{ model.selectedOption.nomOption }}</h4>
+          <p class="col-12">{{ model.selectedOption.nomOption }} : {{ model.selectedOption.montantAnnuelEstime }}€/an (optimisé à {{ model.selectedOption.montantAnnuelOptimise }}€/an)</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="card w-100 my-3">
-    <div class="card-header d-flex justify-content-between"><h3>Votre Option</h3></div>
-    <div class="card-body">
-      <div class="row col-12">
-        <h4 class="col-12">{{ model.selectedOption.nomOption }}</h4>
-        <p class="col-12">{{ model.selectedOption.nomOption }} : {{ model.selectedOption.montantAnnuelEstime }}€/an (optimisé à {{ model.selectedOption.montantAnnuelOptimise }}€/an)</p>
-      </div>
+    <div class="mx-auto">
+      <button type="button" class="btn btn-danger m-4 text-light" routerLink="/">Abandonner</button>
+      <button class="btn btn-success m-4 text-light" data-toggle="modal" data-target="#confirmModal">Signer</button>
     </div>
   </div>
-  <div class="mx-auto">
-    <button type="button" class="btn btn-danger m-4 text-light" routerLink="/">Abandonner</button>
-    <button class="btn btn-success m-4 text-light" data-toggle="modal" data-target="#confirmModal">Signer</button>
+
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Signature électronique</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Veuillez confirmez-vous le changement d'offre.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
+          <button type="button" class="btn btn-success" (click)="save()" data-dismiss="modal">Changer d'offre</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Signature électronique</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Veuillez confirmez-vous le changement d'offre.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
-        <button type="button" class="btn btn-success" (click)="save()" data-dismiss="modal">Changer d'offre</button>
-      </div>
-    </div>
-  </div>
+<div *ngIf="!model.selectedOption">
+  <p class="text-center">Aucune demande en cours</p>
 </div>

@@ -124,7 +124,8 @@ export class AdminComponent implements OnInit {
         currentLogement: this.tabLogement[0],
         logementModified: false,
         numeroBpContrat: '452452412',
-        numeroPdlContrat: '453420485'
+        numeroPdlContrat: '453420485',
+        state: ''
       },
       {
         id: 2,
@@ -136,7 +137,8 @@ export class AdminComponent implements OnInit {
         currentLogement: this.tabLogement[1],
         logementModified: false,
         numeroBpContrat: '452452412',
-        numeroPdlContrat: '453420485'
+        numeroPdlContrat: '453420485',
+        state: ''
       }
     ];
   }
