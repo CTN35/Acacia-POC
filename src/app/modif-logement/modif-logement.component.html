@@ -83,7 +83,7 @@
             <label for="nbOccupant" class="col-6 col-form-label">{{ logement.nbOccupant }} occupant(s) :</label>
             <div class="col-6">
               <div class="slidecontainer">
-                <input type="range" min="1" max="20" [(ngModel)]="logement.nbOccupant" name="nbOccupant" class="form-control-range" id="nbOccupant">
+                <input type="range" min="0" max="20" [(ngModel)]="logement.nbOccupant" name="nbOccupant" class="form-control-range" id="nbOccupant">
               </div>
             </div>
           </div>

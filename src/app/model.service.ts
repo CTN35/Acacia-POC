@@ -89,7 +89,7 @@ export class ModelService {
     this.originalLogement.energieChauffagePrincipal = input.local['fr.edf.bpmc.model.Local'].energieChauffagePrincipal;
     this.originalLogement.energieChauffageSecondaire = input.local['fr.edf.bpmc.model.Local'].energieChauffageSecondaire;
     this.originalLogement.energieEauChaudeSanitaire = input.local['fr.edf.bpmc.model.Local'].energieEauChaudeSanitaire;
-    this.originalLogement.nbOccupant = input.local['fr.edf.bpmc.model.Local'].nombreOccupant;
+    this.originalLogement.nbOccupant = input.local['fr.edf.bpmc.model.Local'].nombreOccupants;
     this.originalLogement.presenceAlimentationGaz = input.local['fr.edf.bpmc.model.Local'].presenceAlimentationGaz;
     this.originalLogement.equipementChauffagePrincipal = input.local['fr.edf.bpmc.model.Local'].equipementChauffagePrincipal;
     this.originalLogement.surface = input.local['fr.edf.bpmc.model.Local'].surfaceHabitable;
