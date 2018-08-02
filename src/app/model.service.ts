@@ -8,7 +8,7 @@ export class ModelService {
 
   user: AuthUser = new AuthUser();
   selectedOffer: string = null;
-  currentProcessInstanceId = 73;
+  currentProcessInstanceId = -1;
   currentTaskId = -1;
   originalLogement: Logement = new Logement();
   currentLogement: Logement = new Logement();
