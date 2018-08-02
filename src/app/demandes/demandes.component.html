@@ -1,61 +1,55 @@
-<h1>Mes demandes</h1>
+<div class="row col-12">
+  <h1 class="col-12">Suivi de ma demande</h1>
+  <h2 class="col-12 text-right">État : {{ model.state }}</h2>
+  <div class="card w-100 my-3">
+      <div class="card-header d-flex justify-content-between"><h3>Votre Offre Actuelle</h3></div>
+      <div class="card-body">
+        <div class="row col-12">
+          <h4 class="col-12">{{ model.tabOffres[model.originalOffer].libelle }}</h4>
+          <p class="col-12">{{ model.tabOffres[model.originalOffer].description }}</p>
+        </div>
+      </div>
+    </div>
+  <div class="card w-100 my-3">
+    <div class="card-header d-flex justify-content-between"><h3>Votre Nouvelle Offre</h3></div>
+    <div class="card-body">
+      <div class="row col-12">
+        <h4 class="col-12">{{ model.tabOffres[model.selectedOffer].libelle }}</h4>
+        <p class="col-12">{{ model.tabOffres[model.selectedOffer].description }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="card w-100 my-3">
+    <div class="card-header d-flex justify-content-between"><h3>Votre Option</h3></div>
+    <div class="card-body">
+      <div class="row col-12">
+        <h4 class="col-12">{{ model.selectedOption.nomOption }}</h4>
+        <p class="col-12">{{ model.selectedOption.nomOption }} : {{ model.selectedOption.montantAnnuelEstime }}€/an (optimisé à {{ model.selectedOption.montantAnnuelOptimise }}€/an)</p>
+      </div>
+    </div>
+  </div>
+  <div class="mx-auto">
+    <button type="button" class="btn btn-danger m-4 text-light" routerLink="/">Abandonner</button>
+    <button class="btn btn-success m-4 text-light" data-toggle="modal" data-target="#confirmModal">Signer</button>
+  </div>
+</div>
 
-<p-table [columns]="cols" [value]="tabProcess" dataKey="currentTaskId" [(selection)]="selectedProcess">
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th style="width: 2.25em"></th>
-            <th *ngFor="let col of columns">
-                {{ col }}
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
-        <tr >
-          <td>
-            <a href="#" [pRowToggler]="rowData">
-              <i [ngClass]="expanded ? 'pi pi-chevron-circle-down' : 'pi pi-chevron-circle-right'" style="font-size: 1.25em"></i>
-            </a>
-          </td>
-          <td>{{ rowData.currentLogement.typeLogement }}, {{ rowData.currentLogement.surface }} m²</td>
-          <td>{{ model.tabOffres[rowData.originalOffer].libelle }}</td>
-          <td>{{ model.tabOffres[rowData.selectedOffer].libelle }}</td>
-          <td>{{ rowData.selectedOption.nomOption }}</td>
-          <td>{{ rowData.state }}</td>
-          <td class="text-center">
-            <div *ngIf="rowData.state != 'A signer'">
-                <button class="btn btn-danger"><i class="pi pi-trash" alt="Abandonner"></i></button>
-            </div>
-            <div *ngIf="rowData.state == 'A signer'">
-                <button class="btn btn-success"><i class="pi pi-pencil" alt="Signer le contrat"></i></button> &nbsp; <button class="btn btn-danger"><i class="pi pi-trash" alt="Abandonner"></i></button>
-            </div>
-          </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
-        <tr>
-            <td [attr.colspan]="columns.length + 1">
-                <div class="ui-g ui-fluid">
-                    <div class="ui-g-12">
-                        <b>Logement :</b> <br>
-                        {{ rowData.currentLogement.typeLogement }}, {{ rowData.currentLogement.surface }} m², {{ rowData.currentLogement.nbOccupant }} pers. ({{ rowData.currentLogement.typeOccupation }})<br/> 
-                        - Chauffage : {{ rowData.currentLogement.energieChauffagePrincipal }}<br/> 
-                        - Eau chaude : {{ rowData.currentLogement.energieEauChaudeSanitaire }}
-                    </div>
-                    <div class="ui-g-12">
-                        <b>Ancienne offre :</b> <br>
-                        {{ model.tabOffres[rowData.originalOffer].libelle }} : {{ model.tabOffres[rowData.originalOffer].description }}
-                    </div>
-                    <div class="ui-g-12">
-                        <b>Nouvelle offre :</b> <br>
-                        {{ model.tabOffres[rowData.selectedOffer].libelle }} : {{ model.tabOffres[rowData.selectedOffer].description }}
-                    </div>
-                    <div class="ui-g-12">
-                        <b>Option :</b> <br>
-                        {{ rowData.selectedOption.nomOption }} : {{ rowData.selectedOption.montantAnnuelEstime }}€/an (optimisé à {{ rowData.selectedOption.montantAnnuelOptimise }}€/an)
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
-<br>
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Signature électronique</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Veuillez confirmez-vous le changement d'offre.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
+        <button type="button" class="btn btn-success" (click)="save()" data-dismiss="modal">Changer d'offre</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -50,7 +50,8 @@ export class PanierComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.router.navigate(['/']);
+    this.model.state = 'Soumise';
+    this.router.navigate(['/demandes']);
   }
 
 }

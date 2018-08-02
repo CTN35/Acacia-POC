@@ -128,4 +128,9 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
     // this.msgService.sendMessage('modifOffre', { offre: this.offre, new_offre: this.newOffre, option: this.selectedOption });
   }
 
+  goPanier() {
+    this.model.selectedOption = this.options[this.selectedOptionIndex];
+    this.router.navigate(['/panier']);
+  }
+
 }
