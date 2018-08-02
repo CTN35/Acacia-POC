@@ -3,7 +3,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <a routerLink="/" class="navbar-brand">POC Acacia</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -35,11 +36,18 @@
   <!-- /.row -->
 </div>
 <!-- /.container -->
-
+<p-dialog header="Une erreur est survenue !" [(visible)]="showError" [modal]="true" [responsive]="true" [width]="700" [minWidth]="200"
+  [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+  <pre>{{errorMsg}}</pre>
+  <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Copier l'erreur"></button>
+      <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Fermer" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
 <!-- Footer -->
 <footer class="py-5 bg-dark">
-<div class="container">
-<p class="m-0 text-center text-white">POC Acacia - 13/08/2018</p>
-</div>
-<!-- /.container -->
+  <div class="container">
+    <p class="m-0 text-center text-white">POC Acacia - 13/08/2018</p>
+  </div>
+  <!-- /.container -->
 </footer>

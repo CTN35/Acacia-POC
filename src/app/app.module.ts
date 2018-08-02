@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,7 +18,11 @@ import { MyHttpInterceptor } from './my-http-interceptor';
 import { GlobalMessageService } from 'src/app/global-message.service';
 import { AdminComponent } from './admin/admin.component';
 import { BridgeComponent } from './bridge/bridge.component';
-import {TableModule} from 'primeng/table';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+
+
+
 
 @NgModule({
   declarations: [
@@ -33,10 +38,12 @@ import {TableModule} from 'primeng/table';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    TableModule
+    TableModule,
+    DialogModule
   ],
   providers: [
     GlobalMessageService,

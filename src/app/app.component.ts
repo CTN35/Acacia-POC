@@ -15,6 +15,8 @@ import { isPlatformBrowser } from '@angular/common';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
   subscription: Subscription;
+  errorMsg: '';
+  showError = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   handleMessage(message: any): void {
+
     switch (message['type']) {
       case 'login':
         this.model.user = message['data'];
@@ -43,6 +46,10 @@ export class AppComponent implements OnInit, OnDestroy {
         this.model.user.password = '';
         this.model.user.isAuthenticated = false;
         this.router.navigate(['/login']);
+        break;
+        case 'GeneralError':
+        this.errorMsg = message['data'];
+        this.showError = true;
         break;
       default:
         break;
