@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   bpmBaseUrl: 'http://136.243.42.135:8080/kie-server/services/rest/server/',
-  bpmContainer: 'bpmc_1.0.0',
+  bpmContainer: 'bpmc',
   bpmProcessId: 'fr.edf.bpmc.AdaptationContratProcess',
   allowMultipleProcess: false
 };
