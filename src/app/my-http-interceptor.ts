@@ -65,6 +65,7 @@ export class MyHttpInterceptor {
     let header = reqHeaders;
     if (header.get('Authorization') === null) {
       header = header.set('Accept', 'application/json');
+      header = header.set('Content-Type', 'application/json');
       const user: AuthUser = this.model.user;
       header = header.set('Authorization', 'Basic ' + btoa(user.login + ':' + user.password));
     }

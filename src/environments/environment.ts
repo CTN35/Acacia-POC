@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  envName: 'dev',
   production: false,
   bpmBaseUrl: 'http://136.243.42.135:8080/kie-server/services/rest/server/',
   bpmContainer: 'bpmc',

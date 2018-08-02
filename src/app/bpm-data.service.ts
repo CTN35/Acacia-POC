@@ -27,7 +27,7 @@ export class BpmDataService {
   getProcesses(active: boolean = true): Observable<any> {
     const reqObservable = this.httpClient.get(
       environment.bpmBaseUrl + 'containers/' + environment.bpmContainer +
-      '/processes/instances?page=0&pageSize=10&sort=\'process-instance-id\'&sortOrder=false');
+      '/processes/instances?page=0&pageSize=10');
     return reqObservable;
   }
 
