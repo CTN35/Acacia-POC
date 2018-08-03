@@ -1,57 +1,60 @@
 <div class="row col-12">
   <h1 class="col-12">Suivi de ma demande</h1>
-  <div class="col-12">
-    <h2 class="col-12 text-right"> </h2>
-    <div class="card w-100 my-3">
-        <div class="card-header d-flex justify-content-between"><h3>Votre Offre Actuelle</h3></div>
-        <div class="card-body">
-          <div class="row col-12">
-            <h4 class="col-12">{{ model.tabOffres[model.originalOffer].libelle }}</h4>
-            <p class="col-12">{{ model.tabOffres[model.originalOffer].description }}</p>
-          </div>
-        </div>
-      </div>
-    <div class="card w-100 my-3">
-      <div class="card-header d-flex justify-content-between"><h3>Votre Nouvelle Offre</h3></div>
-      <div class="card-body">
-        <div class="row col-12">
-          <h4 class="col-12">{{ model.tabOffres[model.selectedOffer].libelle }}</h4>
-          <p class="col-12">{{ model.tabOffres[model.selectedOffer].description }}</p>
-        </div>
-      </div>
+
+  <div class="col-12 row d-flex align-items-center">
+    <div class="col-4">
+      <img class="display-block" height="auto" width="100%" src="../../assets/img/particulier.png" alt="Espace particulier">
     </div>
-    <div class="card w-100 my-3">
-      <div class="card-header d-flex justify-content-between"><h3>Votre Option</h3></div>
-      <div class="card-body">
-        <div class="row col-12">
-          <h4 class="col-12">{{ model.selectedOption[model.clsOption].nomOption}}</h4>
-          <p class="col-12">{{ model.selectedOption[model.clsOption].nomOption }} : {{ model.selectedOption[model.clsOption].facture[model.clsFacture].montantAnnuelEstime  }}€/an (optimisé à {{ model.selectedOption[model.clsOption].facture[model.clsFacture].montantAnnuelOptimise }}€/an)</p>
-        </div>
-      </div>
-    </div>
-    <div class="mx-auto">
-      <button type="button" class="btn btn-danger m-4 text-light" routerLink="/">Abandonner</button>
-      <button class="btn btn-success m-4 text-light" data-toggle="modal" data-target="#confirmModal">Signer</button>
+    <div class="col-8">
+      <p><b>Numéro BP :</b> {{ model.numeroBpContrat }} <br><b>Code logement PDL :</b> {{model.numeroPdlContrat}}</p>
     </div>
   </div>
 
-  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Signature électronique</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+  <div class="card w-100 my-3">
+    <div class="card-header">
+      <h3>Logement </h3>
+    </div>
+    <div class="card-body">
+      <div class="row col-12">
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Code Postal :</label>
+          <span>{{ model.adresse[model.clsAdresse].codePostal || '-' }}</span>
         </div>
-        <div class="modal-body">
-          <p>Veuillez confirmez-vous le changement d'offre.</p>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Ville :</label>
+          <span>{{ model.adresse[model.clsAdresse].ville || '-' }}</span>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
-          <button type="button" class="btn btn-success" (click)="save()" data-dismiss="modal">Changer d'offre</button>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Code INSEE :</label>
+          <span>{{ model.adresse[model.clsAdresse].codeInsee || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Lieudit :</label>
+          <span>{{ model.adresse[model.clsAdresse].lieuDit || '-' }}</span>
         </div>
       </div>
     </div>
   </div>
+  <p class="w-100 font-weight-bold text-center">Vous avez une demande en cours. Veuillez la finaliser ou l'annuler.</p>
+  <table class="table w-100">
+    <thead>
+      <th>Offre sélectionnée</th>
+      <th>Statut</th>
+      <th>Attente Conseiller</th>
+      <th>Etat Action</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ model.tabOffres[model.selectedOffer].libelle }}</td>
+        <td>En cours</td>
+        <td>Non</td>
+        <td>Attente Validation Panier</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-danger" routerLink='/'>Annuler</button> &nbsp;
+          <button type="button" class="btn btn-sm btn-success" (click)="save()" >Reprendre</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
