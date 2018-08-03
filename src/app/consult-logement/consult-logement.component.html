@@ -151,7 +151,7 @@
       <div class="row col-4 offset-4" *ngIf="model.ongoingSimulation">
         <div class="loader"></div>
       </div>
-      <div class="row col-12" *ngIf="!model.ongoingSimulation || model.options.length > 0">
+      <div class="row col-12" *ngIf="!model.ongoingSimulation && model.options.length > 0">
         <form class="w-100" #offreForm="ngForm" (ngSubmit)="setOffre()">
           <h4 class="col-12">Options :</h4>
           <div class="custom-control custom-radio col-12" *ngFor="let option of options;let i = index">
