@@ -121,11 +121,8 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
   }
 
   setOffre() {
-    console.log(this.selectedOptionIndex);
-    console.log(this.options);
+    this.model.selectedOption = this.options[this.selectedOptionIndex];
     this.selectedOption = this.options[this.selectedOptionIndex];
-    console.log(this.options[this.selectedOptionIndex]);
-    console.log(this.selectedOption);
     const taskInput = this.model.modelToInputModifLocal(false);
 
     this.dataService.completeTask(this.model.currentTaskId, taskInput).subscribe(
@@ -133,11 +130,6 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
         setTimeout(this.router.navigate(['/panier']), 200);
       });
     // this.msgService.sendMessage('modifOffre', { offre: this.offre, new_offre: this.newOffre, option: this.selectedOption });
-  }
-
-  goPanier() {
-    this.model.selectedOption = this.options[this.selectedOptionIndex];
-    this.router.navigate(['/panier']);
   }
 
 }
