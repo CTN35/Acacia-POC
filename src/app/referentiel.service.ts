@@ -101,7 +101,6 @@ export class ReferentielService {
   };
 
   getReferentielAsArray(ref: string): Array<any> {
-    console.log(ref);
     // Step 1. Get all the object keys.
     const keys = Object.keys(this[ref]);
     // Step 2. Create an empty array.
