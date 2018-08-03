@@ -37,6 +37,7 @@ export class ModifLogementComponent implements OnInit, OnDestroy {
       this.router.navigate(['/']);
       return;
     }
+    this.logement = this.model.currentLogement;
   }
 
   ngOnDestroy() {
@@ -48,8 +49,8 @@ export class ModifLogementComponent implements OnInit, OnDestroy {
     this.logement.presencePiscine = tabBoolean['' + this.logement.presencePiscine];
     this.logement.presenceAlimentationGaz = tabBoolean['' + this.logement.presenceAlimentationGaz];
     this.model.currentLogement = this.logement;
-    // this.msgService.clearMessage();
-    // this.msgService.sendMessage('newLogement', {logement: this.logement});
+    this.msgService.clearMessage();
+    this.msgService.sendMessage('newLogement', {logement: this.logement});
     this.router.navigate(['/details']);
   }
 

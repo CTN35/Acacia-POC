@@ -153,7 +153,9 @@ export class ModelService {
         'fr.edf.bpmc.model.Local': local
       },
       modifieDonneesLocal: modif,
-      optionSelectionnee: this.selectedOption
+      optionSelectionnee: {
+        'fr.edf.bpmc.model.Option': this.selectedOption
+      }
     };
 
     return result;
