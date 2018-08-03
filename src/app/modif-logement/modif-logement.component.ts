@@ -1,6 +1,6 @@
 import { ReferentielService } from './../referentiel.service';
 import { Subscription } from 'rxjs';
-import { Logement } from 'src/app/Model';
+// import { Logement } from 'src/app/Model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Input } from '@angular/core';
@@ -14,13 +14,14 @@ import { ModelService } from 'src/app/model.service';
   styleUrls: ['./modif-logement.component.css']
 })
 export class ModifLogementComponent implements OnInit, OnDestroy {
-  logement: Logement;
+  adresse: any;
+  logement: any;
   displayForm = false;
   subscription: Subscription;
 
   constructor(private msgService: GlobalMessageService, private router: Router,
     public model: ModelService, public referentiel: ReferentielService) {
-    this.subscription = this.msgService.getMessage().subscribe(message => {
+    /*this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'modifLogement':
           this.logement = message.data.logement;
@@ -29,7 +30,7 @@ export class ModifLogementComponent implements OnInit, OnDestroy {
         default:
           break;
       }
-    });
+    });*/
   }
 
   ngOnInit() {
@@ -37,18 +38,19 @@ export class ModifLogementComponent implements OnInit, OnDestroy {
       this.router.navigate(['/']);
       return;
     }
-    this.logement = this.model.currentLogement;
+    this.logement = this.model.currentLocal;
+    this.adresse = this.model.adresse;
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
   setLogement(logementForm) {
     const tabBoolean = {'true': true, 'false': false};
     this.logement.presencePiscine = tabBoolean['' + this.logement.presencePiscine];
     this.logement.presenceAlimentationGaz = tabBoolean['' + this.logement.presenceAlimentationGaz];
-    this.model.currentLogement = this.logement;
+    this.model.currentLocal = this.logement;
     this.msgService.clearMessage();
     this.msgService.sendMessage('newLogement', {logement: this.logement});
     this.router.navigate(['/details']);

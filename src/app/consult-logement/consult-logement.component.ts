@@ -4,7 +4,8 @@ import { ModelService } from './../model.service';
 import { environment } from './../../environments/environment';
 import { BpmDataService } from './../bpm-data.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Logement, Offre, Option } from 'src/app/Model';
+// import { Logement, Offre, Option } from 'src/app/Model';
+import { Offre } from 'src/app/Model';
 import { GlobalMessageService } from 'src/app/global-message.service';
 import { Router } from '@angular/router';
 
@@ -14,12 +15,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./consult-logement.component.css']
 })
 export class ConsultLogementComponent implements OnInit, OnDestroy {
-  logement: Logement;
+  local: any;
+  adresse: any;
   offre: Offre;
   newOffre: Offre;
-  options: Option[];
+  options: Array<any>;
   selectedOptionIndex: number;
-  selectedOption: Option;
+  selectedOption: any;
   dataLoadFinished = false;
   subscription: Subscription = null;
 
@@ -30,7 +32,7 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
     this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'newLogement':
-          this.logement = this.model.currentLogement;
+          this.local = this.model.currentLocal;
           this.rerunSimulation();
           break;
         default:
@@ -41,25 +43,29 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-  if (!this.model.user.isAuthenticated) {
-    this.router.navigate(['/']);
-    return;
-  }
+    if (!this.model.user.isAuthenticated) {
+      this.router.navigate(['/']);
+      return;
+    }
 
     if (this.model.existingProcess) {
       this.model.existingProcess = false;
       this.existingProcess = true;
     }
 
-    if (!this.logement) {
-      this.logement = this.model.currentLogement;
-    }
+    this.local = this.model.currentLocal;
+    this.adresse = this.model.adresse;
 
     this.offre = this.model.tabOffres[this.model.originalOffer];
     this.newOffre = this.model.tabOffres[this.model.selectedOffer];
+
+    const clsOpt = this.model.clsOption;
     this.options = this.model.options.sort(function (a, b) {
-      return a.ordrePreconisation - b.ordrePreconisation;
+      return a[clsOpt].ordrePreconisation - b[clsOpt].ordrePreconisation;
     });
+
+    console.log(this.local);
+    console.log(this.adresse);
 
   }
 
@@ -69,7 +75,7 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
   }
 
   modifLogement() {
-    this.msgService.sendMessage('modifLogement', { logement: this.logement });
+    this.msgService.sendMessage('modifLogement', { logement: this.local });
     this.router.navigate(['/modification']);
   }
 
@@ -82,7 +88,7 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
       result => {
         setTimeout(() => {
           this.refreshOptions();
-        }, 200);
+        }, 500);
       });
   }
 

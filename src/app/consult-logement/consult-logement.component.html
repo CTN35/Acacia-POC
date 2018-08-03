@@ -24,47 +24,47 @@
       <div class="row col-12">
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Code Postal :</label>
-          <span>{{ logement.codePostal || '-' }}</span>
+          <span>{{ adresse[model.clsAdresse].codePostal || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Ville :</label>
-          <span>{{ logement.ville || '-' }}</span>
+          <span>{{ adresse[model.clsAdresse].ville || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Code INSEE :</label>
-          <span>{{ logement.codeINSEE || '-' }}</span>
+          <span>{{ adresse[model.clsAdresse].codeInsee || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Lieudit :</label>
-          <span>{{ logement.lieudit || '-' }}</span>
+          <span>{{ adresse[model.clsAdresse].lieuDit || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type de logement :</label>
-          <span>{{ logement.typeLogement || '-' }}</span>
+          <span>{{ local[model.clsLocal].typeLogement || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type d'occupation :</label>
-          <span>{{ logement.typeOccupation || '-' }}</span>
+          <span>{{ local[model.clsLocal].typeOccupation || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Surface Habitable :</label>
-          <span>{{ logement.surface || '-' }} m²</span>
+          <span>{{ local[model.clsLocal].surfaceHabitable || '-' }} m²</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Nombre d’occupants :</label>
-          <span>{{ logement.nbOccupant || '-' }}</span>
+          <span>{{ local[model.clsLocal].nombreOccupants }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Année de construction :</label>
-          <span>{{ logement.annee || '-' }}</span>
+          <span>{{ local[model.clsLocal].anneeConstruction || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Classe Energétique :</label>
-          <span>{{ referentiel.classeEnergetique[logement.classeEnergetique] || '-' }}</span>
+          <span>{{ referentiel.classeEnergetique[local[model.clsLocal].classeEnergetique] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type Résidence :</label>
-          <span>{{ logement.typeResidence || '-' }}</span>
+          <span>{{ local[model.clsLocal].typeResidence || '-' }}</span>
         </div>
       </div>
     </div>
@@ -77,47 +77,47 @@
       <div class="row col-12">
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type de chauffage :</label>
-          <span>{{ referentiel.energieChauffage[logement.energieChauffagePrincipal] || '-' }}</span>
+          <span>{{ referentiel.energieChauffage[local[model.clsLocal].energieChauffagePrincipal] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Équipement de chauffage principal:</label>
-          <span>{{ referentiel.equipementChauffage[logement.equipementChauffagePrincipal] || '-' }}</span>
+          <span>{{ referentiel.equipementChauffage[local[model.clsLocal].equipementChauffagePrincipal] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Présence Gaz :</label>
-          <span>{{ logement.presenceAlimentationGaz? 'Oui': 'Non' || '-' }}</span>
+          <span>{{ local[model.clsLocal].presenceAlimentationGaz? 'Oui': 'Non' || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type Chauffage Alternatif :</label>
-          <span>{{ referentiel.energieChauffage[logement.energieChauffageSecondaire] || '-' }}</span>
+          <span>{{ referentiel.energieChauffage[local[model.clsLocal].energieChauffageSecondaire] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Energie Eau Chaude Sanitaire :</label>
-          <span>{{ referentiel.energieChauffeEau[logement.energieEauChaudeSanitaire] || '-' }}</span>
+          <span>{{ referentiel.energieChauffeEau[local[model.clsLocal].energieEauChaudeSanitaire] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Présence d'une piscine :</label>
-          <span>{{ logement.presencePiscine? 'Oui': 'Non' || '-' }}</span>
+          <span>{{ local[model.clsLocal].presencePiscine? 'Oui': 'Non' || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type de chauffage de la piscine :</label>
-          <span>{{ referentiel.energieChauffagePiscine[logement.chauffagePiscine] || '-' }}</span>
+          <span>{{ referentiel.energieChauffagePiscine[local[model.clsLocal].chauffagePiscine] || '-' }}</span>
         </div>
         <!-- <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Véhicule Electrique :</label>
-          <span>{{ logement.vehiculeElectrique? 'Oui': 'Non' || '-' }}</span>
+          <span>{{ local[model.clsLocal].vehiculeElectrique? 'Oui': 'Non' || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Lave-Vaisselle  :</label>
-          <span>{{ logement.laveVaisselle? 'Oui': 'Non' || '-' }}</span>
+          <span>{{ local[model.clsLocal].laveVaisselle? 'Oui': 'Non' || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Sèche-Linge :</label>
-          <span>{{ logement.secheLinge? 'Oui': 'Non' || '-' }}</span>
+          <span>{{ local[model.clsLocal].secheLinge? 'Oui': 'Non' || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Présence Climatisation  :</label>
-          <span>{{ logement.climatisation? 'Oui': 'Non' || '-' }}</span>
+          <span>{{ local[model.clsLocal].climatisation? 'Oui': 'Non' || '-' }}</span>
         </div> -->
       </div>
     </div>
@@ -140,7 +140,7 @@
           <h4 class="col-12">Options :</h4>
           <div class="custom-control custom-radio col-12" *ngFor="let option of options;let i = index">
             <input type="radio" id="opt{{i}}" name="opts" [(ngModel)]="selectedOptionIndex" value="{{i}}" class="custom-control-input">
-            <label class="custom-control-label" for="opt{{i}}">{{ option.nomOption }} : {{ option.montantAnnuelEstime }}€/an (optimisé à {{ option.montantAnnuelOptimise }}€/an)</label>
+            <label class="custom-control-label" for="opt{{i}}">{{ option[model.clsOption].nomOption }} : {{ option[model.clsOption].facture[model.clsFacture].montantAnnuelEstime }}€/an (optimisé à {{ option[model.clsOption].facture[model.clsFacture].montantAnnuelOptimise }}€/an)</label>
           </div>
           <div class="d-flex justify-content-center">
             <button type="button" class="btn btn-danger m-4 text-light" routerLink="/">Annuler</button>

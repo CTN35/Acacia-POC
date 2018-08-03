@@ -4,6 +4,14 @@ export class AuthUser {
   isAuthenticated = false;
 }
 
+export class Offre {
+  code: string;
+  libelle: string;
+  description: string;
+  description2: string;
+}
+
+/*
 export class Logement {
   ville: string;
   codePostal: string;
@@ -31,12 +39,6 @@ export class Logement {
   climatisation = false;
 }
 
-export class Offre {
-  code: string;
-  libelle: string;
-  description: string;
-  description2: string;
-}
 
 export class Option {
   nomOption: string;
@@ -53,15 +55,15 @@ export class Cadran {
   prixAbonnement: number;
   prixKwh: number;
 }
-
+*/
 export class Process {
   id: number;
   selectedOffer: string;
   originalOffer: string;
-  selectedOption: Option;
+  selectedOption: any;
   currentProcessInstanceId: number;
-  originalLogement: Logement;
-  currentLogement: Logement;
+  originalLogement: any;
+  currentLogement: any;
   logementModified: false;
   numeroBpContrat: string;
   numeroPdlContrat: string;
