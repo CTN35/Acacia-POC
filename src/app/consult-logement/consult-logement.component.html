@@ -40,11 +40,11 @@
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type de logement :</label>
-          <span>{{ logement.typeLogement || '-' }}</span>
+          <span>{{ referentiel.typeLogement[logement.typeLogement] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type d'occupation :</label>
-          <span>{{ logement.typeOccupation || '-' }}</span>
+          <span>{{ referentiel.typeOccupation[logement.typeOccupation] || '-' }}</span>
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Surface Habitable :</label>
@@ -64,7 +64,7 @@
         </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type Résidence :</label>
-          <span>{{ logement.typeResidence || '-' }}</span>
+          <span>{{ referentiel.typeResidence[logement.typeResidence] || '-' }}</span>
         </div>
       </div>
     </div>

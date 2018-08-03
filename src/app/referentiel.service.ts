@@ -92,7 +92,7 @@ export class ReferentielService {
 
   typeOccupation = {
     'Locataire': 'Locataire',
-    'Proprietaire': 'Proprietaire'
+    'Proprietaire': 'Propriétaire'
   };
 
   typeResidence = {
