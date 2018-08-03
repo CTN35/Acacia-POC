@@ -2,7 +2,7 @@ import { ModelService } from './../model.service';
 import { Router } from '@angular/router';
 import { GlobalMessageService } from './../global-message.service';
 import { Component, OnInit } from '@angular/core';
-import { Process, Offre, Option, Logement } from 'src/app/Model';
+import { Process, Offre } from 'src/app/Model';
 
 @Component({
   selector: 'app-demandes',

@@ -16,7 +16,6 @@ import { ReferentielService } from 'src/app/referentiel.service';
 export class ModifLogementComponent implements OnInit, OnDestroy {
   adresse: any;
   local: any;
-  displayForm = false;
   subscription: Subscription;
   tabTypeLogement = [];
   tabTypeOccupation = [];

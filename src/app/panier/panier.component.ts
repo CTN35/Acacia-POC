@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GlobalMessageService } from 'src/app/global-message.service';
 import { Router } from '@angular/router';
-import { Offre, Option } from 'src/app/Model';
+import { Offre } from 'src/app/Model';
 import { ModelService } from 'src/app/model.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { ModelService } from 'src/app/model.service';
 export class PanierComponent implements OnInit, OnDestroy {
   offre: Offre;
   new_offre: Offre;
-  option: Option;
+  option: any;
   displayData = false;
   subscription: Subscription;
 

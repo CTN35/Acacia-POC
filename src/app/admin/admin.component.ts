@@ -1,4 +1,4 @@
-import { Process, Offre, Option, Logement } from './../Model';
+import { Process, Offre } from './../Model';
 import { Component, OnInit } from '@angular/core';
 import { ModelService } from 'src/app/model.service';
 
@@ -10,8 +10,8 @@ import { ModelService } from 'src/app/model.service';
 export class AdminComponent implements OnInit {
   tabProcess: Process[];
   tabOffre: Offre[];
-  tabOption: Option[];
-  tabLogement: Logement[];
+  tabOption: any[];
+  tabLogement: any[];
   cols: string[];
   selectedProcess: Process;
 
