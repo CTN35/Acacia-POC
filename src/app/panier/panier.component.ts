@@ -32,6 +32,7 @@ export class PanierComponent implements OnInit, OnDestroy {
       this.new_offre = this.model.tabOffres[this.model.selectedOffer];
       this.option = this.model.selectedOption;
     }
+    console.log(this.model.selectedOption);
   }
 
   ngOnDestroy(): void {

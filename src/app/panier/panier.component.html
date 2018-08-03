@@ -1,34 +1,65 @@
-<h1>Récapitulatif de la demande</h1>
+<h1>Mon Panier</h1>
+<div class="col-12 row d-flex align-items-center">
+  <div class="col-4">
+    <img class="display-block" height="auto" width="100%" src="../../assets/img/particulier.png" alt="Espace particulier">
+  </div>
+  <div class="col-4">
+    <p><b>Numéro BP :</b> {{ model.numeroBpContrat }} <br><b>Code logement PDL :</b> {{model.numeroPdlContrat}}</p>
+  </div>
+  <div class="col-4">
+    <a class="btn btn-success m-4 text-light" data-toggle="modal" data-target="#conseillerModal">Demander de l'aide à un conseiller</a>
+  </div>
+</div>
+
 <div class="row col-12">
   <div class="card w-100 my-3">
-      <div class="card-header d-flex justify-content-between"><h3>Votre Offre Actuelle</h3></div>
-      <div class="card-body">
-        <div class="row col-12">
-          <h4 class="col-12">{{ offre.libelle }}</h4>
-          <p class="col-12">{{ offre.description }}</p>
-        </div>
-      </div>
+    <div class="card-header">
+      <h3>Logement </h3>
     </div>
-  <div class="card w-100 my-3">
-    <div class="card-header d-flex justify-content-between"><h3>Votre Nouvelle Offre</h3></div>
     <div class="card-body">
       <div class="row col-12">
-        <h4 class="col-12">{{ new_offre.libelle }}</h4>
-        <p class="col-12">{{ new_offre.description }}</p>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Code Postal :</label>
+          <span>{{ model.adresse[model.clsAdresse].codePostal || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Ville :</label>
+          <span>{{ model.adresse[model.clsAdresse].ville || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Code INSEE :</label>
+          <span>{{ model.adresse[model.clsAdresse].codeInsee || '-' }}</span>
+        </div>
+        <div class="col-6 d-flex justify-content-between">
+          <label class="font-weight-bold">Lieudit :</label>
+          <span>{{ model.adresse[model.clsAdresse].lieuDit || '-' }}</span>
+        </div>
       </div>
     </div>
   </div>
   <div class="card w-100 my-3">
-      <div class="card-header d-flex justify-content-between"><h3>Votre Option</h3></div>
-      <div class="card-body">
-        <div class="row col-12">
-          <h4 class="col-12">{{ option[model.clsOption].nomOption }}</h4>
-          <p class="col-12">{{ option[model.clsOption].nomOption }} : {{ option[model.clsOption].facture[model.clsFacture].montantAnnuelEstime }}€/an (optimisé à {{ option[model.clsOption].facture[model.clsFacture].montantAnnuelOptimise }}€/an)</p>
-        </div>
-      </div>
+    <div class="card-header"><h3>Offre choisie</h3></div>
+    <div class="card-body">
+        <p><b>Offre :</b> {{ new_offre.libelle }}</p>
+        <p><b>Option Tarifaire :</b> {{ option[model.clsOption].nomOption }}</p>
+        <table class="table w-100">
+          <thead>
+            <th>Cadran</th>
+            <th>Prix Abonnement</th>
+            <th>Prix Kwh</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cadran of model.selectedOption[model.clsOption].cadrans">
+              <td>{{ cadran[model.clsCadran].nomCadran }}</td>
+              <td>{{ cadran[model.clsCadran].prixAbonnement }} €</td>
+              <td>{{ cadran[model.clsCadran].prixKwh }} €</td>
+            </tr>
+          </tbody>
+        </table>
     </div>
-    <div class="mx-auto">
-      <button type="button" class="btn btn-danger m-4 text-light" routerLink="/">Abandonner</button>
-      <button class="btn btn-success m-4 text-light" data-toggle="modal" (click)="save()" >Confirmer</button>
-    </div>
+  </div>
+  <div class="mx-auto">
+    <button type="button" class="btn btn-danger m-4 text-light" routerLink="/">Abandonner</button>
+    <button class="btn btn-success m-4 text-light" data-toggle="modal" (click)="save()" >Confirmer</button>
+  </div>
 </div>
