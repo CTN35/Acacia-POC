@@ -64,9 +64,6 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
       return a[clsOpt].ordrePreconisation - b[clsOpt].ordrePreconisation;
     });
 
-    console.log(this.local);
-    console.log(this.adresse);
-
   }
 
 
@@ -124,12 +121,16 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
   }
 
   setOffre() {
+    console.log(this.selectedOptionIndex);
+    console.log(this.options);
     this.selectedOption = this.options[this.selectedOptionIndex];
+    console.log(this.options[this.selectedOptionIndex]);
+    console.log(this.selectedOption);
     const taskInput = this.model.modelToInputModifLocal(false);
 
     this.dataService.completeTask(this.model.currentTaskId, taskInput).subscribe(
       result => {
-        this.router.navigate(['/panier']);
+        setTimeout(this.router.navigate(['/panier']), 200);
       });
     // this.msgService.sendMessage('modifOffre', { offre: this.offre, new_offre: this.newOffre, option: this.selectedOption });
   }

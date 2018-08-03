@@ -61,6 +61,12 @@ export class BpmDataService {
     return reqObservable;
   }
 
+  cancelProcess(procInstanceId: number): Observable<any> {
+    const reqObservable = this.httpClient.delete(
+      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer + '/processes/instances/' + procInstanceId);
+    return reqObservable;
+  }
+
   private GetLoginHttpOptions(user: AuthUser): Object {
 
     const header = new HttpHeaders({

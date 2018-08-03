@@ -1,3 +1,5 @@
+import { environment } from './../../environments/environment';
+import { BpmDataService } from './../bpm-data.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GlobalMessageService } from 'src/app/global-message.service';
@@ -14,22 +16,11 @@ export class PanierComponent implements OnInit, OnDestroy {
   offre: Offre;
   new_offre: Offre;
   option: any;
-  displayData = false;
   subscription: Subscription;
 
-  constructor(private msgService: GlobalMessageService, private router: Router, public model: ModelService) {
-    this.subscription = this.msgService.getMessage().subscribe(message => {
-      switch (message.type) {
-        case 'modifOffre':
-          this.offre = message.data.offre;
-          this.new_offre = message.data.new_offre;
-          this.option = message.data.option;
-          this.displayData = true;
-          break;
-        default:
-          break;
-      }
-    });
+  constructor(private msgService: GlobalMessageService, private router: Router,
+    public model: ModelService, private dataService: BpmDataService) {
+
   }
 
   ngOnInit() {
@@ -40,18 +31,20 @@ export class PanierComponent implements OnInit, OnDestroy {
       this.offre = this.model.tabOffres[this.model.originalOffer];
       this.new_offre = this.model.tabOffres[this.model.selectedOffer];
       this.option = this.model.selectedOption;
-      this.displayData = true;
     }
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
 
   }
 
   save() {
-    this.model.state = 'Soumise';
-    this.router.navigate(['/demandes']);
+    this.dataService.completeTask(this.model.currentTaskId, {
+      panierValideParConseiller: !environment.ihmClient
+    }).subscribe( out => {
+      setTimeout(this.router.navigate(['/demandes']), 200);
+    });
   }
 
 }

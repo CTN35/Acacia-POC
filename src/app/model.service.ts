@@ -11,6 +11,7 @@ export class ModelService {
   selectedOffer: string = null;
   currentProcessInstanceId = -1;
   currentTaskId = -1;
+  currentTask = {};
   adresse: any = {};
   originalLocal: any = {};
   currentLocal: any = {};
@@ -80,10 +81,12 @@ export class ModelService {
   constructor() { }
 
   loadModel(input: any, refreshCurrentLogement = true): void {
+    console.log(input);
     this.selectedOffer = input.idOffreSelectionnee;
     this.originalOffer = input.idOffreSouscrite;
     this.numeroBpContrat = input.numeroBpContrat;
     this.numeroPdlContrat = input.numeroPdlContrat;
+    this.selectedOption = input.optionSelectionnee;
 
     this.refreshLogement(input, refreshCurrentLogement);
 
@@ -111,6 +114,7 @@ export class ModelService {
       modifieDonneesLocal: modif,
       optionSelectionnee: this.selectedOption
     };
+    console.log(result);
     return result;
   }
 
