@@ -82,7 +82,7 @@ export class BridgeComponent implements OnInit {
 
   getTaskInfos(autoRouting = true, nbTry: number = 0) {
 
-    this.dataService.getTasks(this.model.currentProcessInstanceId).subscribe(
+    this.dataService.getTasks().subscribe(
       tasks => {
         const arr: Array<any> = <Array<any>>tasks['task-summary'];
         if (arr.length > 0) {

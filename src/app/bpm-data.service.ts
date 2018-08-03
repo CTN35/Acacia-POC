@@ -44,8 +44,9 @@ export class BpmDataService {
     return reqObservable;
   }
 
-  getTasks(procInstanceId: number): Observable<any> {
-    const reqObservable = this.httpClient.get(environment.bpmBaseUrl + 'queries/tasks/instances/process/' + procInstanceId);
+  getTasks(): Observable<any> {
+    const reqObservable = this.httpClient.get(environment.bpmBaseUrl +
+      'queries/tasks/instances/pot-owners?groups=&page=0&pageSize=10&sortOrder=true');
     return reqObservable;
   }
 

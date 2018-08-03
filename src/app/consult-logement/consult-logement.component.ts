@@ -90,7 +90,7 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
   }
 
   refreshOptions() {
-    this.dataService.getTasks(this.model.currentProcessInstanceId).subscribe(
+    this.dataService.getTasks().subscribe(
       tasks => {
         const arr: Array<any> = <Array<any>>tasks['task-summary'];
         if (arr.length > 0) {
@@ -127,9 +127,45 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
 
     this.dataService.completeTask(this.model.currentTaskId, taskInput).subscribe(
       result => {
-        setTimeout(this.router.navigate(['/panier']), 200);
+        this.model.currentTaskId = -1;
+        this.model.currentTask = {};
+        setTimeout(() => this.getTaskInfos(), 200);
       });
     // this.msgService.sendMessage('modifOffre', { offre: this.offre, new_offre: this.newOffre, option: this.selectedOption });
+  }
+
+  getTaskInfos(nbTry: number = 0) {
+
+    this.dataService.getTasks().subscribe(
+      tasks => {
+        const arr: Array<any> = <Array<any>>tasks['task-summary'];
+        if (arr.length > 0) {
+          const taskId = Number(arr[0]['task-id']);
+          this.model.currentTaskId = taskId;
+          this.dataService.getTaskInfos(taskId).subscribe(
+            task => {
+              this.model.currentTask = task;
+              this.model.currentTaskId = taskId;
+              this.router.navigate(['/panier']);
+            }
+          );
+        } else if (nbTry > 2) {
+          this.msgService.sendMessage('GeneralError', 'No task found');
+          this.router.navigate(['/panier']);
+        } else {
+          setTimeout(this.getTaskInfos(nbTry + 1), 500);
+        }
+      }
+    );
+  }
+
+  cancelDemande() {
+    this.dataService.cancelProcess(this.model.currentProcessInstanceId).subscribe(
+      rs => {
+        this.model.resetModel(false);
+        this.router.navigate(['/']);
+      }
+    );
   }
 
 }
