@@ -16,16 +16,15 @@ export class ReferentielService {
   };
 
   energieAppareilCuissonPrincipal = {
-    'Autre': 'Autre',
     'Butane': 'Butane',
     'Electricite': 'Electricité',
     'Fonte': 'Fonte',
-    'Gaz': 'Gaz'
+    'Gaz': 'Gaz',
+    'Autre': 'Autre'
   };
 
   energieChauffage = {
     'Aerothermie': 'Aerothermie',
-    'Autre': 'Autre',
     'Bois': 'Bois',
     'Charbon': 'Charbon',
     'Collectif': 'Collectif',
@@ -34,17 +33,17 @@ export class ReferentielService {
     'Gaz': 'Gaz',
     'Geothermie': 'Géothermie',
     'Propane': 'Propane',
-    'Solaire': 'Solaire'
+    'Solaire': 'Solaire',
+    'Autre': 'Autre'
   };
 
   energieChauffagePiscine = {
-    'Autre': 'Autre',
-    'Electricite': 'Electricité'
+    'Electricite': 'Electricité',
+    'Autre': 'Autre'
   };
 
   equipementChauffage = {
     'Aucun': 'Aucun',
-    'Autre': 'Autre',
     'CentraliseAirAvecPAC': 'Centralisé Air Avec PAC',
     'ChaudiereMixte': 'Chaudière Mixte',
     'ChaudiereStandard': 'Chaudière Standard',
@@ -71,19 +70,35 @@ export class ReferentielService {
     'SecheServiette': 'Seche Serviette',
     'SplitAvecPAC': 'Split Avec PAC',
     'VCVAvecPAC': 'VCV Avec PAC',
+    'Autre': 'Autre'
   };
 
   energieChauffeEau = {
     'Aerothermie': 'Aérothermie',
-    'Autre': 'Autre',
     'Collectif': 'Collectif',
     'Electricite': 'Electricité',
     'Fioul': 'Fioul',
     'Gaz': 'Gaz',
     'Propane': 'Propane',
-    'Solaire': 'Solaire'
+    'Solaire': 'Solaire',
+    'Autre': 'Autre'
   };
 
+  typeLogement = {
+    'Appartement': 'Appartement',
+    'Maison': 'Maison',
+    'Autre': 'Autre'
+  };
+
+  typeOccupation = {
+    'Locataire': 'Locataire',
+    'Proprietaire': 'Propriétaire'
+  };
+
+  typeResidence = {
+    'Principale': 'Principale',
+    'Secondaire': 'Secondaire'
+  };
 
   getReferentielAsArray(ref: string): Array<any> {
     // Step 1. Get all the object keys.
