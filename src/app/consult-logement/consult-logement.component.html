@@ -1,43 +1,72 @@
 <div class="row">
-  <h2 class="col-12 my-3">Mon numéro PDL : {{model.numeroPdlContrat}}</h2>
-
   <div class="alert alert-warning fade in alert-dismissible w-100 show" *ngIf="existingProcess">
     <strong>Attention!</strong> Vous avez déja une demande en cours, veuillez la terminer.
   </div>
 
-  <div class="card w-100">
-    <div class="card-header">
-      <h3>Mon Offre</h3>
+  <div class="col-12 row d-flex align-items-center">
+    <div class="col-4">
+      <img class="display-block" height="auto" width="100%" src="../../assets/img/particulier.png" alt="Espace particulier">
     </div>
-    <div class="card-body">
-      <div class="row col-12">
-        <h4 class="col-12">{{ offre.libelle }}</h4>
-        <p class="col-12">{{ offre.description }}</p>
+    <div class="col-4">
+      <p><b>Numéro BP :</b> {{ model.numeroBpContrat }} <br><b>Code logement PDL :</b> {{model.numeroPdlContrat}}</p>
+    </div>
+    <div class="col-4">
+      <a class="btn btn-success m-4 text-light" data-toggle="modal" data-target="#conseillerModal">Demander de l'aide à un conseiller</a>
+    </div>
+  </div>
+
+  <div class="col-6 my-3">
+    <div class="card w-100">
+      <div class="card-header">
+        <h3>Logement </h3>
+      </div>
+      <div class="card-body">
+        <div class="row col-12">
+          <div class="col-6 d-flex justify-content-between">
+            <label class="font-weight-bold">Code Postal :</label>
+            <span>{{ adresse[model.clsAdresse].codePostal || '-' }}</span>
+          </div>
+          <div class="col-6 d-flex justify-content-between">
+            <label class="font-weight-bold">Ville :</label>
+            <span>{{ adresse[model.clsAdresse].ville || '-' }}</span>
+          </div>
+          <div class="col-6 d-flex justify-content-between">
+            <label class="font-weight-bold">Code INSEE :</label>
+            <span>{{ adresse[model.clsAdresse].codeInsee || '-' }}</span>
+          </div>
+          <div class="col-6 d-flex justify-content-between">
+            <label class="font-weight-bold">Lieudit :</label>
+            <span>{{ adresse[model.clsAdresse].lieuDit || '-' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-6 my-3">
+    <div class="card w-100">
+      <div class="card-header">
+        <h3>Mon Offre</h3>
+      </div>
+      <div class="card-body">
+        <div class="row col-12">
+          <h4 class="col-12">{{ offre.libelle }}</h4>
+          <span class="col-12">{{ offre.description }}</span>
+        </div>
       </div>
     </div>
   </div>
 
+  <div class="col-12 text-center my-3">
+    <a (click)="modifLogement()" class='btn btn-primary text-light'>Modifier les informations <i class="pi pi-chevron-right"></i></a>
+  </div>
+
   <div class="card w-100 my-3">
     <div class="card-header d-flex justify-content-between">
-      <h3>Mon Logement </h3><a (click)="modifLogement()" class='btn btn-primary text-light'>Modifier</a></div>
+      <h3>Données du logement </h3>
+    </div>
     <div class="card-body">
       <div class="row col-12">
-        <div class="col-6 d-flex justify-content-between">
-          <label class="font-weight-bold">Code Postal :</label>
-          <span>{{ adresse[model.clsAdresse].codePostal || '-' }}</span>
-        </div>
-        <div class="col-6 d-flex justify-content-between">
-          <label class="font-weight-bold">Ville :</label>
-          <span>{{ adresse[model.clsAdresse].ville || '-' }}</span>
-        </div>
-        <div class="col-6 d-flex justify-content-between">
-          <label class="font-weight-bold">Code INSEE :</label>
-          <span>{{ adresse[model.clsAdresse].codeInsee || '-' }}</span>
-        </div>
-        <div class="col-6 d-flex justify-content-between">
-          <label class="font-weight-bold">Lieudit :</label>
-          <span>{{ adresse[model.clsAdresse].lieuDit || '-' }}</span>
-        </div>
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type de logement :</label>
           <span>{{ referentiel.typeLogement[local[model.clsLocal].typeLogement] || '-' }}</span>
@@ -66,15 +95,6 @@
           <label class="font-weight-bold">Type Résidence :</label>
           <span>{{ referentiel.typeResidence[local[model.clsLocal].typeResidence] || '-' }}</span>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="card w-100">
-    <div class="card-header d-flex justify-content-between">
-      <h3>Mes équipements </h3>
-    </div>
-    <div class="card-body">
-      <div class="row col-12">
         <div class="col-6 d-flex justify-content-between">
           <label class="font-weight-bold">Type de chauffage :</label>
           <span>{{ referentiel.energieChauffage[local[model.clsLocal].energieChauffagePrincipal] || '-' }}</span>
@@ -123,19 +143,15 @@
     </div>
   </div>
 
-  <div class="card w-100 my-3">
+  <div class="card w-100 my-3" >
     <div class="card-header d-flex justify-content-between">
-      <h3>Votre Nouvelle Offre</h3>
+      <h3>Les options pour l'offre : {{ newOffre.libelle }}</h3>
     </div>
     <div class="card-body">
-      <div class="row col-12">
-        <h4 class="col-12">{{ newOffre.libelle }}</h4>
-        <p class="col-12">{{ newOffre.description }}</p>
-      </div>
       <div class="row col-4 offset-4" *ngIf="model.ongoingSimulation">
         <div class="loader"></div>
       </div>
-      <div class="row col-12" *ngIf="!model.ongoingSimulation">
+      <div class="row col-12" *ngIf="!model.ongoingSimulation || model.options.length > 0">
         <form class="w-100" #offreForm="ngForm" (ngSubmit)="setOffre()">
           <h4 class="col-12">Options :</h4>
           <div class="custom-control custom-radio col-12" *ngFor="let option of options;let i = index">
@@ -148,6 +164,29 @@
             <button class="btn btn-primary m-4 text-light" [disabled]="!selectedOptionIndex" (click)="goPanier()">Aller au panier</button>
           </div>
         </form>
+      </div>
+      <div class="row col-12" *ngIf="model.options.length == 0">
+        <p>Aucune option disponible pour cette offre.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="conseillerModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Contacter un conseiller</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Votre demande à été prise en compte, elle sera traitée dans les plus brefs délais.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
