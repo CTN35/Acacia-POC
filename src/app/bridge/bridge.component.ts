@@ -34,7 +34,7 @@ export class BridgeComponent implements OnInit {
       result => {
         let processId = -1;
         (<Array<any>>result['process-instance']).forEach(element => {
-          if (processId <= 0 && element['process-id'] === environment.bpmProcessId) {
+          if (processId <= 0 && element['process-id'] === environment.bpmProcessId && element['initiator'] === this.model.user.login) {
             processId = Number(element['process-instance-id']);
           }
         });
@@ -70,17 +70,17 @@ export class BridgeComponent implements OnInit {
 
 
 
-  getBpmData(): void {
+  getBpmData(nbTry: number = 0): void {
     // get process to load model
     this.dataService.getProcessVariables(this.model.currentProcessInstanceId).subscribe(
       vars => {
         this.model.loadModel(vars);
-        this.getTaskInfos();
+        this.getTaskInfos(true, nbTry);
       }
     );
   }
 
-  getTaskInfos(autoRouting = true) {
+  getTaskInfos(autoRouting = true, nbTry: number = 0) {
 
     this.dataService.getTasks(this.model.currentProcessInstanceId).subscribe(
       tasks => {
@@ -90,10 +90,13 @@ export class BridgeComponent implements OnInit {
           this.model.currentTaskId = taskId;
           this.dataService.getTaskInfos(taskId).subscribe(
             task => {
-              let route = '';
+              this.model.currentTask = task;
+              let route = 'demandes';
               if (autoRouting) {
                 if ((<string>task['task-name']).startsWith('Modifier')) {
                   route = 'details';
+                } else if ((<string>task['task-name']).startsWith('Valider')) {
+                  route = 'panier';
                 }
                 this.router.navigate(['/' + route]);
               } else {
@@ -104,7 +107,11 @@ export class BridgeComponent implements OnInit {
 
         } else {
           // retry after 500ms
-          setTimeout(() => this.getBpmData(), 500);
+          if (nbTry > 2) {
+            this.router.navigate(['/demandes']);
+          } else {
+            setTimeout(() => this.getBpmData(nbTry + 1), 500);
+          }
         }
       }
     );

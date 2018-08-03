@@ -1,5 +1,5 @@
 <h1>Récapitulatif de la demande</h1>
-<div *ngIf="displayData" class="row col-12">
+<div class="row col-12">
   <div class="card w-100 my-3">
       <div class="card-header d-flex justify-content-between"><h3>Votre Offre Actuelle</h3></div>
       <div class="card-body">
@@ -22,8 +22,8 @@
       <div class="card-header d-flex justify-content-between"><h3>Votre Option</h3></div>
       <div class="card-body">
         <div class="row col-12">
-          <h4 class="col-12">{{ option.nomOption }}</h4>
-          <p class="col-12">{{ option.nomOption }} : {{ option.montantAnnuelEstime }}€/an (optimisé à {{ option.montantAnnuelOptimise }}€/an)</p>
+          <h4 class="col-12">{{ option[model.clsOption].nomOption }}</h4>
+          <p class="col-12">{{ option[model.clsOption].nomOption }} : {{ option[model.clsOption].facture[model.clsFacture].montantAnnuelEstime }}€/an (optimisé à {{ option[model.clsOption].facture[model.clsFacture].montantAnnuelOptimise }}€/an)</p>
         </div>
       </div>
     </div>
