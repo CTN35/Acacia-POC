@@ -26,10 +26,7 @@ export class BridgeComponent implements OnInit {
   }
 
   startOrGetProcess() {
-    if (this.model.selectedOffer == null) {
-      this.router.navigate(['/']);
-      return;
-    }
+
     this.dataService.getProcesses().subscribe(
       result => {
         let processId = -1;
@@ -47,6 +44,10 @@ export class BridgeComponent implements OnInit {
 
         // Get ongoing process or start new process ==> A faire au niveau du model ?
         if (this.model.currentProcessInstanceId <= 0 || environment.allowMultipleProcess) {
+          if (this.model.selectedOffer == null) {
+            this.router.navigate(['/']);
+            return;
+          }
           let bpId = Number(this.model.user.login);
           if (Number.isNaN(bpId)) {
             bpId = 244466666;
@@ -98,7 +99,11 @@ export class BridgeComponent implements OnInit {
                 } else if ((<string>task['task-name']).startsWith('Valider')) {
                   route = 'panier';
                 }
-                this.router.navigate(['/' + route]);
+                if (this.model.existingProcess && !this.model.byPassExistingProcess) {
+                  this.router.navigate(['/demandes']);
+                } else {
+                  this.router.navigate(['/' + route]);
+                }
               } else {
                 this.messageService.sendMessage('taskLoaded', task);
               }

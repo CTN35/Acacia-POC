@@ -32,7 +32,6 @@ export class PanierComponent implements OnInit, OnDestroy {
       this.new_offre = this.model.tabOffres[this.model.selectedOffer];
       this.option = this.model.selectedOption;
     }
-    console.log(this.model.selectedOption);
   }
 
   ngOnDestroy(): void {
@@ -70,6 +69,16 @@ export class PanierComponent implements OnInit, OnDestroy {
         } else {
           setTimeout(this.getTaskInfos(nbTry + 1), 500);
         }
+      }
+    );
+  }
+
+
+  cancelDemande() {
+    this.dataService.cancelProcess(this.model.currentProcessInstanceId).subscribe(
+      rs => {
+        this.model.resetModel(false);
+        this.router.navigate(['/']);
       }
     );
   }

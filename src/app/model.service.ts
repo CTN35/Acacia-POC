@@ -22,7 +22,11 @@ export class ModelService {
   numeroPdlContrat = null;
   options: any[] = [];
   selectedOption: any = null;
+  processVars = {};
+  subProcessVars = {};
   state = '';
+
+
 
   clsLocal = 'fr.edf.bpmc.model.Local';
   clsAdresse = 'fr.edf.bpmc.model.Adresse';
@@ -32,6 +36,7 @@ export class ModelService {
 
   loginError = false;
   existingProcess = false;
+  byPassExistingProcess = false;
 
   tabOffres = {
     ELEC_DEREGULE: {
@@ -81,7 +86,7 @@ export class ModelService {
   constructor() { }
 
   loadModel(input: any, refreshCurrentLogement = true): void {
-    console.log(input);
+    this.processVars = input;
     this.selectedOffer = input.idOffreSelectionnee;
     this.originalOffer = input.idOffreSouscrite;
     this.numeroBpContrat = input.numeroBpContrat;
@@ -114,7 +119,6 @@ export class ModelService {
       modifieDonneesLocal: modif,
       optionSelectionnee: this.selectedOption
     };
-    console.log(result);
     return result;
   }
 

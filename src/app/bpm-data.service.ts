@@ -68,6 +68,13 @@ export class BpmDataService {
     return reqObservable;
   }
 
+  signalProcess(procInstanceId: number, signalName: string) {
+    const reqObservable = this.httpClient.post(
+      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer + '/processes/instances/' + procInstanceId + '/signal/' + signalName
+      , {});
+    return reqObservable;
+  }
+
   private GetLoginHttpOptions(user: AuthUser): Object {
 
     const header = new HttpHeaders({

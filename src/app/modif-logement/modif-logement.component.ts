@@ -1,3 +1,4 @@
+import { BpmDataService } from './../bpm-data.service';
 import { Subscription } from 'rxjs';
 // import { Logement } from 'src/app/Model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -28,7 +29,7 @@ export class ModifLogementComponent implements OnInit, OnDestroy {
   tabBoolean = {'true': true, 'false': false};
 
   constructor(private msgService: GlobalMessageService, private router: Router,
-    public model: ModelService, public referentiel: ReferentielService) {
+    public model: ModelService, public referentiel: ReferentielService, private dataService: BpmDataService) {
     /*this.subscription = this.msgService.getMessage().subscribe(message => {
       switch (message.type) {
         case 'modifLogement':
@@ -71,6 +72,15 @@ export class ModifLogementComponent implements OnInit, OnDestroy {
     this.msgService.clearMessage();
     this.msgService.sendMessage('newLogement', {logement: this.local});
     this.router.navigate(['/details']);
+  }
+
+  cancelDemande() {
+    this.dataService.cancelProcess(this.model.currentProcessInstanceId).subscribe(
+      rs => {
+        this.model.resetModel(false);
+        this.router.navigate(['/']);
+      }
+    );
   }
 
 }

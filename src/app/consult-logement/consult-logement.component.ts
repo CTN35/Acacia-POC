@@ -159,6 +159,12 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
     );
   }
 
+  signalConseiller() {
+    this.dataService.signalProcess(this.model.currentProcessInstanceId, 'RappelConseillerSig').subscribe(
+      x => {}
+    );
+  }
+
   cancelDemande() {
     this.dataService.cancelProcess(this.model.currentProcessInstanceId).subscribe(
       rs => {

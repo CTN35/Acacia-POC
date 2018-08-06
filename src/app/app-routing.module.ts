@@ -16,7 +16,6 @@ const routes: Routes = [
   { path: 'modification', component: ModifLogementComponent },
   { path: 'panier', component: PanierComponent },
   { path: 'bridge', component: BridgeComponent },
-  { path: 'admin', component: AdminComponent },
   { path: 'demandes', component: DemandesComponent }
 ];
 
