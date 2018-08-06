@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { BpmDataService } from './../bpm-data.service';
 import { ModelService } from './../model.service';
 import { Router } from '@angular/router';
@@ -11,6 +12,7 @@ import { Process, Offre } from 'src/app/Model';
   styleUrls: ['./demandes.component.css']
 })
 export class DemandesComponent implements OnInit {
+  subProcessId = -1;
   loading = false;
   finalStep = false;
   canCancel = false;
@@ -26,23 +28,41 @@ export class DemandesComponent implements OnInit {
       return;
     }
 
-    const taskProcessId: number = Number(this.model.currentTask['task-process-instance-id']);
-    if (!isNaN(taskProcessId)) {
-      if (taskProcessId !== this.model.currentProcessInstanceId) {
-        this.loading = true;
-        this.finalStep = true;
-        this.dataService.getProcessVariables(taskProcessId).subscribe(
-          vars => {
-            this.model.subProcessVars = vars;
-            this.loading = false;
+    // check subProcess
+    this.dataService.getProcesses().subscribe(
+      procs => {
+        let subProcessId = -1;
+        // if subprocess exists it is a contract signature
+        procs['process-instance'].forEach(proc => {
+          if (Number(proc['parent-instance-id']) === this.model.currentProcessInstanceId
+            && proc['process-id'] === environment.bpmContratProcessId) {
+            subProcessId = Number(proc['process-instance-id']);
           }
-        );
-      } else {
-        this.canCancel = true;
+        });
+
+        if (subProcessId > 0) {
+          this.subProcessId = subProcessId;
+          this.loading = true;
+          this.finalStep = true;
+          this.dataService.getProcessVariables(subProcessId).subscribe(
+            vars => {
+              this.model.subProcessVars = vars;
+              this.loading = false;
+            });
+        } else {
+          const taskProcessId: number = Number(this.model.currentTask['task-process-instance-id']);
+
+          // else get current task
+          if (!isNaN(taskProcessId)) {
+            this.canCancel = true;
+          } else {
+            // If no task ==> true final step
+            this.waitForFinish = true;
+          }
+        }
       }
-    } else {
-      this.waitForFinish = true;
-    }
+    );
+
   }
 
   bridge() {
@@ -58,38 +78,26 @@ export class DemandesComponent implements OnInit {
   }
 
   signer() {
-    this.dataService.completeTask(this.model.currentTaskId, {}).subscribe(
-      result => {
-        this.model.currentTaskId = -1;
-        this.model.currentTask = {};
-        setTimeout(() => this.getTaskInfos(), 200);
-      });
-  }
-
-
-  getTaskInfos(nbTry: number = 0) {
-
-    this.dataService.getTasks().subscribe(
-      tasks => {
-        const arr: Array<any> = <Array<any>>tasks['task-summary'];
-        if (arr.length > 0) {
-          const taskId = Number(arr[0]['task-id']);
-          this.model.currentTaskId = taskId;
-          this.dataService.getTaskInfos(taskId).subscribe(
-            task => {
-              this.model.currentTask = task;
-              this.model.currentTaskId = taskId;
-              this.router.navigate(['/demandes']);
-            }
-          );
-        } else if (nbTry > 2) {
-          this.msgService.sendMessage('GeneralError', 'No task found');
-          this.router.navigate(['/demandes']);
-        } else {
-          setTimeout(this.getTaskInfos(nbTry + 1), 500);
+    if (this.subProcessId > 0) {
+      // Get process task
+      this.dataService.getTasksForProcess(this.subProcessId).subscribe(
+        tasks => {
+          const arr: Array<any> = tasks['task-summary'];
+          if (arr.length > 0) {
+            const taskId: number = Number(arr[0]['task-id']);
+            this.dataService.completeTask(taskId, {}).subscribe(
+              result => {
+                this.model.currentTaskId = -1;
+                this.model.currentTask = {};
+                this.router.navigate(['/bridge']);
+              });
+          } else {
+            this.msgService.sendMessage('GeneralError', 'Tache de signature non trouvée pour le Processus ' + this.subProcessId);
+          }
         }
-      }
-    );
+      );
+
+    }
   }
 
   base64ToArrayBuffer(base64) {

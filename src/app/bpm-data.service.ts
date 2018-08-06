@@ -1,3 +1,4 @@
+import { ModelService } from './model.service';
 import { Observable } from 'rxjs';
 import { GlobalMessageService } from './global-message.service';
 import { environment } from './../environments/environment';
@@ -11,9 +12,7 @@ import { Router } from '@angular/router';
 })
 export class BpmDataService {
 
-  currentUser: AuthUser = new AuthUser();
-
-  constructor(private httpClient: HttpClient, private msgService: GlobalMessageService) { }
+  constructor(private httpClient: HttpClient, private msgService: GlobalMessageService, private model: ModelService) { }
 
   doLogin(user: AuthUser): void {
     const reqObservable = this.httpClient.get(environment.bpmBaseUrl + 'readycheck', this.GetLoginHttpOptions(user));
@@ -27,7 +26,7 @@ export class BpmDataService {
   getProcesses(active: boolean = true): Observable<any> {
     const reqObservable = this.httpClient.get(
       environment.bpmBaseUrl + 'containers/' + environment.bpmContainer +
-      '/processes/instances?page=0&pageSize=10');
+      '/processes/instances?page=0&pageSize=100');
     return reqObservable;
   }
 
@@ -46,7 +45,12 @@ export class BpmDataService {
 
   getTasks(): Observable<any> {
     const reqObservable = this.httpClient.get(environment.bpmBaseUrl +
-      'queries/tasks/instances/pot-owners?groups=&page=0&pageSize=10&sortOrder=true');
+      'queries/tasks/instances/pot-owners?groups=&page=0&pageSize=100&sortOrder=true&user=' + this.model.user.login );
+    return reqObservable;
+  }
+
+  getTasksForProcess(procInstId: number): Observable<any> {
+    const reqObservable = this.httpClient.get(environment.bpmBaseUrl + 'queries/tasks/instances/process/' + procInstId);
     return reqObservable;
   }
 
@@ -55,10 +59,17 @@ export class BpmDataService {
     return reqObservable;
   }
 
-  completeTask(taskInstanceId: number, params: any): Observable<any> {
+  releaseTask(taskInstanceId: number, params: any = {}): Observable<any> {
     const reqObservable = this.httpClient.put(
       environment.bpmBaseUrl + 'containers/' + environment.bpmContainer +
-      '/tasks/' + taskInstanceId + '/states/completed?auto-progress=true', params);
+      '/tasks/' + taskInstanceId + '/states/released', params);
+    return reqObservable;
+  }
+
+  completeTask(taskInstanceId: number, params: any = {}): Observable<any> {
+    const reqObservable = this.httpClient.put(
+      environment.bpmBaseUrl + 'containers/' + environment.bpmContainer +
+      '/tasks/' + taskInstanceId + '/states/completed?auto-progress=true&user=' + this.model.user.login, params);
     return reqObservable;
   }
 

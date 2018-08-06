@@ -1,9 +1,11 @@
+import { Subscription, Observable, forkJoin } from 'rxjs';
 import { GlobalMessageService } from './../global-message.service';
 import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 import { BpmDataService } from './../bpm-data.service';
 import { ModelService } from './../model.service';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-bridge',
@@ -30,41 +32,52 @@ export class BridgeComponent implements OnInit {
     this.dataService.getProcesses().subscribe(
       result => {
         let processId = -1;
+
+        const tabProcObservables: Array<Observable<any>> = [];
         (<Array<any>>result['process-instance']).forEach(element => {
-          if (processId <= 0 && element['process-id'] === environment.bpmProcessId && element['initiator'] === this.model.user.login) {
-            processId = Number(element['process-instance-id']);
-          }
+          tabProcObservables.push(this.dataService.getProcessVariables(Number(element['process-instance-id'])));
         });
 
-        if (processId > 0) {
-          this.model.currentProcessInstanceId = processId;
-          this.model.existingProcess = true;
-        } else {
-        }
+        forkJoin(tabProcObservables).subscribe(
+          variables => {
+            variables.forEach((vars, index) => {
+              if (processId <= 0 && result['process-instance'][index]['process-id'] === environment.bpmProcessId
+                && vars['numeroBpContrat'] === this.model.user.login) {
+                processId = Number(result['process-instance'][index]['process-instance-id']);
+              }
 
-        // Get ongoing process or start new process ==> A faire au niveau du model ?
-        if (this.model.currentProcessInstanceId <= 0 || environment.allowMultipleProcess) {
-          if (this.model.selectedOffer == null) {
-            this.router.navigate(['/']);
-            return;
-          }
-          let bpId = Number(this.model.user.login);
-          if (Number.isNaN(bpId)) {
-            bpId = 244466666;
-          }
-          this.dataService.startNewProcess(environment.bpmProcessId,
-            {
-              numeroBpContrat: '' + bpId,
-              idOffreSelectionnee: this.model.selectedOffer,
-              tempsAttenteAvantRelanceEmail: environment.tempsAttenteEmail
-            }).subscribe(id => {
-              this.model.currentProcessInstanceId = Number(id);
-              this.getBpmData();
             });
-        } else {
-          this.getBpmData();
-        }
+            // here
+            if (processId > 0) {
+              this.model.currentProcessInstanceId = processId;
+              this.model.existingProcess = true;
+            }
 
+
+            // Get ongoing process or start new process ==> A faire au niveau du model ?
+            if (this.model.currentProcessInstanceId <= 0 || environment.allowMultipleProcess) {
+              if (this.model.selectedOffer == null) {
+                this.router.navigate(['/']);
+                return;
+              }
+              let bpId = Number(this.model.user.login);
+              if (Number.isNaN(bpId)) {
+                bpId = 244466666;
+              }
+              this.dataService.startNewProcess(environment.bpmProcessId,
+                {
+                  numeroBpContrat: '' + bpId,
+                  idOffreSelectionnee: this.model.selectedOffer,
+                  tempsAttenteAvantRelanceEmail: environment.tempsAttenteEmail
+                }).subscribe(id => {
+                  this.model.currentProcessInstanceId = Number(id);
+                  this.getBpmData();
+                });
+            } else {
+              this.getBpmData();
+            }
+          }
+        );
       }
     );
   }
@@ -86,8 +99,14 @@ export class BridgeComponent implements OnInit {
     this.dataService.getTasks().subscribe(
       tasks => {
         const arr: Array<any> = <Array<any>>tasks['task-summary'];
-        if (arr.length > 0) {
-          const taskId = Number(arr[0]['task-id']);
+        let taskId = -1;
+        arr.forEach(t => {
+          if (Number(t['task-proc-inst-id']) === this.model.currentProcessInstanceId) {
+            taskId = Number(t['task-id']);
+          }
+        });
+
+        if (taskId > 0) {
           this.model.currentTaskId = taskId;
           this.dataService.getTaskInfos(taskId).subscribe(
             task => {
