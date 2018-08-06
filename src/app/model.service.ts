@@ -24,9 +24,6 @@ export class ModelService {
   selectedOption: any = null;
   processVars = {};
   subProcessVars = {};
-  state = '';
-
-
 
   clsLocal = 'fr.edf.bpmc.model.Local';
   clsAdresse = 'fr.edf.bpmc.model.Adresse';
@@ -139,6 +136,16 @@ export class ModelService {
     this.numeroPdlContrat = null;
     this.options = [];
     this.selectedOption = new Option();
+    this.currentTask = {};
+    this.ongoingSimulation = false;
+    this.processVars = {};
+    this.subProcessVars = {};
+
+    this.existingProcess = false;
+    this.byPassExistingProcess = false;
   }
+
+
+
 
 }
