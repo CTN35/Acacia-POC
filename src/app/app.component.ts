@@ -15,7 +15,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
   subscription: Subscription;
-  errorMsg: '';
+  errorMsg = '';
   showError = false;
 
   constructor(
@@ -47,8 +47,11 @@ export class AppComponent implements OnInit, OnDestroy {
         this.model.user.isAuthenticated = false;
         this.router.navigate(['/login']);
         break;
-        case 'GeneralError':
-        this.errorMsg = message['data'];
+      case 'GeneralError':
+        this.router.navigate(['/']);
+        this.errorMsg = 'Veuillez contacter l\'administrateur';
+        console.error('ERROR Acacia : ');
+        console.error(message['data']);
         this.showError = true;
         break;
       default:

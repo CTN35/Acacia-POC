@@ -1,4 +1,4 @@
-import { Subscription, Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { GlobalMessageService } from './../global-message.service';
 import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
@@ -38,58 +38,68 @@ export class BridgeComponent implements OnInit {
           tabProcObservables.push(this.dataService.getProcessVariables(Number(element['process-instance-id'])));
         });
 
-        forkJoin(tabProcObservables).subscribe(
-          variables => {
-            variables.forEach((vars, index) => {
-              if (processId <= 0 && result['process-instance'][index]['process-id'] === environment.bpmProcessId
-                && vars['numeroBpContrat'] === this.model.user.login) {
-                processId = Number(result['process-instance'][index]['process-instance-id']);
+        if (tabProcObservables.length > 0) {
+          forkJoin(tabProcObservables).subscribe(
+            variables => {
+              variables.forEach((vars, index) => {
+                if (processId <= 0 && result['process-instance'][index]['process-id'] === environment.bpmProcessId
+                  && vars['numeroBpContrat'] === this.model.user.login) {
+                  processId = Number(result['process-instance'][index]['process-instance-id']);
+                }
+
+              });
+              if (processId > 0) {
+                this.model.currentProcessInstanceId = processId;
+                this.model.existingProcess = true;
               }
 
-            });
-            // here
-            if (processId > 0) {
-              this.model.currentProcessInstanceId = processId;
-              this.model.existingProcess = true;
+
+              // Get ongoing process or start new process ==> A faire au niveau du model ?
+              if (this.model.currentProcessInstanceId <= 0 || environment.allowMultipleProcess) {
+                this.startProcess();
+              } else {
+                this.getBpmData();
+              }
             }
-
-
-            // Get ongoing process or start new process ==> A faire au niveau du model ?
-            if (this.model.currentProcessInstanceId <= 0 || environment.allowMultipleProcess) {
-              if (this.model.selectedOffer == null) {
-                this.router.navigate(['/']);
-                return;
-              }
-              let bpId = Number(this.model.user.login);
-              if (Number.isNaN(bpId)) {
-                bpId = 244466666;
-              }
-              this.dataService.startNewProcess(environment.bpmProcessId,
-                {
-                  numeroBpContrat: '' + bpId,
-                  idOffreSelectionnee: this.model.selectedOffer,
-                  tempsAttenteAvantRelanceEmail: environment.tempsAttenteEmail
-                }).subscribe(id => {
-                  this.model.currentProcessInstanceId = Number(id);
-                  this.getBpmData();
-                });
-            } else {
-              this.getBpmData();
-            }
-          }
-        );
+          );
+        } else {
+          this.startProcess();
+        }
       }
     );
   }
 
-
+  startProcess() {
+    if (this.model.selectedOffer == null) {
+      this.router.navigate(['/']);
+      return;
+    }
+    let bpId = Number(this.model.user.login);
+    if (Number.isNaN(bpId)) {
+      bpId = 244466666;
+    }
+    this.dataService.startNewProcess(environment.bpmProcessId,
+      {
+        numeroBpContrat: '' + bpId,
+        idOffreSelectionnee: this.model.selectedOffer,
+        tempsAttenteAvantRelanceEmail: environment.tempsAttenteEmail
+      }).subscribe(id => {
+        this.model.currentProcessInstanceId = Number(id);
+        this.getBpmData();
+      });
+  }
 
   getBpmData(nbTry: number = 0): void {
     // get process to load model
     this.dataService.getProcessVariables(this.model.currentProcessInstanceId).subscribe(
       vars => {
         this.model.loadModel(vars);
-        this.getTaskInfos(true, nbTry);
+
+        if (this.model.eligible) {
+          this.getTaskInfos(true, nbTry);
+        } else {
+          this.router.navigate(['/demandes']);
+        }
       }
     );
   }

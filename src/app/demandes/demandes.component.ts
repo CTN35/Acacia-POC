@@ -18,6 +18,7 @@ export class DemandesComponent implements OnInit {
   canCancel = false;
   subTaskId: number;
   waitForFinish = false;
+  annuleNonEligible = false;
 
   constructor(private msgService: GlobalMessageService, private router: Router,
     public model: ModelService, private dataService: BpmDataService) { }
@@ -27,6 +28,8 @@ export class DemandesComponent implements OnInit {
       this.router.navigate(['/']);
       return;
     }
+
+    this.annuleNonEligible = environment.clientAnnuleNonEligible;
 
     // check subProcess
     this.dataService.getProcesses().subscribe(

@@ -20,7 +20,7 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
   offre: Offre;
   newOffre: Offre;
   options: Array<any>;
-  selectedOptionIndex: number;
+  selectedOptionIndex = '0';
   selectedOption: any;
   dataLoadFinished = false;
   subscription: Subscription = null;
@@ -29,16 +29,7 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
 
   constructor(private msgService: GlobalMessageService, private router: Router,
     private dataService: BpmDataService, public model: ModelService, public referentiel: ReferentielService) {
-    this.subscription = this.msgService.getMessage().subscribe(message => {
-      switch (message.type) {
-        case 'newLogement':
-          this.local = this.model.currentLocal;
-          this.rerunSimulation();
-          break;
-        default:
-          break;
-      }
-    });
+    this.subscription = this.msgService.getMessage().subscribe(message => { });
 
   }
 
@@ -64,6 +55,11 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
       return a[clsOpt].ordrePreconisation - b[clsOpt].ordrePreconisation;
     });
 
+    if (this.model.rerunSimulation) {
+      this.model.rerunSimulation = false;
+      this.rerunSimulation();
+    }
+
   }
 
 
@@ -78,6 +74,7 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
 
   rerunSimulation() {
     this.model.ongoingSimulation = true;
+    this.selectedOptionIndex = '0';
     // empty options
     const taskInput = this.model.modelToInputModifLocal(true);
 
@@ -93,8 +90,14 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
     this.dataService.getTasks().subscribe(
       tasks => {
         const arr: Array<any> = <Array<any>>tasks['task-summary'];
-        if (arr.length > 0) {
-          const taskId = Number(arr[0]['task-id']);
+        let taskId = -1;
+        arr.forEach(t => {
+          if (Number(t['task-proc-inst-id']) === this.model.currentProcessInstanceId) {
+            taskId = Number(t['task-id']);
+          }
+        });
+
+        if (taskId > 0) {
           this.model.currentTaskId = taskId;
           this.dataService.getTaskInfos(taskId).subscribe(
             task => {
@@ -114,15 +117,16 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
           );
         } else {
           // retry after 500ms
-          setTimeout(() => this.refreshOptions(), 500);
+          setTimeout(() => this.refreshOptions(), 200);
         }
       }
     );
   }
 
   setOffre() {
-    this.model.selectedOption = this.options[this.selectedOptionIndex];
-    this.selectedOption = this.options[this.selectedOptionIndex];
+    const selectionIndex = Number(this.selectedOptionIndex);
+    this.model.selectedOption = this.options[selectionIndex];
+    this.selectedOption = this.options[selectionIndex];
     const taskInput = this.model.modelToInputModifLocal(false);
 
     this.dataService.completeTask(this.model.currentTaskId, taskInput).subscribe(
@@ -139,8 +143,14 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
     this.dataService.getTasks().subscribe(
       tasks => {
         const arr: Array<any> = <Array<any>>tasks['task-summary'];
-        if (arr.length > 0) {
-          const taskId = Number(arr[0]['task-id']);
+        let taskId = -1;
+        arr.forEach(t => {
+          if (Number(t['task-proc-inst-id']) === this.model.currentProcessInstanceId) {
+            taskId = Number(t['task-id']);
+          }
+        });
+
+        if (taskId > 0) {
           this.model.currentTaskId = taskId;
           this.dataService.getTaskInfos(taskId).subscribe(
             task => {
@@ -161,7 +171,7 @@ export class ConsultLogementComponent implements OnInit, OnDestroy {
 
   signalConseiller() {
     this.dataService.signalProcess(this.model.currentProcessInstanceId, 'RappelConseillerSig').subscribe(
-      x => {}
+      x => { }
     );
   }
 

@@ -11,7 +11,7 @@ export class ModelService {
   selectedOffer: string = null;
   currentProcessInstanceId = -1;
   currentTaskId = -1;
-  currentTask = {};
+  currentTask: any = {};
   adresse: any = {};
   originalLocal: any = {};
   currentLocal: any = {};
@@ -22,8 +22,10 @@ export class ModelService {
   numeroPdlContrat = null;
   options: any[] = [];
   selectedOption: any = null;
-  processVars = {};
-  subProcessVars = {};
+  processVars: any = {};
+  subProcessVars: any = {};
+  eligible = true;
+  rerunSimulation = false;
 
   clsLocal = 'fr.edf.bpmc.model.Local';
   clsAdresse = 'fr.edf.bpmc.model.Adresse';
@@ -90,6 +92,12 @@ export class ModelService {
     this.numeroPdlContrat = input.numeroPdlContrat;
     this.selectedOption = input.optionSelectionnee;
 
+    if (('' + this.processVars['etat']).startsWith('Non')) {
+      this.eligible = false;
+    } else {
+      this.eligible = true;
+    }
+
     this.refreshLogement(input, refreshCurrentLogement);
 
     this.refreshOptions(input);
@@ -140,9 +148,11 @@ export class ModelService {
     this.ongoingSimulation = false;
     this.processVars = {};
     this.subProcessVars = {};
+    this.rerunSimulation = false;
 
     this.existingProcess = false;
     this.byPassExistingProcess = false;
+    this.eligible = true;
   }
 
 

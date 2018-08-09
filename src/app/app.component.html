@@ -36,13 +36,9 @@
   <!-- /.row -->
 </div>
 <!-- /.container -->
-<p-dialog header="Une erreur est survenue !" [(visible)]="showError" [modal]="true" [responsive]="true" [width]="700" [minWidth]="200"
+<p-dialog header="Une erreur technique est survenue." [(visible)]="showError" [modal]="true" [responsive]="true" [width]="700" [minWidth]="200"
   [minY]="70" [maximizable]="true" [baseZIndex]="10000">
   <pre>{{errorMsg}}</pre>
-  <p-footer>
-      <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Copier l'erreur"></button>
-      <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Fermer" class="ui-button-secondary"></button>
-  </p-footer>
 </p-dialog>
 <!-- Footer -->
 <footer class="py-5 bg-dark">

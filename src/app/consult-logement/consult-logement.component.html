@@ -1,7 +1,4 @@
 <div class="row">
-  <div class="alert alert-warning fade in alert-dismissible w-100 show" *ngIf="existingProcess">
-    <strong>Attention!</strong> Vous avez déja une demande en cours, veuillez la terminer.
-  </div>
 
   <div class="col-12 row d-flex align-items-center">
     <div class="col-4">
@@ -46,7 +43,7 @@
   <div class="col-6 my-3">
     <div class="card w-100">
       <div class="card-header">
-        <h3>Mon Offre</h3>
+        <h3>Mon Offre actuelle</h3>
       </div>
       <div class="card-body">
         <div class="row col-12">
@@ -145,7 +142,7 @@
 
   <div class="card w-100 my-3">
     <div class="card-header d-flex justify-content-between">
-      <h3>Les options pour l'offre : {{ newOffre.libelle }}</h3>
+      <h3>Options pour la nouvelle offre : {{ newOffre.libelle }}</h3>
     </div>
     <div class="card-body">
       <div class="row col-4 offset-4" *ngIf="model.ongoingSimulation">
@@ -155,17 +152,25 @@
         <form class="w-100" #offreForm="ngForm" (ngSubmit)="setOffre()">
           <h4 class="col-12">Options :</h4>
           <div class="custom-control custom-radio col-12" *ngFor="let option of options;let i = index">
-            <input type="radio" id="opt{{i}}" name="opts" [(ngModel)]="selectedOptionIndex" value="{{i}}" class="custom-control-input">
+            <input type="radio" id="opt{{i}}" name="opts" [checked]="selectedOptionIndex === i" [(ngModel)]="selectedOptionIndex" value="{{i}}" class="custom-control-input">
             <label class="custom-control-label" for="opt{{i}}">{{ option[model.clsOption].nomOption }} : {{ option[model.clsOption].facture[model.clsFacture].montantAnnuelEstime }}€/an (optimisé à {{ option[model.clsOption].facture[model.clsFacture].montantAnnuelOptimise }}€/an)</label>
           </div>
           <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-danger m-4 text-light" data-toggle="modal" data-target="#cancelModal">Annuler</button>
+            <span type="button" class="btn btn-danger m-4 text-light" data-toggle="modal" data-target="#cancelModal">Annuler</span>
             <button class="btn btn-primary m-4 text-light" [disabled]="!selectedOptionIndex">Valider</button>
           </div>
         </form>
       </div>
-      <div class="row col-12" *ngIf="model.options.length == 0">
+      <div *ngIf="model.ongoingSimulation">
+        <div class="d-flex justify-content-center">
+          <span type="button" class="btn btn-danger m-4 text-light" data-toggle="modal" data-target="#cancelModal">Annuler</span>
+        </div>
+      </div>
+      <div class="row col-12" *ngIf="model.options.length == 0 && !model.ongoingSimulation">
         <p>Aucune option disponible pour cette offre.</p>
+        <div class="d-flex justify-content-center">
+          <span type="button" class="btn btn-danger m-4 text-light" data-toggle="modal" data-target="#cancelModal">Annuler</span>
+        </div>
       </div>
     </div>
   </div>

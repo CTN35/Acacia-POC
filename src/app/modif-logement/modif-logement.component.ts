@@ -69,6 +69,7 @@ export class ModifLogementComponent implements OnInit, OnDestroy {
     this.local.presenceAlimentationGaz = tabBoolean['' + this.local.presenceAlimentationGaz];
     this.model.currentLocal = this.local;
 
+    this.model.rerunSimulation = true;
     this.msgService.clearMessage();
     this.msgService.sendMessage('newLogement', {logement: this.local});
     this.router.navigate(['/details']);

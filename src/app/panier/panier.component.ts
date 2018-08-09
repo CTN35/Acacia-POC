@@ -53,8 +53,14 @@ export class PanierComponent implements OnInit, OnDestroy {
     this.dataService.getTasks().subscribe(
       tasks => {
         const arr: Array<any> = <Array<any>>tasks['task-summary'];
-        if (arr.length > 0) {
-          const taskId = Number(arr[0]['task-id']);
+        let taskId = -1;
+        arr.forEach(t => {
+          if (Number(t['task-proc-inst-id']) === this.model.currentProcessInstanceId) {
+            taskId = Number(t['task-id']);
+          }
+        });
+
+        if (taskId > 0) {
           this.model.currentTaskId = taskId;
           this.dataService.getTaskInfos(taskId).subscribe(
             task => {
@@ -64,10 +70,11 @@ export class PanierComponent implements OnInit, OnDestroy {
             }
           );
         } else if (nbTry > 2) {
-          this.msgService.sendMessage('GeneralError', 'No task found');
+          this.model.currentTask = {};
+          this.model.currentTaskId = -1;
           this.router.navigate(['/demandes']);
         } else {
-          setTimeout(this.getTaskInfos(nbTry + 1), 500);
+          setTimeout(this.getTaskInfos(nbTry + 1), 200);
         }
       }
     );

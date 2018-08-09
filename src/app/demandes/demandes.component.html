@@ -36,6 +36,10 @@
     </div>
   </div>
   <p class="w-100 font-weight-bold text-center">Vous avez une demande en cours. Veuillez la finaliser ou l'annuler.</p>
+  <div class="alert alert-warning fade in alert-dismissible w-100 show" *ngIf="!model.eligible">
+    <span *ngIf="!annuleNonEligible"><strong>Attention!</strong> Vous n'êtes pas éligible à cette offre. Un conseiller va vous contacter.</span>
+    <span *ngIf="annuleNonEligible"><strong>Attention!</strong> Vous n'êtes pas éligible à cette offre. Un conseiller va vous contacter ou vous pouvez annuler celle-ci.</span>
+  </div>
   <table class="table w-100">
     <thead>
       <th>Offre sélectionnée</th>
@@ -47,20 +51,22 @@
     <tbody>
       <tr>
         <td>{{ model.tabOffres[model.selectedOffer].libelle }}</td>
-        <td>En cours</td>
-        <td>{{waitForFinish? 'Oui' : 'Non' }}</td>
-        <td>{{waitForFinish? 'Attente de validation' : this.model.processVars.etapeFonctionnelle}}</td>
-        <td *ngIf="!finalStep">
+        <td>{{this.model.processVars.statut}}</td>
+        <td>{{(waitForFinish || !model.eligible)? 'Oui' : 'Non' }}</td>
+        <td>{{this.model.processVars.etat}}</td>
+        <td *ngIf="!finalStep && model.eligible">
           <button *ngIf='!waitForFinish' type="button" class="btn btn-sm btn-success" (click)="bridge()" >Reprendre</button>
           <button *ngIf="canCancel" type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#cancelModal">Annuler</button> &nbsp;
 
         </td>
-        <td *ngIf="finalStep">
+        <td *ngIf="finalStep && model.eligible">
             <button *ngIf="!loading" type="button" class="btn btn-sm btn-secondary" (click)="viewPDF()">Voir Contrat</button> &nbsp;
             <div *ngIf="loading" class="loader"></div>
             <button *ngIf='!waitForFinish' type="button" class="btn btn-sm btn-success" (click)="signer()" >Signer</button>
             <button *ngIf="canCancel" type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#cancelModal">Annuler</button> &nbsp;
-
+        </td>
+        <td *ngIf="!model.eligible">
+          <button *ngIf="annuleNonEligible" type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#cancelModal">Annuler</button> &nbsp;
         </td>
       </tr>
     </tbody>

@@ -16,6 +16,7 @@ export class AccueilComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.model.resetModel(false);
   }
 
   ngOnDestroy() {
